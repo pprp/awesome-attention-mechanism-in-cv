@@ -3,11 +3,9 @@
 
 PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，还收集了一些即插即用模块，比如最经典的SPP，希望能为大家设计新模块带来灵感，同时由于pprp能力有限精力有限，可能很多模块并没有包括进来，可以在issue中提建议，pprp会尽快补充上的。
 
-注意力机制也是即插即用模块中的一部分，由于最近工作比较多，所以将其单独列出来了。
+注意力机制也是即插即用模块中的一部分，由于相关工作比较多，所以将其单独列出来了。
 
 ## Attention Mechanism
-
-- 注意力模块Attention
 
 - BAM
 - BiSeNet
@@ -61,4 +59,4 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 ## Paper List
 
-TODO..
+SENet 论文: https://arxiv.org/abs/1709.01507 解读：https://zhuanlan.zhihu.com/p/102035721
