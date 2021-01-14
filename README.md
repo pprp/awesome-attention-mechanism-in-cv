@@ -55,7 +55,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 - DGC: ECCV 2020用于加速卷积神经网络的动态分组卷积
 - DCANet: ECCV 2020 学习卷积神经网络的连接注意力
 - PSConv: ECCV 2020 将特征金字塔压缩到紧凑的多尺度卷积层中
-- Dynamic Convolution: CVPR2020 动态滤波器卷积（非官方实现，蹲）
+- Dynamic Convolution: CVPR2020 动态滤波器卷积（非官方）
+- CondConv: Conditionally Parameterized Convolutions for Efficient Inference
 
 ## Paper List
 
