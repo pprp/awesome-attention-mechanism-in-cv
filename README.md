@@ -24,6 +24,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
   - MC-CAM
   - AFF
   - iAFF
+- ShuffleAttention ICASSP 2021
+- ECA Efficient Channel Attention CVPR 2020
 
 ## Plug and Play Module
 
