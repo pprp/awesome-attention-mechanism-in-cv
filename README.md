@@ -22,9 +22,9 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Global Second-order Pooling Convolutional Networks](https://cs.jhu.edu/~alanlab/Pubs20/li2020neural.pdf) | CVPR19    | [GSoPNet](https://github.com/ZilinGao/Global-Second-order-Pooling-Convolutional-Networks) |      | 将高阶和注意力机制在网络中部地方结合起来 |
 | [Neural Architecture Search for Lightweight Non-Local Networks](https://cs.jhu.edu/~alanlab/Pubs20/li2020neural.pdf) | CVPR20    | [AutoNL](https://github.com/LiYingwei/AutoNL)                |      | NAS+LightNL                              |
 | [Squeeze and Excitation Network](https://arxiv.org/abs/1709.01507) | CVPR18    | [SENet](https://github.com/hujie-frank/SENet)                |      | 最经典的通道注意力                       |
-| [Selective Kernel Network](https://arxiv.org/pdf/1903.06586.pdf) | CVPR19    | SKNet                                                        |      | SE+动态选择                              |
-| [Convolutional Block Attention Module](https://arxiv.org/pdf/1807.06521.pdf) | ECCV18    | CBAM                                                         |      | 串联空间+通道注意力                      |
-| [BottleNeck Attention Module](https://arxiv.org/pdf/1807.06514.pdf) | BMVC18    | BAM                                                          |      | 并联空间+通道注意力                      |
+| [Selective Kernel Network](https://arxiv.org/pdf/1903.06586.pdf) | CVPR19    | [SKNet](https://github.com/implus/SKNet)                     |      | SE+动态选择                              |
+| [Convolutional Block Attention Module](https://arxiv.org/pdf/1807.06521.pdf) | ECCV18    | [BAM](https://github.com/Jongchan/attention-module)          |      | 串联空间+通道注意力                      |
+| [BottleNeck Attention Module](https://arxiv.org/pdf/1807.06514.pdf) | BMVC18    | [BAM](https://github.com/Jongchan/attention-module)          |      | 并联空间+通道注意力                      |
 | [Concurrent Spatial and Channel ‘Squeeze & Excitation’ in Fully Convolutional Networks](http://arxiv.org/pdf/1803.02579v2.pdf) | MICCAI18  | scSE                                                         |      | 并联空间+通道注意力                      |
 | [Non-local Neural Networks](https://arxiv.org/abs/1711.07971) | CVPR19    | Non-Local(NL)                                                |      | self-attention                           |
 | [GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond](https://arxiv.org/abs/1904.11492) | ICCVW19   | GCNet                                                        |      | 对NL进行改进                             |
@@ -33,6 +33,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks](https://arxiv.org/pdf/1910.03151.pdf) | CVPR20    | ECANet                                                       |      | SE的改进                                 |
 | [Spatial Group-wise Enhance: Improving Semantic Feature Learning in Convolutional Networks](https://arxiv.org/abs/1905.09646) | CoRR19    | SGENet                                                       |      |                                          |
 | [Global Second-order Pooling Convolutional Networks](http://openaccess.thecvf.com/content_CVPR_2019/papers/Gao_Global_Second-Order_Pooling_Convolutional_Networks_CVPR_2019_paper.pdf) | CVPR19    | GSoPNet                                                      |      |                                          |
+| [FcaNet: Frequency Channel Attention Networks](https://arxiv.org/pdf/2012.11879.pdf) | unpublish | [FcaNet](https://github.com/cfzd/FcaNet)                     |      |                                          |
+| [$A^2\text{-}Nets$: Double Attention Networks](https://arxiv.org/abs/1810.11579) | NeurIPS18 | A2Net                                                        |      |                                          |
 |                                                              |           |                                                              |      |                                          |
 
 
@@ -73,7 +75,6 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 - EffNetBlock: EffNet
 - ECCV2020 BorderDet: Border aligment module
 - CVPR2019 DANet: Dual Attention
-- ICCV2019 CCNet: Criss Cross Attention
 - Object Contextual Representation for sematic segmentation: OCRModule
 - FPT: 包含Self Transform、Grounding Transform、Rendering Transform
 - DOConv: 阿里提出的Depthwise Over-parameterized Convolution
