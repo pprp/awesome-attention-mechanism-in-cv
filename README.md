@@ -2,8 +2,8 @@
 ## Table of Contents
 
 - [Introduction](#Introduction)
-- [Attention Mechanism](#Attention Mechanism)
-- [Plug and Play Module](#Plug and Play Module)
+- [Attention Mechanism](#Attention-Mechanism)
+- [Plug and Play Module](#Plug-and-Play-Module)
 
 
 
