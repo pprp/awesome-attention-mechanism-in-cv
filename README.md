@@ -1,11 +1,41 @@
 # pytorch-attention-mechanism
+## Table of Contents
+
+- [Introduction](#Introduction)
+- [Attention Mechanism](#Attention Mechanism)
+- [Plug and Play Module](#Plug and Play Module)
+
+
+
 ## Introduction
 
 PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，还收集了一些即插即用模块，比如最经典的SPP，希望能为大家设计新模块带来灵感，同时由于pprp能力有限精力有限，可能很多模块并没有包括进来，可以在issue中提建议，pprp会尽快补充上的。
 
 注意力机制也是即插即用模块中的一部分，由于相关工作比较多，所以将其单独列出来了。
 
+
+
 ## Attention Mechanism
+
+| paper                                                        | publish | link | abbr    | Main Idea                                |
+| ------------------------------------------------------------ | ------- | ---- | ------- | ---------------------------------------- |
+| [Global Second-order Pooling Convolutional Networks](https://cs.jhu.edu/~alanlab/Pubs20/li2020neural.pdf) | CVPR19  |      | GSoPNet | 将高阶和注意力机制在网络中部地方结合起来 |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+|                                                              |         |      |         |                                          |
+
+
+
 
 - BAM
 - BiSeNet
@@ -64,6 +94,4 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 SENet 论文: https://arxiv.org/abs/1709.01507 解读：https://zhuanlan.zhihu.com/p/102035721
 
-## 招募
 
-找一起维护这个项目的有时间、有算力、有兴趣的小伙伴，主要工作是：搜集最新的模块、阅读对应论文、写解读、分享，重构源码，封装成包
