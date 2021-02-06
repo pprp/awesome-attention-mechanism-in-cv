@@ -6,14 +6,11 @@
 - [Plug and Play Module](#Plug-and-Play-Module)
 
 - [Paper List](#Paper-List)
+- [Contribute](#Contribute)
 
 ## Introduction
 
 PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，还收集了一些即插即用模块，比如最经典的SPP，希望能为大家设计新模块带来灵感，同时由于能力有限精力有限，可能很多模块并没有包括进来，可以在issue中提建议，会尽快补充上的。
-
-注意力机制也是即插即用模块中的一部分，由于相关工作比较多，所以将其单独列出来了。
-
-
 
 ## Attention Mechanism
 
@@ -25,16 +22,15 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Selective Kernel Network](https://arxiv.org/pdf/1903.06586.pdf) | CVPR19    | [SKNet](https://github.com/implus/SKNet)                     |      | SE+动态选择                              |
 | [Convolutional Block Attention Module](https://arxiv.org/pdf/1807.06521.pdf) | ECCV18    | [BAM](https://github.com/Jongchan/attention-module)          |      | 串联空间+通道注意力                      |
 | [BottleNeck Attention Module](https://arxiv.org/pdf/1807.06514.pdf) | BMVC18    | [BAM](https://github.com/Jongchan/attention-module)          |      | 并联空间+通道注意力                      |
-| [Concurrent Spatial and Channel ‘Squeeze & Excitation’ in Fully Convolutional Networks](http://arxiv.org/pdf/1803.02579v2.pdf) | MICCAI18  | scSE                                                         |      | 并联空间+通道注意力                      |
-| [Non-local Neural Networks](https://arxiv.org/abs/1711.07971) | CVPR19    | Non-Local(NL)                                                |      | self-attention                           |
-| [GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond](https://arxiv.org/abs/1904.11492) | ICCVW19   | GCNet                                                        |      | 对NL进行改进                             |
-| [CCNet: Criss-Cross Attention for Semantic Segmentation](https://arxiv.org/abs/1811.11721) | ICCV19    | CCNet                                                        |      | 对NL改进                                 |
-| [SA-Net:shuffle attention for deep convolutional neural networks](https://arxiv.org/pdf/2102.00240.pdf) | ICASSP 21 | SANet                                                        |      |                                          |
-| [ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks](https://arxiv.org/pdf/1910.03151.pdf) | CVPR20    | ECANet                                                       |      | SE的改进                                 |
-| [Spatial Group-wise Enhance: Improving Semantic Feature Learning in Convolutional Networks](https://arxiv.org/abs/1905.09646) | CoRR19    | SGENet                                                       |      |                                          |
-| [Global Second-order Pooling Convolutional Networks](http://openaccess.thecvf.com/content_CVPR_2019/papers/Gao_Global_Second-Order_Pooling_Convolutional_Networks_CVPR_2019_paper.pdf) | CVPR19    | GSoPNet                                                      |      |                                          |
-| [FcaNet: Frequency Channel Attention Networks](https://arxiv.org/pdf/2012.11879.pdf) | unpublish | [FcaNet](https://github.com/cfzd/FcaNet)                     |      |                                          |
-| [$A^2\text{-}Nets$: Double Attention Networks](https://arxiv.org/abs/1810.11579) | NeurIPS18 | A2Net                                                        |      |                                          |
+| [Concurrent Spatial and Channel ‘Squeeze & Excitation’ in Fully Convolutional Networks](http://arxiv.org/pdf/1803.02579v2.pdf) | MICCAI18  | [scSE](https://github.com/ai-med/squeeze_and_excitation)     |      | 并联空间+通道注意力                      |
+| [Non-local Neural Networks](https://arxiv.org/abs/1711.07971) | CVPR19    | [Non-Local(NL)](https://github.com/AlexHex7/Non-local_pytorch) |      | self-attention                           |
+| [GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond](https://arxiv.org/abs/1904.11492) | ICCVW19   | [GCNet](https://github.com/xvjiarui/GCNet)                   |      | 对NL进行改进                             |
+| [CCNet: Criss-Cross Attention for Semantic Segmentation](https://arxiv.org/abs/1811.11721) | ICCV19    | [CCNet](https://github.com/speedinghzl/CCNet)                |      | 对NL改进                                 |
+| [SA-Net:shuffle attention for deep convolutional neural networks](https://arxiv.org/pdf/2102.00240.pdf) | ICASSP 21 | [SANet](https://github.com/wofmanaf/SA-Net)                  |      | SGE+channel shuffle                      |
+| [ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks](https://arxiv.org/pdf/1910.03151.pdf) | CVPR20    | [ECANet](https://github.com/BangguWu/ECANet)                 |      | SE的改进                                 |
+| [Spatial Group-wise Enhance: Improving Semantic Feature Learning in Convolutional Networks](https://arxiv.org/abs/1905.09646) | CoRR19    | [SGENet](https://github.com/implus/PytorchInsight)           |      | Group+spatial+channel                    |
+| [FcaNet: Frequency Channel Attention Networks](https://arxiv.org/pdf/2012.11879.pdf) | unpublish | [FcaNet](https://github.com/cfzd/FcaNet)                     |      | 频域上的SE操作                           |
+| [$A^2\text{-}Nets$: Double Attention Networks](https://arxiv.org/abs/1810.11579) | NeurIPS18 | [A2Net](https://github.com/nguyenvo09/Double-Attention-Network) |      |                                          |
 |                                                              |           |                                                              |      |                                          |
 
 
@@ -90,4 +86,6 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 SENet 论文: https://arxiv.org/abs/1709.01507 解读：https://zhuanlan.zhihu.com/p/102035721
 
+## Contribute
 
+欢迎在issue中提出补充的文章paper和对应code链接。
