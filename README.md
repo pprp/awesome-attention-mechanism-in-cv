@@ -32,7 +32,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [FcaNet: Frequency Channel Attention Networks](https://arxiv.org/pdf/2012.11879.pdf) | unpublish | [FcaNet](https://github.com/cfzd/FcaNet)                     |      | 频域上的SE操作                           |
 | [$A^2\text{-}Nets$: Double Attention Networks](https://arxiv.org/abs/1810.11579) | NeurIPS18 | [DANet](https://github.com/nguyenvo09/Double-Attention-Network) |      | NL的思想应用到空间和通道                 |
 | [Asymmetric Non-local Neural Networks for Semantic Segmentation](https://arxiv.org/pdf/1908.07678.pdf) | ICCV19    | [APNB](https://github.com/MendelXu/ANN)                      |      | spp+NL                                   |
-| [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243v7.pdf) | CoRR18    | [EfficientAttention](https://github.com/cmsflash/efficient-attention) |      |                                          |
+| [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243v7.pdf) | CoRR18    | [EfficientAttention](https://github.com/cmsflash/efficient-attention) |      | NL降低计算量                             |
+| [Image Restoration via Residual Non-local Attention Networks](https://arxiv.org/pdf/1903.10082.pdf) | ICLR19    | [RNAN](https://github.com/yulunzhang/RNAN)                   |      |                                          |
 |                                                              |           |                                                              |      |                                          |
 
 
