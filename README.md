@@ -4,7 +4,7 @@
 - [Introduction](#Introduction)
 - [Attention Mechanism](#Attention-Mechanism)
 - [Plug and Play Module](#Plug-and-Play-Module)
-
+- [Evaluation](#Evaluation)
 - [Paper List](#Paper-List)
 - [Contribute](#Contribute)
 
@@ -34,7 +34,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Asymmetric Non-local Neural Networks for Semantic Segmentation](https://arxiv.org/pdf/1908.07678.pdf) | ICCV19    | [APNB](https://github.com/MendelXu/ANN)                      |      | spp+NL                                   |
 | [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243v7.pdf) | CoRR18    | [EfficientAttention](https://github.com/cmsflash/efficient-attention) |      | NL降低计算量                             |
 | [Image Restoration via Residual Non-local Attention Networks](https://arxiv.org/pdf/1903.10082.pdf) | ICLR19    | [RNAN](https://github.com/yulunzhang/RNAN)                   |      |                                          |
-|                                                              |           |                                                              |      |                                          |
+| [Exploring Self-attention for Image Recognition](http://vladlen.info/papers/self-attention.pdf) | CVPR20    | [SAN](https://github.com/hszhao/SAN)                         |      |                                          |
 
 
 
@@ -84,6 +84,12 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 - PSConv: ECCV 2020 将特征金字塔压缩到紧凑的多尺度卷积层中
 - Dynamic Convolution: CVPR2020 动态滤波器卷积（非官方）
 - CondConv: Conditionally Parameterized Convolutions for Efficient Inference
+
+## Evaluation
+
+基于CIFAR10+ResNet+待测评模块，对模块进行初步测评。（算力有限、只能先在CIFAR10上测评），测评代码来自于本人实现的另外一个库：[mixed_precision_imagenet_benchmark](https://github.com/pprp/mixed_precision_imagenet_benchmark) 实现内容比较基础，并没有添加很多额外的trick，并且经过实验证明，该代码可以在ImageNet上将ResNet50精度复现，所以实现上是没有问题的。
+
+working on it....
 
 ## Paper List
 
