@@ -1,19 +1,19 @@
 '''Train CIFAR10 with PyTorch.'''
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
-import torch.backends.cudnn as cudnn
+import argparse
+import os
+from datetime import datetime
 
+import torch
+import torch.backends.cudnn as cudnn
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
-
-import os
-import argparse
+from torchsummary import summary
 
 from models import *
 from utils import progress_bar
-
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
@@ -55,8 +55,8 @@ classes = ('plane', 'car', 'bird', 'cat', 'deer',
 # Model
 print('==> Building model..')
 # net = VGG('VGG19')
-net = ResNet18()
-# net = ResNet50()
+# net = ResNet18()
+net = ResNet50()
 # net = PreActResNet18()
 # net = GoogLeNet()
 # net = DenseNet121()
@@ -70,7 +70,11 @@ net = ResNet18()
 # net = EfficientNetB0()
 # net = RegNetX_200MF()
 #net = SimpleDLA()
+
 net = net.to(device)
+
+summary(net, input_size=(3, 32, 32), batch_size=-1)
+
 if device == 'cuda':
     net = torch.nn.DataParallel(net)
     cudnn.benchmark = True
@@ -149,7 +153,15 @@ def test(epoch):
         best_acc = acc
 
 
+# 开始
+start_time = datetime.now()
+
 for epoch in range(start_epoch, start_epoch+200):
     train(epoch)
     test(epoch)
     scheduler.step()
+
+# 结束
+end_time = datetime.now()
+
+print('Duration: '+str(end_time - start_time))

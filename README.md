@@ -35,6 +35,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243v7.pdf) | CoRR18    | [EfficientAttention](https://github.com/cmsflash/efficient-attention) |      | NL降低计算量                             |
 | [Image Restoration via Residual Non-local Attention Networks](https://arxiv.org/pdf/1903.10082.pdf) | ICLR19    | [RNAN](https://github.com/yulunzhang/RNAN)                   |      |                                          |
 | [Exploring Self-attention for Image Recognition](http://vladlen.info/papers/self-attention.pdf) | CVPR20    | [SAN](https://github.com/hszhao/SAN)                         |      |                                          |
+|                                                              |           |                                                              |      |                                          |
 
 
 
@@ -42,7 +43,6 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 
 - BiSeNet
-- HRNet
 - OCR
 - ResNeSt
 - DANet: Dual Attention
@@ -50,8 +50,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
   - MC-CAM
   - AFF
   - iAFF
-- ShuffleAttention ICASSP 2021
-- ECA Efficient Channel Attention CVPR 2020
+- 
 
 ## Plug and Play Module
 
@@ -91,11 +90,11 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 working on it....
 
-| 模型    | top1 acc | time | params | batch | lr   |
-| ------- | -------- | ---- | ------ | ----- | ---- |
-| SENet18 | 95.20%   |      |        |       |      |
-|         |          |      |        |       |      |
-|         |          |      |        |       |      |
+| 模型     | top1 acc | time | params(MB) |
+| -------- | -------- | ---- | ---------- |
+| SENet18  | 95.20%   |      |            |
+| ResNet18 | 95.61%   |      | 11,173,962 |
+| ResNet50 |          |      |            |
 
 
 
