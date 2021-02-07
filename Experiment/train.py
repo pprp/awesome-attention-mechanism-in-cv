@@ -22,7 +22,7 @@ from torch.cuda.amp import GradScaler, autocast
 
 import models
 from loader import get_train_val_dataloader
-from utils import (AverageMeter, ProgressMeter, accuracy, adjust_learning_rate,
+from utils import (AverageMeter, ProgressMeter, accuracy,
                    save_checkpoint)
 from logger import TensorboardLogger
 
@@ -38,25 +38,24 @@ val_global_step = 0
 
 def get_parser():
     parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
-    parser.add_argument('data', metavar='DIR',
-                        help='path to dataset')
+
     parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet50',
                         choices=model_names,
                         help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: resnet18)')
-    parser.add_argument('-j', '--workers', default=8, type=int, metavar='N',
+    parser.add_argument('-j', '--workers', default=2, type=int, metavar='N',
                         help='number of data loading workers (default: 4)')
-    parser.add_argument('--epochs', default=91, type=int, metavar='N',
+    parser.add_argument('--epochs', default=200, type=int, metavar='N',
                         help='number of total epochs to run')
     parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                         help='manual epoch number (useful on restarts)')
-    parser.add_argument('-b', '--batch-size', default=512, type=int,
+    parser.add_argument('-b', '--batch-size', default=128, type=int,
                         metavar='N',
                         help='mini-batch size (default: 256), this is the total '
                         'batch size of all GPUs on the current node when '
                         'using Data Parallel or Distributed Data Parallel')
-    parser.add_argument('--lr', '--learning-rate', default=0.2, type=float,
+    parser.add_argument('--lr', '--learning-rate', default=0.1, type=float,
                         metavar='LR', help='initial learning rate', dest='lr')
     parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
                         help='momentum')
@@ -146,12 +145,14 @@ def main_worker(gpu, ngpus_per_node, args):
         dist.init_process_group(backend=args.dist_backend, init_method=args.dist_url,
                                 world_size=args.world_size, rank=args.rank)
     # create model
-    if args.pretrained:
-        print("=> using pre-trained model '{}'".format(args.arch))
-        model = models.__dict__[args.arch](pretrained=True)
-    else:
-        print("=> creating model '{}'".format(args.arch))
-        model = models.__dict__[args.arch]()
+    # if args.pretrained:
+    #     print("=> using pre-trained model '{}'".format(args.arch))
+    #     model = models.__dict__[args.arch](pretrained=True)
+    # else:
+    #     print("=> creating model '{}'".format(args.arch))
+    #     model = models.__dict__[args.arch]()
+
+    model = models.resnet50(pretrained=False)
 
     if not torch.cuda.is_available():
         print('using CPU, this will be slow')
@@ -196,8 +197,12 @@ def main_worker(gpu, ngpus_per_node, args):
     scaler = GradScaler()
     writer = TensorboardLogger()
 
-    # optionally resume from a checkpoint
-    if args.resume:
+    # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+    #     optimizer, T_max=200)
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer,
+                                                 milestones=[100, 150], last_epoch=args.start_epoch - 1)
+   # optionally resume from a checkpoint
+   if args.resume:
         if os.path.isfile(args.resume):
             print("=> loading checkpoint '{}'".format(args.resume))
             if args.gpu is None:
@@ -223,7 +228,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     # Data loading code
     train_loader, val_loader, train_sampler = get_train_val_dataloader(
-        args.data, args.distributed, args.workers, args.batch_size)
+        args.distributed, args.workers, args.batch_size)
 
     if args.evaluate:
         validate(val_loader, model, criterion, writer, 0,  args)
@@ -232,7 +237,8 @@ def main_worker(gpu, ngpus_per_node, args):
     for epoch in range(args.start_epoch, args.epochs):
         if args.distributed:
             train_sampler.set_epoch(epoch)
-        adjust_learning_rate(optimizer, epoch, args)
+        # adjust_learning_rate(optimizer, epoch, args)
+        scheduler.step()
 
         # train for one epoch
         train(train_loader, model, criterion,
@@ -305,9 +311,10 @@ def train(train_loader, model, criterion, optimizer, epoch, scaler, writer, args
         top5.update(acc5[0], images.size(0))
 
         # tensorboard
-        writer.add_scalar("train_batch", "acc1", acc1[0], global_step)
-        writer.add_scalar("train_batch", "acc5", acc5[0], global_step)
-        writer.add_scalar("train_batch", "loss", loss.item(), global_step)
+        if i % 10 == 0:
+            writer.add_scalar("train_batch", "acc1", acc1[0], global_step)
+            writer.add_scalar("train_batch", "acc5", acc5[0], global_step)
+            writer.add_scalar("train_batch", "loss", loss.item(), global_step)
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
@@ -361,10 +368,13 @@ def validate(val_loader, model, criterion, writer, epoch, args):
             acc1, acc5 = accuracy(output, target, topk=(1, 5))
 
             # tensorboard
-            writer.add_scalar("val_batch", "acc1", acc1[0], val_global_step)
-            writer.add_scalar("val_batch", "acc5", acc5[0], val_global_step)
-            writer.add_scalar("val_batch", "loss",
-                              loss.item(), val_global_step)
+            if i % 10 == 0:
+                writer.add_scalar("val_batch", "acc1",
+                                  acc1[0], val_global_step)
+                writer.add_scalar("val_batch", "acc5",
+                                  acc5[0], val_global_step)
+                writer.add_scalar("val_batch", "loss",
+                                  loss.item(), val_global_step)
 
             losses.update(loss.item(), images.size(0))
             top1.update(acc1[0], images.size(0))

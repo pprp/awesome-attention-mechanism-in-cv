@@ -87,9 +87,17 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 ## Evaluation
 
-基于CIFAR10+ResNet+待测评模块，对模块进行初步测评。（算力有限、只能先在CIFAR10上测评），测评代码来自于本人实现的另外一个库：[mixed_precision_imagenet_benchmark](https://github.com/pprp/mixed_precision_imagenet_benchmark) 实现内容比较基础，并没有添加很多额外的trick，并且经过实验证明，该代码可以在ImageNet上将ResNet50精度复现，所以实现上是没有问题的。
+基于CIFAR10+ResNet+待测评模块，对模块进行初步测评。测评代码来自于另外一个库：[mixed_precision_imagenet_benchmark](https://github.com/pprp/mixed_precision_imagenet_benchmark) 实现内容比较基础，并没有添加很多额外的trick，并且经过实验证明，该代码可以在ImageNet上将ResNet50精度复现，所以实现上是没有问题的。实验过程中，不使用预训练权重，进行随机初始化。
 
 working on it....
+
+| 模型     | top1 acc | top5 acc | time | epoch | params | batch | lr   |
+| -------- | -------- | -------- | ---- | ----- | ------ | ----- | ---- |
+| ResNet50 |          |          |      |       |        |       |      |
+|          |          |          |      |       |        |       |      |
+|          |          |          |      |       |        |       |      |
+
+
 
 ## Paper List
 
