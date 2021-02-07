@@ -34,7 +34,9 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Asymmetric Non-local Neural Networks for Semantic Segmentation](https://arxiv.org/pdf/1908.07678.pdf) | ICCV19    | [APNB](https://github.com/MendelXu/ANN)                      |      | spp+NL                                   |
 | [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243v7.pdf) | CoRR18    | [EfficientAttention](https://github.com/cmsflash/efficient-attention) |      | NL降低计算量                             |
 | [Image Restoration via Residual Non-local Attention Networks](https://arxiv.org/pdf/1903.10082.pdf) | ICLR19    | [RNAN](https://github.com/yulunzhang/RNAN)                   |      |                                          |
-| [Exploring Self-attention for Image Recognition](http://vladlen.info/papers/self-attention.pdf) | CVPR20    | [SAN](https://github.com/hszhao/SAN)                         |      |                                          |
+| [Exploring Self-attention for Image Recognition](http://vladlen.info/papers/self-attention.pdf) | CVPR20    | [SAN](https://github.com/hszhao/SAN)                         |      | 理论性很强，实现起来很简单               |
+| [An Empirical Study of Spatial Attention Mechanisms in Deep Networks](https://arxiv.org/pdf/1904.05873.pdf) | ICCV19    |                                                              |      | MSRA综述self-attention                   |
+|                                                              |           |                                                              |      |                                          |
 |                                                              |           |                                                              |      |                                          |
 
 
@@ -42,7 +44,6 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 
 
-- BiSeNet
 - OCR
 - ResNeSt
 - DANet: Dual Attention
