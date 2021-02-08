@@ -20,7 +20,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Neural Architecture Search for Lightweight Non-Local Networks](https://cs.jhu.edu/~alanlab/Pubs20/li2020neural.pdf) | CVPR20    | [AutoNL](https://github.com/LiYingwei/AutoNL)                |      | NAS+LightNL                              |
 | [Squeeze and Excitation Network](https://arxiv.org/abs/1709.01507) | CVPR18    | [SENet](https://github.com/hujie-frank/SENet)                |      | 最经典的通道注意力                       |
 | [Selective Kernel Network](https://arxiv.org/pdf/1903.06586.pdf) | CVPR19    | [SKNet](https://github.com/implus/SKNet)                     |      | SE+动态选择                              |
-| [Convolutional Block Attention Module](https://arxiv.org/pdf/1807.06521.pdf) | ECCV18    | [BAM](https://github.com/Jongchan/attention-module)          |      | 串联空间+通道注意力                      |
+| [Convolutional Block Attention Module](https://arxiv.org/pdf/1807.06521.pdf) | ECCV18    | [CBAM](https://github.com/Jongchan/attention-module)         |      | 串联空间+通道注意力                      |
 | [BottleNeck Attention Module](https://arxiv.org/pdf/1807.06514.pdf) | BMVC18    | [BAM](https://github.com/Jongchan/attention-module)          |      | 并联空间+通道注意力                      |
 | [Concurrent Spatial and Channel ‘Squeeze & Excitation’ in Fully Convolutional Networks](http://arxiv.org/pdf/1803.02579v2.pdf) | MICCAI18  | [scSE](https://github.com/ai-med/squeeze_and_excitation)     |      | 并联空间+通道注意力                      |
 | [Non-local Neural Networks](https://arxiv.org/abs/1711.07971) | CVPR19    | [Non-Local(NL)](https://github.com/AlexHex7/Non-local_pytorch) |      | self-attention                           |
@@ -29,23 +29,20 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [SA-Net:shuffle attention for deep convolutional neural networks](https://arxiv.org/pdf/2102.00240.pdf) | ICASSP 21 | [SANet](https://github.com/wofmanaf/SA-Net)                  |      | SGE+channel shuffle                      |
 | [ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks](https://arxiv.org/pdf/1910.03151.pdf) | CVPR20    | [ECANet](https://github.com/BangguWu/ECANet)                 |      | SE的改进                                 |
 | [Spatial Group-wise Enhance: Improving Semantic Feature Learning in Convolutional Networks](https://arxiv.org/abs/1905.09646) | CoRR19    | [SGENet](https://github.com/implus/PytorchInsight)           |      | Group+spatial+channel                    |
-| [FcaNet: Frequency Channel Attention Networks](https://arxiv.org/pdf/2012.11879.pdf) | unpublish | [FcaNet](https://github.com/cfzd/FcaNet)                     |      | 频域上的SE操作                           |
+| [FcaNet: Frequency Channel Attention Networks](https://arxiv.org/pdf/2012.11879.pdf) | CoRR20    | [FcaNet](https://github.com/cfzd/FcaNet)                     |      | 频域上的SE操作                           |
 | [$A^2\text{-}Nets$: Double Attention Networks](https://arxiv.org/abs/1810.11579) | NeurIPS18 | [DANet](https://github.com/nguyenvo09/Double-Attention-Network) |      | NL的思想应用到空间和通道                 |
 | [Asymmetric Non-local Neural Networks for Semantic Segmentation](https://arxiv.org/pdf/1908.07678.pdf) | ICCV19    | [APNB](https://github.com/MendelXu/ANN)                      |      | spp+NL                                   |
 | [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243v7.pdf) | CoRR18    | [EfficientAttention](https://github.com/cmsflash/efficient-attention) |      | NL降低计算量                             |
 | [Image Restoration via Residual Non-local Attention Networks](https://arxiv.org/pdf/1903.10082.pdf) | ICLR19    | [RNAN](https://github.com/yulunzhang/RNAN)                   |      |                                          |
 | [Exploring Self-attention for Image Recognition](http://vladlen.info/papers/self-attention.pdf) | CVPR20    | [SAN](https://github.com/hszhao/SAN)                         |      | 理论性很强，实现起来很简单               |
-| [An Empirical Study of Spatial Attention Mechanisms in Deep Networks](https://arxiv.org/pdf/1904.05873.pdf) | ICCV19    |                                                              |      | MSRA综述self-attention                   |
+| [An Empirical Study of Spatial Attention Mechanisms in Deep Networks](https://arxiv.org/pdf/1904.05873.pdf) | ICCV19    | None                                                         |      | MSRA综述self-attention                   |
+| [Object-Contextual Representations for Semantic Segmentation](https://arxiv.org/pdf/1909.11065.pdf) | ECCV20    | [OCRNet](https://github.com/HRNet/HRNet-Semantic-Segmentation/tree/HRNet-OCR?v=2) |      | 复杂的交互机制，效果确实好               |
+| [IAUnet: Global Context-Aware Feature Learning for Person Re-Identification](https://arxiv.org/pdf/2009.01035.pdf) | TTNNLS20  | [IAUNet](https://github.com/blue-blue272/ImgReID-IAnet)      |      | 引入时序信息                             |
+| [ResNeSt: Split-Attention Networks](https://arxiv.org/pdf/2004.08955.pdf) | CoRR20    | [ResNeSt](https://github.com/zhanghang1989/ResNeSt)          |      | SK+ResNeXt                               |
 |                                                              |           |                                                              |      |                                          |
-|                                                              |           |                                                              |      |                                          |
+| [Improving Convolutional Networks with Self-calibrated Convolutions](http://mftp.mmcheng.net/Papers/20cvprSCNet.pdf) | CVPR20    | [SCNet](https://github.com/MCG-NKU/SCNet)                    |      |                                          |
 
 
-
-
-
-
-- OCR
-- ResNeSt
 - DANet: Dual Attention
 - AFF
   - MC-CAM
@@ -97,6 +94,8 @@ working on it....
 | ResNet18     | 95.61%   |         | 11,173,962 |
 | ResNet50     | 95.50%   | 4:24:38 | 23,520,842 |
 | ShuffleNetV2 | 91.90%   | 1:02:50 | 1,263,854  |
+| GoogLeNet    | 91.90%   | 1:02:50 | 6,166,250  |
+| MobileNetV2  | 92.66%   | 2:04:57 | 2,296,922  |
 
 
 
