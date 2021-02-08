@@ -42,10 +42,11 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Gather-Excite: Exploiting Feature Context in Convolutional Neural Networks](https://papers.nips.cc/paper/8151-gather-excite-exploiting-feature-context-in-convolutional-neural-networks.pdf) | NIPS18    | [GENet](https://github.com/hujie-frank/GENet)                |      | SE续作                                   |
 | [Improving Convolutional Networks with Self-calibrated Convolutions](http://mftp.mmcheng.net/Papers/20cvprSCNet.pdf) | CVPR20    | [SCNet](https://github.com/MCG-NKU/SCNet)                    |      | 自校正卷积                               |
 | [Rotate to Attend: Convolutional Triplet Attention Module](https://arxiv.org/pdf/2010.03045.pdf) | WACV21    | [TripletAttention](https://github.com/LandskapeAI/triplet-attention) |      | CHW两两互相融合                          |
+| [Dual Attention Network for Scene Segmentation](https://arxiv.org/pdf/1809.02983.pdf) | CVPR19    | [DANet](https://github.com/junfu1115/DANet)                  |      | self-attention                           |
+| [Relation-Aware Global Attention for Person Re-identification](https://arxiv.org/pdf/1904.02998v1.pdf) | CVPR20    | [RGA-SC](https://github.com/microsoft/Relation-Aware-Global-Attention-Networks) |      | 用于reid                                 |
 |                                                              |           |                                                              |      |                                          |
 
 
-- DANet: Dual Attention
 - AFF
   - MC-CAM
   - AFF
