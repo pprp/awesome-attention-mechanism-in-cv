@@ -39,8 +39,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Object-Contextual Representations for Semantic Segmentation](https://arxiv.org/pdf/1909.11065.pdf) | ECCV20    | [OCRNet](https://github.com/HRNet/HRNet-Semantic-Segmentation/tree/HRNet-OCR?v=2) |      | 复杂的交互机制，效果确实好               |
 | [IAUnet: Global Context-Aware Feature Learning for Person Re-Identification](https://arxiv.org/pdf/2009.01035.pdf) | TTNNLS20  | [IAUNet](https://github.com/blue-blue272/ImgReID-IAnet)      |      | 引入时序信息                             |
 | [ResNeSt: Split-Attention Networks](https://arxiv.org/pdf/2004.08955.pdf) | CoRR20    | [ResNeSt](https://github.com/zhanghang1989/ResNeSt)          |      | SK+ResNeXt                               |
-|                                                              |           |                                                              |      |                                          |
-| [Improving Convolutional Networks with Self-calibrated Convolutions](http://mftp.mmcheng.net/Papers/20cvprSCNet.pdf) | CVPR20    | [SCNet](https://github.com/MCG-NKU/SCNet)                    |      |                                          |
+| [Gather-Excite: Exploiting Feature Context in Convolutional Neural Networks](https://papers.nips.cc/paper/8151-gather-excite-exploiting-feature-context-in-convolutional-neural-networks.pdf) | NIPS18    | [GENet](https://github.com/hujie-frank/GENet)                |      | SE续作                                   |
+| [Improving Convolutional Networks with Self-calibrated Convolutions](http://mftp.mmcheng.net/Papers/20cvprSCNet.pdf) | CVPR20    | [SCNet](https://github.com/MCG-NKU/SCNet)                    |      | 自校正卷积                               |
 
 
 - DANet: Dual Attention
@@ -48,7 +48,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
   - MC-CAM
   - AFF
   - iAFF
-- 
+  
+  
 
 ## Plug and Play Module
 
