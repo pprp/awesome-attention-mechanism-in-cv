@@ -1,4 +1,4 @@
-# pytorch-attention-mechanism
+# Awesome-Attention-Mechanism-in-cv
 ## Table of Contents
 
 - [Introduction](#Introduction)
@@ -10,7 +10,7 @@
 
 ## Introduction
 
-PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，还收集了一些即插即用模块，比如最经典的SPP，希望能为大家设计新模块带来灵感，同时由于能力有限精力有限，可能很多模块并没有包括进来，可以在issue中提建议，会尽快补充上的。
+PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，还收集了一些即插即用模块。由于能力有限精力有限，可能很多模块并没有包括进来，有任何的建议或者改进，可以提交issue或者进行PR。
 
 ## Attention Mechanism
 
@@ -45,6 +45,10 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Dual Attention Network for Scene Segmentation](https://arxiv.org/pdf/1809.02983.pdf) | CVPR19    | [DANet](https://github.com/junfu1115/DANet)                  | self-attention                           |
 | [Relation-Aware Global Attention for Person Re-identification](https://arxiv.org/pdf/1904.02998v1.pdf) | CVPR20    | [RGA](https://github.com/microsoft/Relation-Aware-Global-Attention-Networks) | 用于reid                                 |
 | [Attentional Feature Fusion](https://arxiv.org/abs/2009.14082) | WACV21    | [AFF](https://github.com/YimianDai/open-aff)                 | 特征融合的attention方法                  |
+| [An Attentive Survey of Attention Models](https://arxiv.org/abs/1904.02874) | CoRR19    | None                                                         | 包括NLP/CV/推荐系统等方面的注意力机制    |
+|                                                              |           |                                                              |                                          |
+
+
 
 ## Plug and Play Module
 
@@ -85,7 +89,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | 模型         | top1 acc | time    | params(MB) |
 | ------------ | -------- | ------- | ---------- |
 | SENet18      | 95.28%   | 1:27:50 | 11,260,354 |
-| ResNet18     | 95.61%   |         | 11,173,962 |
+| ResNet18     | 95.16%   | 1:13:03 | 11,173,962 |
 | ResNet50     | 95.50%   | 4:24:38 | 23,520,842 |
 | ShuffleNetV2 | 91.90%   | 1:02:50 | 1,263,854  |
 | GoogLeNet    | 91.90%   | 1:02:50 | 6,166,250  |
