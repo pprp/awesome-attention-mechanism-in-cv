@@ -46,7 +46,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Relation-Aware Global Attention for Person Re-identification](https://arxiv.org/pdf/1904.02998v1.pdf) | CVPR20    | [RGA](https://github.com/microsoft/Relation-Aware-Global-Attention-Networks) | 用于reid                                 |
 | [Attentional Feature Fusion](https://arxiv.org/abs/2009.14082) | WACV21    | [AFF](https://github.com/YimianDai/open-aff)                 | 特征融合的attention方法                  |
 | [An Attentive Survey of Attention Models](https://arxiv.org/abs/1904.02874) | CoRR19    | None                                                         | 包括NLP/CV/推荐系统等方面的注意力机制    |
-|                                                              |           |                                                              |                                          |
+| [Stand-Alone Self-Attention in Vision Models](https://arxiv.org/pdf/1906.05909.pdf) | NIPS19    | [FullAttention](https://github.com/leaderj1001/Stand-Alone-Self-Attention) | 全部的卷积都替换为self-attention         |
 
 
 
