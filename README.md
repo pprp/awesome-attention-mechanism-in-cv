@@ -85,7 +85,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 ## Evaluation
 
-基于CIFAR10+ResNet+待测评模块，对模块进行初步测评。测评代码来自于另外一个库：https://github.com/kuangliu/pytorch-cifar/。实验过程中，不使用预训练权重，进行随机初始化。
+基于CIFAR10+ResNet+待测评模块，对模块进行初步测评。测评代码来自于另外一个库：https://github.com/kuangliu/pytorch-cifar/  实验过程中，不使用预训练权重，进行随机初始化。
 
 | 模型         | top1 acc | time    | params(MB) |
 | ------------ | -------- | ------- | ---------- |
