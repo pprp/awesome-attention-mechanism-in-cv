@@ -1,0 +1,2760 @@
+一、基础知识
+============
+
+【DataWhale打卡】第一天：学习周博磊讲的强化学习结合《深入理解AutoML和AutoDL》这本书中的强化学习的章节总结了基础部分。
+
+参考资料：https://github.com/zhoubolei/introRL
+
+先导课程：线性代数、概率论、机器学习/数据挖掘/深度学习/模式识别
+
+编程基础：Python, PyTorch
+
+1. 强化学习应用案例
+-------------------
+
+-  alpha-go、alpha-zero围棋战胜李世石。
+-  王者荣耀 绝悟AI 就是强化学习技术应用在MOBA游戏的一个典型例子。
+-  可以将股票的买卖看作强化学习问题，如何操作能让收益极大化。
+-  Atari等电脑游戏。
+-  机器人，比如如何让机械臂自己学会给一个杯子中倒水、抓取物体。
+-  DeepMind让Agent学习走路。
+-  训练机械臂通过手指转魔方。
+-  训练Agent穿衣服。
+
+2. 强化学习在做什么？
+---------------------
+
+强化学习和监督学习有很大的区别：
+
+1. 监督学习需要提供数据和对应的标签，训练数据和测试数据是独立同分布的，从而进行模式和特征的学习。
+
+2. 强化学习不同，强化学习没有直接的标签进行指导，并且数据不是独立同分布的，前后数据有比较强的关系。强化学习可以在环境中进行探索和试错，根据实验的结果提取经验，从而学习到最佳策略。
+
++-------------+----------------+--------------+------------+
+|             | 监督学习       | 无监督学习   | 强化学习   |
++=============+================+==============+============+
+| 输出值      | 标签           | 无           | 奖励值     |
++-------------+----------------+--------------+------------+
+| 标签/奖励   | 人类提供标注   | 无标签       | 延迟奖励   |
++-------------+----------------+--------------+------------+
+| 经验        | 无             | 无           | 有         |
++-------------+----------------+--------------+------------+
+| 损失值      | 有             | 无           | 无         |
++-------------+----------------+--------------+------------+
+| 输入        | 独立同分布     | 独立同分布   | 前后依赖   |
++-------------+----------------+--------------+------------+
+
+**强化学习的目标**\ 是训练一个agent，能够在不同的情况做出最佳的action，从而让系统给出的reward值最大化。
+
+**流程如下**\ ：agent会观察环境得到observation，然会采取一个action，环境受到这个action的作用，会反馈给agent一个reward，同时环境给出的observation也发生了改变。循环往复，agent目标是为了从环境中获得最高reward奖励。
+
+.. figure:: https://img-blog.csdnimg.cn/20201020123908898.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 强化学习序列化流程
+
+   强化学习序列化流程
+
+存在两大主体，智能体Agent和环境Environment，整个过程是序列化的：
+
+.. math::
+
+
+   S_t-A_t-R_t-S_{t+1}-A_{t+1}-R_{t+1}-S_{t+2}\dots
+
+智能体目标就是最大化奖励函数
+
+.. math::  G_t 
+
+:
+
+.. math::
+
+
+   G_t=R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots=\sum_{k=0}^\infty \gamma^k R_{t+k+1}
+
+
+也就是说当前时序为t的时候，最大化奖励函数就是从当前一直到最后一个状态（完成一个episode）所获取的所有Reward。\ :math:`\gamma`
+是一个0-1之间的数，叫做奖励衰减因子。如果等于0，代表这个Agent只考虑当前即时结果，不考虑目标长远。如果等于1，代表这个Agent考虑的是长远利益，放眼整体。
+
+**强化学习的特点**\ ：
+
+-  输入的数据是序列化、前后有依赖的，并不是独立同分布的。
+-  没有监督信息，每一步没有被告诉应该做什么。
+-  Trial-and-error exploration，exploration和exploitation之间的平衡：
+-  exploration:
+   代表探索环境，尝试一些新的行为，这些行为有可能会带来巨大的收益，也可能减少收益。
+-  exploitation: 就采取当前已知的可以获得最大收益的action。
+-  Reward
+   Delay效应，当采取一个action以后，并不会立刻得到反馈，需要等待一段时间或者等结束之后才会有反馈。
+
+3. 基本要素
+-----------
+
+1. 环境的状态：用符号S表示，\ :math:`S_t`\ 代表t时刻下处于的某一个状态。
+2. 个体的动作：用符号A表示，\ :math:`A_t`\ 代表t时刻个体采取的动作。
+3. 环境的奖励：用符号R表示，\ :math:`R_{t+1}`\ 表示t时刻个体在\ :math:`S_t`\ 状态下，采取动作\ :math:`A_t`\ 得到的奖励。
+4. 智能体agent策略：用符号\ :math:`\pi`\ 表示，agent会根据\ :math:`\pi`\ 表示的策略来选择动作。
+5. 价值函数：用符号\ :math:`V^{\pi}(s)`\ 表示，agent在面临状态S的情况下，如果采用策略\ :math:`\pi`\ 后进行动作的价值，是一个期望函数。\ 
+
+   .. math:: V^{\pi}(s)=E_{\pi}(R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...|S_t=s)
+
+6. 奖励衰减因子：用符号\ :math:`\gamma`\ 来表示，是一个0-1之间的数，用于约束距离时间较远的reward所占的比重。
+
+4. 分类
+-------
+
+（1）按照Agent有没有对环境建模来分类
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201019223540288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+强化学习主要分为\ **动态规划、蒙特卡罗法、时序差分法**\ 。强化学习中，从一个状态s转化到另外一个状态s'不仅和当前状态s和动作a有关，还与之前的状态有关。但是考虑这么多状态会导致模型非常复杂，\ **所以引入马尔可夫性来简化问题**\ ，也就是一个假设\ :math:`H`,
+即转化到下一个状态s‘的概率仅仅与当前的状态s有关，而和之前的状态没有关系。
+
+解决马尔科夫决策过程有两个分类，见上图，需要解释的是Model-based方法和Model-Free方法。
+
+**Model-based方法**\ 代表这个问题中，必须能够获得环境的状态转化方程，需要对环境进行建模，比如在仿真环境中训练机械手臂。agent学习的模型可以提高对状态转移函数和奖励函数的估计的准确性。这样就可以通过动态规划算法求解。
+
+有模型的强化学习方法可以对环境建模，使得该类方法具有独特魅力，即“想象能力”。在免模型学习中，智能体只能一步一步地采取策略，等待真实环境的反馈；而有模型学习可以在虚拟世界中预测出所有将要发生的事，并采取对自己最有利的策略。
+
+.. figure:: https://img-blog.csdnimg.cn/20201020181405791.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: Model-Based方法流程图
+
+   Model-Based方法流程图
+
+**Model-Free方法**\ 代表\ **不需要对环境进行建模**\ ，只需要经验，也就是实际或者仿真的与环境进行交互的整个样本序列。免模型学习通常属于数据驱动型方法，需要大量的采样来估计状态、动作及奖励函数，从而优化动作策略。免模型学习的泛化性要优于有模型学习，原因是有模型学习算需要对真实环境进行建模，并且虚拟世界与真实环境之间可能还有差异，这限制了有模型学习算法的泛化性。
+
+**判断方法**\ ：在Agent执行动作前，看其能否对下一步的状态和回报做出预测，如果可以预测那就是model-based方法，如果不能，那就是model-free的方法。
+
+Q: 有模型强化学习和免模型强化学习有什么\ **区别**\ ？
+
+A: 针对是否需要对真实环境建模，强化学习可以分为有模型学习和免模型学习。
+
+-  有模型学习是指根据环境中的经验，构建一个虚拟世界，同时在真实环境和虚拟世界中学习；
+-  免模型学习是指不对环境进行建模，直接与真实环境进行交互来学习到最优策略。
+
+    from: https://blog.csdn.net/ppp8300885/article/details/78524235
+
+    Q: Q-learning也是对下一步的状态和奖励在做预测吗？
+
+    A: 无模型的RL是不会显式对Reward function和transition
+    function进行建模, Q-learning的Q值更新是用的:
+    当前返回的reward(真实值)+下一步状态Q值(这个是异策略估计的),
+    这个reward是执行完a动作后的真实值, 并不是自己拟合的reward
+    function给出的. AlphaGo为啥是model-based,
+    因为他依赖蒙特卡罗树去估计棋局未来的演化(transition
+    function)和赢率(reward function)
+
+（2） 按照Agent的决策方式来分类
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+从Agent的决策方式来看，可以分为三种：
+
+-  Value-Based方法中，Agent学习的目标是价值函数，隐式地学习了策略（因为策略是从价值函数中推算出来的），常见的算法有SARSA、Q-Learning
+-  Policy-Based方法中，Agent学习的目标就是策略，给一个状态s，直接求出输出动作地概率。策略可以分为两类：确定性策略和随即策略。常见算法就是策略梯度蒜贩。
+-  Actor-Critic方法中，结合了以上两种方法，将策略函数和价值函数都学习了，吸取了两者的优点。
+
+.. figure:: https://img-blog.csdnimg.cn/20201020181804975.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+一个常用的强化学习问题解决思路是，先学习环境如何工作，也就是了解环境工作的方式，即学习得到一个模型，然后利用这个模型进行规划。
+
+5. 时序决策过程
+---------------
+
+**State和Observation并不是等价的概念：**
+
+引入历史的概念，历史是观测、行为、奖励的序列：
+
+.. math::
+
+
+   H_t = O_1,R_1,A_1,\dots,A_{t-1},O_t,R_t
+
+Agent采取的当前动作会依赖之前的历史，所以整个游戏的状态可以看做关于历史的函数：
+
+.. math::
+
+
+   S_t=f(H_t)
+
+
+**状态（state）s是对环境的整体描述，不会有其他隐藏的信息。观测（observation）o是状态的部分描述，可能会遗漏一些信息。**
+
+举个例子：在机器手臂抓杯子的案例中:
+
+观测可以是通过摄像头得到的RGB像素值矩阵，来表示一个视觉的观测。
+
+状态则是机器手臂每个关节的角度和速度的表示。
+
+**环境状态和智能体状态：**
+
+.. math::
+
+
+   S_t^e=f^e(H_t) \\
+   S_t^a=f^a(H_t)
+
+当满足\ :math:`O_t=S_t^a=S_t^e`\ 的时候，称这种状态为Full
+Observability,agent可以观测环境的全部状态，也就是\ **马尔可夫决策过程MDP**\ 。
+
+同时也有Partial Observation,
+agent无法观测环境中的全部状态，只能看到部分状态比如说Atari游戏中只能观测到屏幕上的像素，无法获取小球位置（这个状态就不可见）。这种问题是\ **部分可见的马尔可夫决策过程POMDP**\ 。
+
+6. 动作空间
+-----------
+
+不同的环境/游戏可以采取的动作不同。有效动作的集合经常被称为\ ``动作空间(action space)``\ 。像
+Atari 和 Go 这样的环境有\ ``离散动作空间(discrete action spaces)``
+
+在其他环境，比如在物理世界中控制一个
+agent，在这个环境中就有\ ``连续动作空间(continuous action spaces)`` 。
+
+7. 智能体主要组成部分
+---------------------
+
+RL
+Agent组成部分有policy函数（负责选取下一步动作）、价值函数（对当前状态进行评估，估计以后的收益大概有多少）、模型（表示了Agent对这个环境状态进行了理解）
+
+（1）Policy
+~~~~~~~~~~~
+
+Policy决定了Agent的行为，根据看到的状态，得到应该采取的行为。主要分为两种：
+
+-  随机性策略：stochastic policy:
+   也就是说输出的action是一个概率分布，通过对概率分布进行采样，得到真实采取的行为。\ :math:`\pi(a|s)=P(A_t=a|S_t=s)`
+-  确定性策略：deterministic policy,
+   就是说只采取它的极大化，采取最有可能的动作。\ :math:`a*=argmax_a\pi(a|s)`
+
+Q:
+既然有确定性策略，采取能让奖励极大化的action不就可以了，为什么要加入随机性呢？
+
+A:
+引入随机性是为了更好的探索环境，随机性可能会带来负面收益，但是也可能会带来巨大的正面收益，为了探索这种可能性，所以随机性策略更好。
+
+（2）Value Function
+~~~~~~~~~~~~~~~~~~~
+
+价值函数是期望，在看到当前状态s的时候，直到游戏结束期望获得的reward值就是价值函数\ :math:`V^\pi(s)`\ 。
+
+.. math::
+
+
+   V_\pi(s)=E_\pi[G_t|S_t=s]=E_\pi[\sum_{k=0}^{\infty}\gamma^kR_{t+k+1}|S_t=s]
+
+以上公式中的\ :math:`\gamma`\ 上文已经讲过了，是奖励衰减因子。因为希望能够在尽可能短的时间内，得到更多的奖励。
+
+当然价值函数只考虑s也是不足的，Q函数综合考虑了状态和动作的影响，代表在当前状态s下，采取动作a以后的期望得到的奖励值。
+
+.. math::
+
+
+   Q_\pi(s,a)=E_\pi[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1}|S_t=s,A_t=a]
+
+（3）Model
+~~~~~~~~~~
+
+模型决定了下一个状态是什么，下一步的状态取决于当前的状态和当前采取的行动。主要由两部分组成：
+
+-  概率函数\ :math:`P_{ss'}^a=P[S_{t+1}=s'|S_t=s,A_t=a]`,表示从s状态采取动作a以后会转移s‘状态上。
+-  奖励函数\ :math:`R_s^a=E[R_{t+1}|S_t=s,A_t=a]`,
+   表示当前状态采取某个行为以后的奖励的期望值。
+
+有了Model也就代表可以用Model-based方法进行求解，可以使用动态规划的方法求解问题。
+
+8. Exploration and Exploitation
+-------------------------------
+
+在强化学习里面，\ ``Exploration`` 和\ ``Exploitation``
+是两个很核心的问题。
+
+-  Exploration
+   是说我们怎么去探索这个环境，通过尝试不同的行为来得到一个最佳的策略，得到最大奖励的策略。
+-  Exploitation
+   是说我们不去尝试新的东西，就采取已知的可以得到很大奖励的行为。
+
+因为在刚开始的时候强化学习 agent
+不知道它采取了某个行为会发生什么，所以它只能通过试错去探索。所以
+Exploration
+就是在试错来理解采取的这个行为到底可不可以得到好的奖励。Exploitation
+是说我们直接采取已知的可以得到很好奖励的行为。所以这里就面临一个
+trade-off，怎么通过牺牲一些短期的 reward 来获得行为的理解。
+
+9. 知识点补充
+-------------
+
+Rollout：从游戏当前帧，生成很多局游戏，让当前的Model和环境交互，得到很多的观测（轨迹）,得到最终的最终reward，从而可以训练agent。
+
+10. 参考内容
+------------
+
+https://blog.csdn.net/ppp8300885/article/details/78524235
+
+https://datawhalechina.github.io/leedeeprl-notes/#/chapter1/chapter1
+
+二、马尔科夫决策过程
+====================
+
+【DataWhale打卡】周博磊博士-第二节马尔科夫决策过程，主要内容：
+
+-  马尔科夫链、马尔科夫奖励过程、马尔科夫决策过程
+-  Policy evaluation in MDP
+-  Control in MDP: policy iteration & value iteration
+
+这部分主要讲的除了MDP问题本身，主要是动态规划方面的求解方法。
+
+1. 引入
+-------
+
+.. figure:: https://img-blog.csdnimg.cn/20201022114642335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022091253311
+
+Agent
+在得到环境的状态过后，它会采取行为，它会把这个采取的行为返还给环境。环境在得到
+agent 的行为过后，它会进入下一个状态，把下一个状态传回 agent。
+
+在强化学习中，这个交互过程是可以通过马尔可夫决策过程来表示的，所以马尔可夫决策过程是强化学习里面的一个基本框架。
+
+在马尔可夫决策过程中，它的环境是 ``fully observable``
+，就是全部可以观测的。但是很多时候环境里面有些量是不可观测的，但是这个部分观测的问题也可以转换成一个
+MDP 的问题。
+
+2. Markov Process(MP)
+---------------------
+
+（1）Markov Property
+~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022114656597.png#pic_center
+   :alt: image-20201022092312675
+
+如果一个状态转移是符合马尔可夫的，那就是说一个状态的下一个状态只取决于它当前状态，而跟它当前状态之前的状态都没有关系。
+如果某一个过程满足\ ``马尔可夫性质(Markov Property)``\ ，就是说未来的转移跟过去是独立的，它只取决于现在。\ **马尔可夫性质是所有马尔可夫过程的基础。**
+
+（2）Markov Chain
+~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022114725826.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022092415632
+
+可以用\ ``状态转移矩阵(State Transition Matrix)``\ 来描述这样的状态转移。状态转移矩阵类似于一个
+conditional probability，当知道当前在 s\_tst
+这个状态过后，到达下面所有状态的一个概念。所以它每一行其实描述了是从一个节点到达所有其它节点的概率。
+
+3. Markov Reward Process(MRP)
+-----------------------------
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115037980.png#pic_center
+   :alt: image-20201022092646192
+
+**``马尔可夫奖励过程(Markov Reward Process, MRP)``
+是马尔可夫链再加上了一个奖励函数。**
+
+在 MRP
+中，转移矩阵跟它的这个状态都是跟马尔可夫链一样的，多了一个\ ``奖励函数(reward function)``\ 。
+
+**奖励函数是一个期望**\ ，就是说当你到达某一个状态的时候，可以获得多大的奖励，然后这里另外定义了一个
+discount factor 。
+
+（1）Return & Value function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115041199.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022092924592
+
+
+
+-  ``horizon``
+-  它说明了同一个 episode 或者是整个一个轨迹的长度
+-  它是由有限个步数决定的。
+-  ``return``\ 的定义
+-  Return 说的是把奖励进行折扣，然后获得的这个收益。
+-  Return
+   可以定义为奖励的逐步叠加，然后这里有一个叠加系数\ :math:`\gamma`\ ，就是越往后得到的奖励，折扣得越多。
+-  这说明其实更希望得到现有的奖励，未来的奖励就要把它打折扣。
+-  ``state value function``
+-  然后对于这个MRP，它里面定义成是关于这个 return 的期望， :math:`G_t`
+   是之前定义的 ``discounted return``\ 。
+-  这里取了一个期望，期望就是说从这个状态开始，你有可能获得多大的价值。
+-  所以这个期望也可以看成是一个对未来可能获得奖励的它的当前价值的一个表现。就是当你进入某一个状态过后，你现在就有多大的价值。
+
+（2）关于\ :math:`\gamma`\ 的解释
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115047114.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022093420479
+
+
+**这里解释一下为什么需要 discount factor。**
+
+-  有些马尔可夫过程是\ **带环**\ 的，它并没有终结，想\ **避免这个无穷的奖励**\ 。
+-  并没有建立一个完美的模拟环境的模型，也就是说，对未来的评估不一定是准确的，\ **不一定完全信任的模型**\ ，因为这种不确定性，所以对未来的预估增加一个折扣。想把这个\ **不确定性表示出来**\ ，希望尽可能快地得到奖励，而不是在未来某一个点得到奖励。
+-  如果这个奖励是有\ **实际价值**\ 的，可能是更希望立刻就得到奖励，而不是后面再得到奖励（现在的钱比以后的钱更有价值）。
+-  在人的行为里面来说的话，大家也是想得到\ **即时奖励**\ 。
+-  有些时候可以把这个系数设为 0，设为 0
+   过后，就只关注了它当前的奖励。也可以把它设为 1，设为 1
+   的话就是对未来并没有折扣，未来获得的奖励跟当前获得的奖励是一样的。
+
+（3）Value Funtion in MRP
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115053649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022094450063
+
+
+**蒙特卡罗采样法**\ ：比如计算\ :math:`V(s_4)`\ 的值，那么就采样从s4开始很多轨迹，到最终的价值，平均一下作为value值。
+
+**贝尔曼等式**\ ：\ **Bellman Equation
+定义了当前状态跟未来状态之间的这个关系**\ 。
+
+-  s′ 可以看成未来的所有状态。
+-  转移 P(s'\|s) 是指从当前状态转移到未来状态的概率。
+-  第二部分可以看成是一个 Discounted sum of future reward。
+-  V(s')
+   代表的是未来某一个状态的价值。从当前这个位置开始，有一定的概率去到未来的所有状态，所以要把这个概率也写上去，这个转移矩阵也写上去，然后就得到了未来状态，然后再乘以一个
+   :math:`\gamma`\ ，这样就可以把未来的奖励打折扣。
+
+未来打了折扣的奖励加上当前立刻可以得到的奖励，就组成了这个 Bellman
+Equation。Bellman Equation 的推导过程如下：
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115408444.png#pic_center
+   :alt: image-20201022094909662
+
+
+Bellman Equation
+就是当前状态与未来状态的迭代关系，表示当前状态的值函数可以通过下个状态的值函数来计算。
+
+Bellman Equation 因其提出者、动态规划创始人 Richard Bellman 而得名
+，也叫作“动态规划方程”。
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115415690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022100113740
+
+
+可以把 Bellman Equation
+写成一种矩阵的形式。首先有这个转移矩阵。当前这个状态是一个向量
+:math:`[V(s_1),V(s_2),\cdots,V(s_N)]^T`\ 。可以写成迭代的形式。每一行来看的话，V这个向量乘以了转移矩阵里面的某一行，再加上它当前可以得到的
+reward，就会得到它当前的价值。
+
+当写成如下的矩阵形式后:
+
+.. math::
+
+
+   V = R+γPV
+
+就可以直接得到一个\ ``解析解(analytic solution)``:
+
+.. math::
+
+
+   V=(I-\gamma P)^{-1} R
+
+通过矩阵求逆的过程把这个 V
+的这个价值直接求出来。但是一个问题是这个矩阵求逆的过程的复杂度是
+:math:`O(N^3)`\ 。在量级很大的时候，求解难度很大。只适合于小量的MRP。
+
+（4）通过迭代法解决大型的MRP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115435942.png#pic_center
+   :alt: image-20201022100420830
+
+
+-  通过动态规划的方法，
+-  通过蒙特卡罗的办法，就通过采样的办法去计算它，
+-  通过 Temporal-Difference Learning 的办法。这个
+   ``Temporal-Difference Learning`` 叫
+   ``TD Leanring``\ ，它是动态规划和蒙特卡罗的一个结合。
+
+① Monte Carlo(MC)
+^^^^^^^^^^^^^^^^^
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115440264.png#pic_center
+   :alt: image-20201022100836061
+
+和上文类似，相同的意思，采样，然后取平均。
+
+② Dynamic Programming(DP)
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115445368.png#pic_center
+   :alt: image-20201022100926892
+
+**用这个动态规划的办法**\ ，一直去迭代它的 Bellman
+Equation，让它最后收敛，就可以得到它的一个状态。
+
+当这个最后更新的状态跟你上一个状态变化并不大的时候，更新就可以停止，就可以输出最新的
+V'(s)V′(s) 作为它当前的状态。
+
+    动态规划的方法基于后继状态值的估计来更新状态值的估计（算法二中的第 3
+    行用 V' 来更新 V
+    ）。也就是说，它们根据其他估算值来更新估算值。称这种基本思想为
+    bootstrapping。
+
+4. Markov Decision Process(MDP)
+-------------------------------
+
+（1）MDP定义
+~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115450919.png#pic_center
+   :alt: image-20201022102440842
+
+**相对于 MRP，\ ``马尔可夫决策过程(Markov Decision Process)``\ 多了一个
+``decision``\ ，其它的定义跟 MRP 都是类似的。**
+
+这里多了一个决策，多了一个 action ，那么这个状态转移也多了一个
+condition，就是你采取某一种行为，然后你未来的状态会不同。
+
+它不仅是依赖于你当前的状态，也依赖于在当前状态你这个 agent
+它采取的这个行为会决定它未来的这个状态走向。
+
+对于这个价值函数，它也是多了一个条件，多了一个你当前的这个行为，就是说你当前的状态以及你采取的行为会决定你在当前可能得到的奖励多少。
+
+（2）Policy in MDP
+~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115457554.png#pic_center
+   :alt: image-20201022102532946
+
+**Policy 定义了在某一个状态应该采取什么样的行为。**
+
+当知道当前状态过后，可以带入这个 policy
+function，那会得到一个概率，概率就代表了在所有可能的行为里面怎样去采取行动。
+
+这个策略也可能是确定的，它有可能是直接输出一个值，或者就直接告诉你当前应该采取什么样的行为，而不是一个行为的概率。
+
+这里有一个假设，就是这个概率函数应该是静态的(stationary)，不同时间点，采取的行为其实都是对这个
+policy function 进行采样。
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115503331.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022102636002
+
+**这里说明了 MDP 跟 MRP 的之间的一个转换。**\ 已知一个 MDP 和一个 policy
+的时候，可以把 MDP 转换成 MRP。
+
+在 MDP 里面，转移函数 P(s'\|s,a) 是基于它当前状态以及它当前的
+action。因为现在已知它 policy
+function，就是说在每一个状态，知道它可能采取的行为的概率，那么就可以直接把这个
+action 进行加和，直接把这个 a 去掉，那就可以得到对于 MRP
+的一个转移，这里就没有 action。
+
+对于这个奖励函数，也可以把 action 拿掉，这样就会得到一个类似于 MRP
+的奖励函数。
+
+（3）Comparison of MP、MRP & MDP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115519619.png#pic_center
+   :alt: image-20201022102748441
+
+**MDP 里面的状态转移跟 MRP 以及 MP 的差异**
+
+-  马尔可夫过程的转移是直接就决定。比如当前状态是
+   s，那么就直接通过这个转移概率决定了下一个状态是什么。
+
+-  但对于 MDP，它的中间多了一层这个行为 a
+-  就是说在你当前这个状态的时候，首先要决定的是采取某一种行为，那么你会到了某一个黑色的节点。到了这个黑色的节点，因为你有一定的不确定性，当你当前状态决定过后以及你当前采取的行为过后，你到未来的状态其实也是一个概率分布。
+-  **在这个当前状态跟未来状态转移过程中这里多了一层决策性，这是 MDP
+   跟之前的马尔可夫过程很不同的一个地方。**\ 在马尔可夫决策过程中，行为是由
+   agent 决定，所以多了一个 component，agent
+   会采取行为来决定未来的状态转移。
+
+（4）Value funtion in MDP
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115529770.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022105843424
+
+
+这里 expectation over policy，就是这个期望是基于你采取的这个 policy
+，就当你的 policy 决定过后，\ **通过对这个 policy
+进行采样来得到一个期望，那么就可以计算出它的这个价值函数。**
+
+引入了一个 ``Q 函数(action-value function)``\ 。\ **这个 Q
+函数定义的是在某一个状态采取某一个行为，然后它有可能得到的这个 return
+的一个期望**\ 。这里期望其实也是 over policy function。所以你需要对这个
+policy function 进行一个加和，然后最后得到它的这个价值。
+
+**重要**\ ：\ **对 Q 函数中的行为函数进行加和，就可以得到价值函数。**
+
+（5）Bellman Expectation Equation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115534839.png#pic_center
+   :alt: image-20201022110125055
+
+
+通过对状态-价值函数进行一个分解，就可以得到一个类似于之前 MRP 的 Bellman
+Equation，这里叫 ``Bellman Expectation Equation``\ 。
+
+对于 Q 函数，也可以做类似的分解，也可以得到对于 Q 函数的 Bellman
+Expectation Equation。
+
+**Bellman Expectation Equation
+定义了你当前状态跟未来状态之间的一个关联。**
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115539904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022110230560
+
+
+等式 8 和等式 9 代表了价值函数跟 Q 函数之间的一个关联。把等式 8
+插入到等式 9，就可以得到等式 11，它象征了你当前时刻的 Q 函数跟未来时刻的
+Q 函数之间的一个关联。
+
+也可以把等式 9 插入等式 8 中，得到等式 10。等式 10
+代表了当前状态的价值跟未来状态价值之间的一个关联。
+
+然后用backup diagram图理解(10)&(11)
+
+**Backup DIagram for :math:`V^\pi`**
+
+.. figure:: https://img-blog.csdnimg.cn/202010221155553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022110357675
+
+Backup 类似于 bootstrapping
+之间这个迭代关系，就对于某一个状态，它的当前这个价值是跟它未来价值线性相关的。
+
+可以看到这里有两层加和。第一层加和就是这个叶子节点，然后往上走一层的话，就可以把未来的这个价值
+s' backup 到黑色的节点。然后再有一层加和，第二层加和，这个加和是把
+action 进行加和。
+
+得到黑色节点的价值过后，再往上 backup
+一层，然后就会推到根节点的价值，根节点就是当前状态。所以
+``Backup Diagram``
+**定义了你未来下一时刻的状态跟你上一时刻的状态之间的一个关联。**
+
+**Backup Diagram for :math:`Q^\pi`**
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115601921.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201022110634067
+
+
+对于 Q 函数，就现在的根节点是这个 Q 函数的一个节点。这个 Q
+函数是对于黑色的这个节点。下一时刻的这个 Q
+函数是叶子节点，有四个黑色结点。那么这里也有两个加和。
+
+第一层加和是先把这个叶子节点从黑节点推到这个白色的这个节点，进了它的这个状态，就当到达某一个状态过后，这个白色节点，然后再进行一个加和，这样就把它重新推回到当前节点的一个
+Q 函数，所以这个等式就决定了未来 Q 函数跟当前 Q 函数之间的这个关联。
+
+**Policy Evaluation /Prediction**
+
+.. figure:: https://img-blog.csdnimg.cn/20201022115619435.png#pic_center
+   :alt: image-20201022111315672
+
+
+当知道一个 MDP 以及要采取的策略 π ，那计算价值函数的过程，就是
+``policy evaluation``\ 。就像在评估这个策略，会得到多大的奖励。\ **Policy
+evaluation 在有些地方也被叫做
+``prediction``\ ，也就是预测你当前采取的这个策略最终会产生多少的价值。**
+
+（6）Decision Making in Markov Decision Process
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210329781.png#pic_center
+   :alt: image-20201023203314365
+
+
+MDP 的 ``prediction`` 和 ``control`` 是 MDP 里面的核心问题。
+
+-  **Prediction 是说给定一个 MDP 以及一个 policy π ，去计算它的 value
+   function，就对于每个状态，它的价值函数是多少。**
+-  Control 是说去寻找一个最佳的策略：
+-  **它的 input 就是 MDP，**
+-  **输出是通过去寻找它的最佳策略，然后同时输出它的最佳价值函数(optimal
+   value function)以及它的最佳策略(optimal policy)。**
+-  在 MDP 里面，prediction 和 control 都可以通过这个动态规划去解决。
+-  要强调的是，这两者的\ **区别**\ 就在于，
+-  预测问题是\ **给定一个 policy**\ ，要确定它的 value function 是多少。
+-  而控制问题是在\ **没有 policy 的前提下**\ ，要确定最优的 value
+   function 以及对应的决策方案。
+-  **实际上，这两者是递进的关系，在强化学习中，通过解决预测问题，进而解决控制问题。**
+
+5. 动态规划
+-----------
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+动态规划是说把可以把一个问题分解成一个最佳子结构，当可以把一些子结构都可以解决的话，那么它就可以组成一个最优的解。
+
+MDP是满足动态规划的要求的，就是在 Bellman Equation
+里面，可以把它分解成一个递归的一个结构。当把它分解成一个递归的结构的时候，如果的子问题子状态能得到一个值，那么它的未来状态因为跟子状态是直接相连的，那也可以继续推算出来，所以这个价值函数就可以储存它以及重用它的最佳的解。\ **所以动态规划是解
+MDP prediction 和 control 一个非常有效的方式。**
+
+（1）Policy Evaluation on MDP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330458.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+**Policy evaluation 就是当给定一个 MDP 的时候，有一个事先定好的
+policy。那么可以获得多少的价值。**
+
+就对于当前这个策略，可以得到多大的这个 value
+function。这里一个方法是说，直接把这个 Bellman Expectation
+Backup，这个等式拿出来，变成一个迭代的过程，这样反复迭代直到收敛。这样就可以计算它的一个过程。这个迭代过程是可以看作是
+``synchronous backup`` 的一个过程。
+
+（2）Policy Evaluation
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330266.png#pic_center
+   :alt: 
+
+Policy evaluation 的核心思想就是直接把这个 Bellman expectation
+backup（15）式。然后反复迭代，然后就会得到一个收敛的价值函数的值。
+
+因为已经给定了这个函数的 policy function，那可以直接把它简化成一个 MRP
+的表达形式，那么它的形式就更简洁一些，就相当于把这个 a
+去掉，得到（16）式。
+
+这样它就只有价值函数跟转移函数了。通过去迭代这个更简化的一个函数，也可以得到它每个状态的价值。因为不管是在
+MRP 以及
+MDP，它的这个价值函数包含的这个变量都是只跟这个状态有关，就相当于进入某一个状态，未来可能得到多大的价值。
+
+（3）Optimal Value Function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330571.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+**Policy evaluation 是说给定一个 MDP 和一个
+policy，可以估算出它的价值函数。**
+
+这个问题的另外一方面是说如果只有一个
+MDP，如何去寻找一个最佳的策略，然后可以得到一个\ ``最佳价值函数(Optimal Value Function)``\ 。
+
+Optimal Value Function 的定义是说，去搜索一种 policy π
+，然后会得到每个状态它的状态值最大的一个情况，v∗
+就是到达每一个状态，它的值的极大化情况。
+
+在这种极大化情况上面，得到的策略就可以说它是最佳策略(optimal
+policy)。Optimal policy 使得每个状态，它的状态函数都取得最大值。
+
+所以当说某一个 MDP 的环境被解了过后，就是说可以得到一个 optimal value
+function，然后就说它被解了。在这种情况下面，然后它的最佳的价值函数是一致的，就它达到了这个
+upper bound，它的值是一致的，但是这里可能有多个最佳的 policy，多个
+policy 可以取得相同的最佳价值。
+
+**Finding Optimal Policy**
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330574.png#pic_center
+   :alt: 
+
+寻找这个最佳的 policy
+，这里一个隐含条件是当取得最佳的价值函数过后，其实可以通过对这个 Q
+函数进行极大化，然后得到最佳的价值。当所有东西都收敛过后，因为 Q
+函数是关于状态跟动作的一个函数，所以对某一个状态采取一个行为，然后可以使得这个
+Q 函数最大化，那么就这个行为就应该是最佳的行为。所以当能优化出一个 Q
+函数，可以直接在这个 Q 函数上面取一个让这个 action
+最大化的值，就可以直接提取出它的最佳策略。
+
+**Policy Search**
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330425.png#pic_center
+   :alt: image-20201023204943952
+
+
+这里一种策略搜索办法是可以去穷举。假设有有限多个状态、有限多个行为可能性，那么每个状态可以采取这个
+A 种行为的策略，那么总共就是 :math:`|A|^{|S|}` 个可能的
+policy。那么有一种方法是直接可以把这个把穷举一遍，然后算出每种策略的
+value function，然后对比一下可以得到最佳策略。
+
+但是一个问题是这样的穷举非常没有效率，所以要采取另外的一些办法，所以在解这个搜索最佳策略的方法有两种比较常用的方法：一种是叫
+``policy iteration``\ ，另外一种是叫 ``value iteration`` 的一个方法。
+
+（4）Policy Iteration
+~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330677.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201023205038849
+
+
+policy iteration 也是一个迭代算法。它主要由两个步骤组成:
+
+-  **第一个步骤是 policy
+   evaluation**\ ，就跟之前说的这个评价一个已有的这个价值函数的价值是一致的，就是当前在优化这个
+   policy ，所以在优化过程中得到一个最新的这个 policy 。让先保证这个
+   policy 不变，那么去估计它出来的这个价值。给定当前的policy
+   function，去估计这个 v 函数。
+-  取得 v 函数过后，可以进一步推算出它的 Q 函数。得到 Q
+   函数过后，那就直接去取它的极大化。在 Q
+   函数上面取极大化，\ **这样就有了第二步骤：改进它的策略。**\ 通过在这个
+   Q 函数上面做一个贪心的搜索，这样就会进一步改进它的策略。
+-  这两个步骤就一直是在迭代进行，所以在这个 policy iteration
+   里面，在初始化的时候，有一个初始化的 V 和 π
+   。然后就是在这两个过程之间迭代，左边这幅图上面这根曲线就是当前这个 v
+   的值，下面是 policy 的值。就跟踢皮球一样，先给定当前已有的这个 policy
+   function，然后去算它的这个 v。算出 v 过后，会得到一个 Q 函数，Q
+   函数采取 greedy 的策略，这样有踢皮球，踢回这个 policy
+   。然后就会进一步改进那个 policy ，得到一个改进的 policy
+   过后，它还不是最佳的，再进行 policy evaluation，然后又会得到一个新的
+   value function。基于这个新的 value function 再进行 Q 函数的极大化
+   ，这样就逐渐迭代，然后就会得到收敛。
+
+**Policy Improvement**
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330566.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: image-20201023205131193
+
+
+当得到这个 v 值过后，就可以通过这个 reward function
+以及状态转移把它的这个 Q-function
+算出来。对于每一个状态，第二个步骤会得到它的一个新一轮的这个 policy
+，就在每一个状态，去取使它得到最大值的 action。你可以把这个 Q
+函数看成一个 Q-table。横轴是它的所有状态，纵轴是它的可能的 action。Q
+函数得到过后，\ ``Q-table`` 就得到了。
+
+那么对于某一个状态，每一列里面会取最大的那个值，最大值对应的那个 action
+就是它现在应该采取了更佳的action。所以你看这里下面这个 arg max
+操作就说在每个状态里面，去采取一个 action，这个 action 就是能使这一列的
+Q 最大化的那个动作。
+
+**Monotonic Improvement in Policy**
+
+|image0|.
+
+当改进停止过后，取它极大化的这个 action
+之后，它直接就会变成它的这个价值函数\ :math:`q^π(s,π′(s))=max_{a\in A}q^π(s,a)=q^π(s,π(s))=v^π(s)`,
+有了一个新的等式:
+
+.. math::
+
+
+   v ^ π
+    (s)= max_{a \in A} q^π(s,a)
+
+上式被称为 ``Bellman Optimality Equation``\ 。\ **这个 Bellman
+Optimality Equation 满足的时候，是说整个 MDP
+已经到达最佳的状态。**\ 它到达最佳状态过后，对于这个 Q 函，取它最大的
+action 时候的那个值，就是直接等于它的最佳的这个 value
+function。只有当整个状态已经收敛过后，得到一个最佳的 policy
+的时候，这个条件才是满足的。
+
+（5）Bellman Optimality Equation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330650.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+最佳的价值函数到达过后，这个 Bellman Optimlity Equation
+就会满足。满足过后，就有这个 max 操作，当取最大的这个 action
+的时候对应的那个值就是当前那个状态的最佳的价值函数。
+
+可以把第一个等式插入到第二个等式里面去，然后就会得到这个 Q
+函数之间的这个转移。它下一步这个状态取了这个 max
+这个值过后，就会也跟它下一个最佳的这个状态等价。
+
+（6）Value Iteration
+~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330673.png#pic_center
+   :alt: image-20201023205623521
+
+
+**Value iteration 说的是把 Bellman Optimality Equation 当成一个 update
+rule
+来进行。**\ 之前是说上面这个等式只有当整个状态已经到达最佳状态的时候，然后才满足。但这里可以把它转换成一个
+backup 的等式。 Backup 就是说一个迭代的等式，不停地去迭代 Bellman
+Optimality Equation，到了最后，它能逐渐趋向于最佳的策略，所以这也是
+value iteration 算法的精髓，就是去为了得到最佳的v∗ ，对于每个状态它的 v∗
+这个值，直接把这个 Bellman Optimality Equation
+进行迭代，迭代了很多次之后它就会收敛。
+
+具体算法如下：
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+**Policy Iteration & Value Iteration 的区别**
+
+.. figure:: https://img-blog.csdnimg.cn/20201023210330732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+再来对比下 policy iteration 和 value iteration，这两个算法都可以解 MDP
+的控制问题。
+
+-  Policy iteration 由两部分组成：policy evaluation 和 policy
+   improvement。它很清楚地把这个过程分成了两步，就首先对于当前已经搜索到的策略函数，然后对它进行一个估值，得到估值过后，把
+   Q 函数算出来，进一步进行改进。
+-  但对于 value iteration 的话，它是直接把 Bellman Optimality Equation
+   拿进来，然后直接去寻找最佳的 value function，没有 policy function
+   在这里面，当把这个 optimal value function
+   算出来过后，那可以在最后再执行一步这个提取过程，最佳策略提取过程。这样就可以把它的最佳策略抽取过来。
+
+（7）Prediction & Control in MDP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201022230155221.png#pic_center
+   :alt: 
+
+这里是一个总结，就对于 MDP 里面的 prediction 和 control
+都是用动态规划来讲，其实采取了不同的 Bellman Equation。
+
+-  如果是一个 prediction 的问题，即 policy evaluation
+   的问题，那就直接是把这个 Bellman Expectation Equation
+   拿进来，就是不停地 run 这个 Bellman Expectation
+   Equation，这样就可以去估计出给定的这个策略，然后可以得到的价值函数。
+-  对于 control，
+-  如果采取的算法是 policy iteration，那这里用的是 Bellman Expectation
+   Equation
+   。把它分成两步，先上它的这个价值函数，再去优化它的策略，然后不停迭代。这里用到的只是
+   Bellman Expectation Equation。
+-  如果采取的算法是 value iteration，那这里用到的 Bellman Equation 就是
+   Bellman Optimality Equation，通过 arg max 这个过程，不停地去 arg max
+   它，最后它就会达到最优的状态。
+
+三、表格型方法
+==============
+
+【DataWhale打卡】百度的强化学习课程，通俗易懂，主要讲了Q-Learning，例子很多，生动形象。
+
+1. Q-table概念
+--------------
+
+Q-table类似生活手册，在遇到一种特定的状态，会提供不同的动作，并且可以知道对应的价值。
+
+.. math::
+
+
+   Q(S,A)
+
+我们可以为每一个状态（state）上进行的每一个动作（action）计算出最大的未来奖励（reward）的期望。
+
+2. SARSA
+--------
+
+.. figure:: https://img-blog.csdnimg.cn/2020112217114647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+这个公式就是说可以拿下一步的 Q 值\ :math:`Q(S_{t+_1},A_{t+1})`
+来更新我这一步的 Q 值 :math:`Q(S_t,A_t)`
+
+为了理解这个公式，如上图所示，我们先把
+:math:`R_{t+1}+\gamma Q\left(S_{t+1}, A_{t+1}\right.)`
+当作是一个目标值，就是
+:math:`Q(S_t,A_t)`\ 想要去逼近的一个目标值。我们想要计算的就是
+:math:`Q(S_t,A_t)` 。\ **因为最开始 Q
+值都是随机初始化或者是初始化为零，它需要不断地去逼近它理想中真实的 Q
+值，我们就叫 target 。Target 就是带衰减的未来收益的总和。**
+
+我们用 :math:`G_t` 来表示未来收益总和(return)，并且对它做一下数学变化：
+
+.. math::
+
+
+   \begin{aligned} G_{t} &=R_{t+1}+\gamma R_{t+2}+\gamma^{2} R_{t+3}+\gamma^{3} R_{t+4}+\cdots \\ &=R_{t+1}+\gamma\left(R_{t+2}+\gamma R_{t+3}+\gamma^{2} R_{t+4}+\cdots\right) \\ &=R_{t+1}+\gamma G_{t+1} \end{aligned}
+
+就可以知道 :math:`G_t = R_{t+1}+ \gamma G_{t+1}`\ 。
+
+拿 :math:`Q(S_t,A_t)` 来逼近 :math:`G_t`\ ，那
+:math:`Q(S_{t+1},A_{t+1})` 其实就是近似 :math:`G_{t+1}`\ 。我就可以用
+:math:`Q(S_{t+1},A_{t+1})` 近似 :math:`G_{t+1}`\ ，然后把
+:math:`R_{t+1}+Q(S_{t+1},A_{t+1})`\ 当成目标值。
+
+**该算法由于每次更新值函数需要知道当前的状态(state)、当前的动作(action)、奖励(reward)、下一步的状态(state)、下一步的动作(action)，由此得名
+``Sarsa`` 算法**\ 。它走了一步之后，拿到了
+:math:`(S_{t}, A_{t}, R_{t+1}, S_{t+1}, A_{t+1})`\ 之后，就可以做一次更新。
+
+Sarsa 是一种 **on-policy** 策略。Sarsa
+优化的是它实际执行的策略，它直接拿下一步会执行的 action 来去优化 Q
+表格，所以 on-policy 在学习的过程中，只存在一种策略，它用一种策略去做
+action 的选取，也用一种策略去做优化。所以 Sarsa
+知道它下一步的动作有可能会跑到悬崖那边去，所以它就会在优化它自己的策略的时候，会尽可能的离悬崖远一点。这样子就会保证说，它下一步哪怕是有随机动作，它也还是在安全区域内。
+
+3. Q-learning
+-------------
+
+off-policy 在学习的过程中，有两种不同的策略:
+
+-  第一个策略是我们需要去学习的策略，即\ ``target policy(目标策略)``\ ，一般用
+   π 来表示，Target policy
+   就像是在后方指挥战术的一个军师，它可以根据自己的经验来学习最优的策略，不需要去和环境交互。
+-  另外一个策略是探索环境的策略，即\ ``behavior policy(行为策略)``\ ，一般用
+   μ 来表示。μ
+   可以大胆地去探索到所有可能的轨迹，采集轨迹，采集数据，然后把采集到的数据喂给
+   target policy 去学习。而且喂给目标策略的数据中并不需要
+   :math:`A_{t+1}` ，而 Sarsa 是要有 :math:`A_{t+1}` 的。Behavior policy
+   像是一个战士，可以在环境里面探索所有的动作、轨迹和经验，然后把这些经验交给目标策略去学习。比如目标策略优化的时候，Q-learning
+   才不管你下一步去往哪里探索，会不会掉进悬崖，我就只选我收益最大一个最优的策略。
+
+**Off-policy learning 有很多优点：**
+
+-  我们可以利用 exploratory policy 来学到一个最佳的策略，学习效率高；
+-  可以让我们学习其他 agent 的行为，模仿学习，学习人或者其他 agent
+   产生的轨迹；
+-  重用老的策略产生的轨迹。探索过程需要很多计算资源，这样的话，可以节省资源。
+
+Q-learning 的算法有两种 policy：\ **behavior policy 和 target
+policy**\ 。
+
+-  Target policy π 直接在 Q-table 上取
+   greedy，就取它下一步能得到的所有状态，(确定性策略)如下式所示：
+
+.. math::
+
+
+   \pi\left(S_{t+1}\right)=\underset{a^{\prime}}{\arg \max}~ Q\left(S_{t+1}, a^{\prime}\right)
+
+-  Behavior policy μ 可以是一个随机的 policy，但我们采取
+   :math:`\varepsilon\text{-greedy}`\ ，让 behavior policy
+   不至于是完全随机的，它是基于 Q-table 逐渐改进的（探索性策略）。
+
+Target Policy更新公式：
+
+.. math::
+
+
+   Q(S_t,A_t)←Q(S_t,A_t)+α[R_{t+1}+γmax_a Q(S_{t+1},a)−Q(S_t,A_t)]
+
+**Sarsa 和 Q-learning 的更新公式都是一样的，区别只在 target
+计算的这一部分，**
+
+-  Sarsa 是 :math:`R_{t+1}+\gamma Q(S_{t+1}, A_{t+1})`\ ；
+-  Q-learning 是
+   :math:`R_{t+1}+\gamma \underset{a}{\max} Q\left(S_{t+1}, a\right)` 。
+
+Sarsa 是用自己的策略产生了 S,A,R,S',A' 这一条轨迹。然后拿着
+:math:`Q(S_{t+1},A_{t+1})`\ 去更新原本的 Q 值 :math:`Q(S_t,A_t)`\ 。
+
+Q-learning 并不需要知道我实际上选择哪一个 action ，它默认下一个动作就是
+Q 最大的那个动作。Q-learning 知道实际上 behavior policy 可能会有 10%
+的概率去选择别的动作，但 Q-learning
+并不担心受到探索的影响，它默认了就按照最优的策略来去优化目标策略，所以它可以更大胆地去寻找最优的路径，它会表现得比
+Sarsa 大胆非常多。
+
+4. On-policy vs Off-policy
+--------------------------
+
+-  Sarsa 是一个典型的 on-policy 策略，它只用了一个 policy π 。如果
+   policy 采用 ε-greedy
+   算法的话，它需要兼顾探索，为了兼顾探索和利用，它训练的时候会显得有点胆小怕事。它在解决悬崖问题的时候，会尽可能地离悬崖边上远远的，确保说哪怕自己不小心探索了一点，也还是在安全区域内。此外，因为采用的是
+   ε-greedy 算法，策略会不断改变(ε 会不断变小)，所以策略不稳定。
+-  Q-learning 是一个典型的 off-policy 的策略，它有两种策略：target
+   policy 和 behavior policy。它分离了目标策略跟行为策略。Q-learning
+   就可以大胆地用 behavior policy
+   去探索得到的经验轨迹来去优化目标策略，从而更有可能去探索到最优的策略。Behavior
+   policy 可以采用 ε-greedy 算法，但 target policy 采用的是 greedy
+   算法，直接根据 behavior policy 采集到的数据来采用最优策略，所以
+   Q-learning 不需要兼顾探索。
+-  比较 Q-learning 和 Sarsa 的更新公式可以发现，Sarsa 并没有选取最大值的
+   max 操作。
+-  因此，Q-learning 是一个非常激进的算法，希望每一步都获得最大的利益；
+-  而 Sarsa 则相对非常保守，会选择一条相对安全的迭代路线。
+
+5. 参考文献
+-----------
+
+https://datawhalechina.github.io/leedeeprl-notes/#/chapter3/chapter3?id=temporal-difference
+
+https://mp.weixin.qq.com/s/34E1tEQMZuaxvZA66\_HRwA
+
+https://www.bilibili.com/video/BV1yv411i7xd?p=6
+
+四、Policy Gradient
+===================
+
+【Datawhale打卡】十一的时候自己看过一遍，李宏毅老师讲的很好，对数学小白也很友好，但是由于没有做笔记（敲代码），看完以后脑袋里空落落的。趁着这次打卡活动，重新看一遍，果然好多细节需要重头梳理一遍。
+
+1. 新概念/符号
+--------------
+
+-  **policy（策略）：**
+   每一个actor中会有对应的策略，这个策略决定了actor的行为。(给定一个state，policy会决定action)。\ **policy记为
+   :math:`\pi` 。**
+-  **Return（回报）：**
+   一个回合（Episode）所得到的所有的reward的总和，也称为Total
+   reward。\ **一般地，用 :math:`R` 来表示。**
+-  **Trajectory（轨迹 :math:`\tau` ）：** 一个试验中将environment 输出的
+   :math:`s` 跟 actor 输出的行为 :math:`a`\ ，把这个 :math:`s` 跟
+   :math:`a` 全部串起来形成的集合，称为Trajectory，即
+   :math:`\text { Trajectory } \tau=\left\{s_{1}, a_{1}, s_{2}, a_{2}, \cdots, s_{t}, a_{t}\right\}`\ 。
+-  **Reward function：** 根据在某一个 state 采取的某一个 action
+   决定说现在这个行为可以得到多少的分数，它是一个 function。也就是给一个
+   :math:`s_1`\ ，\ :math:`a_1`\ ，它告诉你得到 :math:`r_1`\ 。给它
+   :math:`s_2` ，\ :math:`a_2`\ ，它告诉你得到 :math:`r_2`\ 。 把所有的
+   :math:`r` 都加起来，就得到了 :math:`R(\tau)` ，代表某一个 trajectory
+   :math:`\tau` 的 reward。
+-  **Expected reward：**
+   :math:`\bar{R}_{\theta}=\sum_{\tau} R(\tau) p_{\theta}(\tau)=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)]`\ 。
+
++------------------+-----------------------------------------------------------------------------------------------------------------+
+| 符号             | 解释                                                                                                            |
++==================+=================================================================================================================+
+| :math:`\tau`     | 轨迹，游戏从开始到结束的s、a串（\ :math:`\left\{s_{1}, a_{1}, s_{2}, a_{2}, \cdots, s_{t}, a_{t}\right\}`\ ）   |
++------------------+-----------------------------------------------------------------------------------------------------------------+
+| episode          | 一个游戏回合，从开始到结束                                                                                      |
++------------------+-----------------------------------------------------------------------------------------------------------------+
+| :math:`\pi`      | Policy 策略的代指符号                                                                                           |
++------------------+-----------------------------------------------------------------------------------------------------------------+
+| :math:`\theta`   | Policy :math:`\pi`\ 中的参数                                                                                    |
++------------------+-----------------------------------------------------------------------------------------------------------------+
+
+2. 三个组成部分
+---------------
+
+.. figure:: https://img-blog.csdnimg.cn/20201029122722788.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 示意图
+
+   示意图
+
+强化学习通常有以下组成部分，actor, environment,
+reward。具体过程如上图所示，构成了一个完整的轨迹Trajectory:
+
+.. math::
+
+
+   \text { Trajectory } \tau=\left\{s_{1}, a_{1}, s_{2}, a_{2}, \cdots, s_{t}, a_{t}\right\}
+
+每一个 trajectory，你可以计算它发生的概率。假设现在 actor
+的参数已经被给定了话，就是 :math:`\theta`\ 。根据
+:math:`\theta`\ ，你其实可以计算某一个 trajectory
+发生的概率，你可以计算某一个回合，某一个 episode 里面，
+发生这样子状况的概率。
+
+.. math::
+
+
+   \begin{aligned}
+   p_{\theta}(\tau)
+   &=p\left(s_{1}\right) p_{\theta}\left(a_{1} | s_{1}\right) p\left(s_{2} | s_{1}, a_{1}\right) p_{\theta}\left(a_{2} | s_{2}\right) p\left(s_{3} | s_{2}, a_{2}\right) \cdots \\
+   &=p\left(s_{1}\right) \prod_{t=1}^{T} p_{\theta}\left(a_{t} | s_{t}\right) p\left(s_{t+1} | s_{t}, a_{t}\right)
+   \end{aligned}
+
+    注：以上的P函数分为两种！
+
+    1
+    :math:`p\left(s_{t+1} | s_{t}, a_{t}\right)`\ 函数代表环境，当前环境，如果在状态st下使用at，转化到\ :math:`s_{t+1}`\ 的概率。
+
+    2
+    :math:`p_{\theta}(a_t|s_t)`\ 函数代表actor/agent的policy，如果在状态st下使用at的概率。
+
+**Reward Function:** 根据在某一个 state 采取的某一个 action
+决定说现在这个行为可以得到多少的分数。
+
+给它 :math:`s_1`\ ，\ :math:`a_1`\ ，它告诉你得到 :math:`r_1`\ 。给它
+:math:`s_2` ，\ :math:`a_2`\ ，它告诉你得到 :math:`r_2`\ 。 把所有的
+:math:`r` 都加起来，就得到了 :math:`R(\tau)` ,
+目标就是通过调整actor的参数\ :math:`\theta`,
+让R的值越大越好。由于actor采取action的时候存在随机性，所以R也是一个随机变量，采用以下公式估计其期望值：
+
+.. math::
+
+
+   \bar{R}_{\theta}=\sum_{\tau} R(\tau) p_{\theta}(\tau)=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)]
+
+这个计算方式也就是：穷举所有可能的 trajectory :math:`\tau`\ ， 每一个
+trajectory :math:`\tau` 都有一个概率。同时也可以表达为期望的形式，从
+:math:`p_{\theta}(\tau)` 这个 distribution sample 一个 trajectory
+:math:`\tau`\ ，然后计算 :math:`R(\tau)` 的期望值，就是你的 expected
+reward。 目标就是 maximize expected reward。
+
+3. Gradient Ascent
+------------------
+
+对以下式子希望得到maximize expected reward, 要使用Gradient
+Ascent算法，先计算R的梯度gradient。
+
+.. math::
+
+
+   \bar{R}_{\theta}=\sum_{\tau} R(\tau) p_{\theta}(\tau)
+
+由于只有\ :math:`p_{\theta}(\tau)`\ 是和参数\ :math:`\theta`\ 相关的，所以梯度只需要对这部分求即可。
+
+存在以下公式：
+
+由：
+
+.. math::
+
+
+   \frac{d(lnx)}{dx}=\frac{1}{x}
+
+得：
+
+.. math::
+
+
+   \nabla f(x)=f(x)\nabla logf(x)
+
+ 所以带入\ :math:`p_\theta`\ 以后有：
+
+.. math::
+
+
+   \frac{\nabla p_\theta(\tau)}{p_\theta(\tau)}=\nabla log p_\theta(\tau)
+
+ 推导过程如下：
+
+.. math::
+
+
+   \begin{aligned}
+   \nabla \bar{R}_{\theta}&=\sum_{\tau} R(\tau) \nabla p_{\theta}(\tau)\\&=\sum_{\tau} R(\tau) p_{\theta}(\tau) \frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)} \\&=
+   \sum_{\tau} R(\tau) p_{\theta}(\tau) \nabla \log p_{\theta}(\tau) \\
+   &=E_{\tau \sim p_{\theta}(\tau)}\left[R(\tau) \nabla \log p_{\theta}(\tau)\right]
+   \end{aligned}
+
+
+最终是一个期望，这个期望无法直接计算，只能通过sample一些轨迹\ :math:`\tau`,
+求解器平均值来计算梯度，有了梯度以后就可以更新参数，具体公式如下：
+
+.. math::
+
+
+   \begin{aligned}
+   E_{\tau \sim p_{\theta}(\tau)}\left[R(\tau) \nabla \log p_{\theta}(\tau)\right] &\approx \frac{1}{N} \sum_{n=1}^{N} R\left(\tau^{n}\right) \nabla \log p_{\theta}\left(\tau^{n}\right) \\
+   &=\frac{1}{N} \sum_{n=1}^{N} \sum_{t=1}^{T_{n}} R\left(\tau^{n}\right) \nabla \log p_{\theta}\left(a_{t}^{n} \mid s_{t}^{n}\right)
+   \end{aligned}
+
+    注: :math:`p_{\theta}(\tau)`
+    里面有两项，\ :math:`p(s_{t+1}|s_t,a_t)` 来自于
+    environment，\ :math:`p_\theta(a_t|s_t)` 是来自于 agent。
+
+    :math:`p(s_{t+1}|s_t,a_t)` 由环境决定从而与 :math:`\theta`
+    无关，因此 :math:`\nabla \log p(s_{t+1}|s_t,a_t) =0`\ 。因此
+    :math:`\nabla p_{\theta}(\tau)= \nabla \log p_{\theta}\left(a_{t}^{n} | s_{t}^{n}\right)`\ 。
+
+然后对推导得到的最终结果进行定性解释：
+
+-  在sample到的轨迹中，某一个状态\ :math:`s_t`,
+   要执行动作\ :math:`a_t`\ 。
+
+-  如果\ :math:`R(\tau)`\ 是正的，那就要增加\ :math:`(s_t,a_t)`\ 的概率，让actor能够在下一次遇到\ :math:`s_t`\ 以后能以更高的概率选中\ :math:`a_t`\ 。
+-  为负同理。
+
+4. 实现/实做
+------------
+
+具体实现过程如下：
+
+.. math::
+
+
+   \theta \leftarrow \theta+\eta \nabla \bar{R_\theta} \\
+   \nabla \bar{R_\theta}=\frac{1}{N}\sum^N_{n=1}\sum^{T_n}_{t=1}R(\tau^n)\nabla log p_\theta(a_t^n|s_t^n)
+
+还需要收集一系列s和a的pair，以及对应的reward。将sample得到的s和a组成的pair带入到上面的gradient的式子中，然后计算其log
+probablitiy，然后取gradient，然后就可以进行更新了。
+
+这一点和分类问题中的交叉熵有一点类似，可以按照以下方法进行理解：
+
+.. math::
+
+
+   \text{标签值}\times log(\text{标签对应的概率})
+
+这样就和以上做到了形式上的一致（不是很严谨）。RL和一般分类问题不同的地方是loss前面乘上了weight
+R。
+
+在这里会需要乘以一个奖励回报 :math:`R`\ 。这个奖励回报相当于是对这个真实
+action 的评价，\ :math:`R`
+具体越大，未来总收益越大，说明当前输出的这个真实的 action 就越好，这个
+loss 就越需要重视。如果 :math:`R` 越小，那就说明做这个 action
+:math:`a_t` 并没有那么的好，loss 的权重就要小一点，优化力度就小一点。
+
+（1）TIP1 Add a Baseline
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+
+   \theta \leftarrow \theta+\eta \nabla \bar{R_\theta} \\
+   \nabla \bar{R_\theta}=\frac{1}{N}\sum^N_{n=1}\sum^{T_n}_{t=1}(R(\tau^n)-b)\nabla log p_\theta(a_t^n|s_t^n) \\
+   b \approx E[R(\tau)]
+
+.. figure:: https://img-blog.csdnimg.cn/20201029224610895.png#pic_center
+   :alt: 
+
+如果某些样本没有sample到，那其他动作的概率都会提升，它本身概率会下降，这就存在问题了，可以通过添加一个baseline，让reward不总是正的值。
+
+（2）TIP2 Assign Suitable Credit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+下面这个式子的话，
+
+.. math::
+
+
+   \nabla \bar{R}_{\theta} \approx \frac{1}{N} \sum_{n=1}^{N} \sum_{t=1}^{T_{n}}\left(R\left(\tau^{n}\right)-b\right) \nabla \log p_{\theta}\left(a_{t}^{n} \mid s_{t}^{n}\right)
+
+原来会做的事情是，在某一个 state，假设你执行了某一个 action a，它得到的
+reward ，它前面乘上的这一项 :math:`R(\tau^n)-b`,
+这个值就可以理解为，当前s下使用动作a以后的好坏程度。
+
+:math:`R(\tau^n)`
+代表整个episode执行完以后得到的结果，由于强化学习具有延迟奖励的特点，可以考虑\ **以下改进**\ ：更关注于近期得到的奖励，长远奖励要被削弱。这个想法实现如下：
+
+.. math::
+
+
+   \nabla \bar{R}_{\theta} \approx \frac{1}{N} \sum_{n=1}^{N} \sum_{t=1}^{T_{n}}\left(\sum_{t'=t}^{T_n}\gamma^{t'-t}r_{t'}^n-b\right) \nabla \log p_{\theta}\left(a_{t}^{n} \mid s_{t}^{n}\right)
+
+其中\ :math:`\gamma`\ 代表的是0-1之间的小数，用于削弱长远的奖励，这就是discount
+fastor:
+
+-  一般会设个 0.9 或 0.99，
+
+-  :math:`\gamma = 0` : 只关心即时奖励；
+-  :math:`\gamma = 1` : 未来奖励等同于即时奖励。
+
+然后就可以顺利引入Advantage
+Function，这个函数是依赖于状态s和动作a的，如下所示：
+
+.. math::
+
+
+   A^\theta(s_t,a_t)
+
+代表在\ :math:`s_t`\ 状态下执行动作\ :math:`a_t`\ 到底有多好，可以带来多大的奖励。这个”好“代表的是相对优势，因为会减掉baseline，这个函数通常可以是由一个network（critic）估计出来的。
+
+5. MC & TD
+----------
+
+策略梯度可以用蒙特卡洛算法(MC)或者时序差分算法(TD)求解。
+
+（1）MC-REINFORCE
+~~~~~~~~~~~~~~~~~
+
+蒙特卡洛算法是回合更新，常见算法是REINFORCE。
+
+.. math::
+
+
+   \nabla \bar{R}_{\theta} \approx \frac{1}{N} \sum_{n=1}^{N} \sum_{t=1}^{T_{n}}G_t^n \nabla \log p_{\theta}\left(a_{t}^{n} \mid s_{t}^{n}\right)
+
+可以理解为完成一个episode以后，拿这个episode的数据去学习，然后做一次更新。
+
+:math:`G_t` 是未来总收益，\ :math:`G_t` 代表是从这个 step
+后面，能拿到的收益之和是多少。
+
+在代码上的处理上是先拿到每个 step 的 reward，然后计算每个 step
+的未来总收益 :math:`G_t` 是多少，然后拿每个 :math:`G_t`
+代入公式，去优化每一个 action 的输出。
+
+编写代码时会有这样一个函数，输入每个 step 拿到的 reward，把这些 reward
+转成每一个 step 的未来总收益。因为未来总收益是这样计算的：
+
+.. math::
+
+
+   \begin{aligned}
+   G_{t} &=\sum_{k=t+1}^{T} \gamma^{k-t-1} r_{k} \\
+   &=r_{t+1}+\gamma G_{t+1}
+   \end{aligned}
+
+|image1|
+
+先产生一个 episode 的数据，比如
+:math:`(s_1,a_1,G_1),(s_2,a_2,G_2),\cdots,(s_T,a_T,G_T)`\ 。然后针对每个
+action 来计算梯度。
+
+在代码上计算时，要拿到神经网络的输出。神经网络会输出每个 action
+对应的概率值，然后还可以拿到实际的 action，把它转成 one-hot
+向量乘一下，可以拿到 :math:`\ln \pi(A_t|S_t,\theta)` 。
+
+.. figure:: https://img-blog.csdnimg.cn/20201029224812214.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: REINFORCE流程图
+
+   REINFORCE流程图
+
+（2）TD-Actor Critic
+~~~~~~~~~~~~~~~~~~~~
+
+时序差分是单步更新，更新频率更高，这里用Q-function来近似表示未来的收益。
+
+.. math::
+
+
+   \nabla \bar{R}_{\theta} \approx \frac{1}{N} \sum_{n=1}^{N} \sum_{t=1}^{T_{n}}Q^n(s_t^n,a^n_t) \nabla \log p_{\theta}\left(a_{t}^{n} \mid s_{t}^{n}\right)
+
+时序差分强化学习能够在知道结果之前就开始学习，相比蒙特卡洛强化学习，其更快速、灵活。
+
+6. 问答
+-------
+
+Q: 在一个process中，一个具体的trajectory :math:`s_1`,\ :math:`a_1`,
+:math:`s_2` , :math:`a_2` 出现的概率取决于什么？
+
+A：
+
+1. 一部分是 **environment 的行为**\ ， environment 的 function
+   它内部的参数或内部的规则长什么样子。
+   :math:`p(s_{t+1}|s_t,a_t)`\ 这一项代表的是 environment， environment
+   这一项通常你是无法控制它的，因为那个是人家写好的，或者已经客观存在的。
+2. 另一部分是 **agent 的行为**\ ，你能控制的是
+   :math:`p_\theta(a_t|s_t)`\ 。给定一个 :math:`s_t`\ ， actor
+   要采取什么样的 :math:`a_t` 会取决于你 actor 的参数 :math:`\theta`\ ，
+   所以这部分是 actor 可以自己控制的。随着 actor 的行为不同，每个同样的
+   trajectory， 它就会有不同的出现的概率。
+
+--------------
+
+Q: 可以使用哪些方法来进行gradient ascent的计算？
+
+A：用 gradient ascent 来 update 参数，对于原来的参数 :math:`\theta`
+，可以将原始的 :math:`\theta` 加上更新的 gradient 这一项，再乘以一个
+learning rate，learning rate 其实也是要调的，和神经网络一样，可以使用
+Adam、RMSProp 等优化器对其进行调整。
+
+--------------
+
+Q: Advantage Function作用：
+
+A: 在某一个 state :math:`s_t` 执行某一个 action
+:math:`a_t`\ ，相较于其他可能的
+action，它有多好。它在意的不是一个绝对的好，而是相对的好，即相对优势(relative
+advantage)。因为会减掉一个 b，减掉一个 baseline，
+所以这个东西是相对的好，不是绝对的好。
+:math:`A^{\theta}\left(s_{t}, a_{t}\right)` 通常可以是由一个 network
+estimate 出来的，这个 network 叫做 critic。
+
+--------------
+
+Q:对于梯度策略的两种方法，蒙特卡洛（MC）强化学习和时序差分（TD）强化学习两个方法有什么联系和区别
+
+A:
+**两者的更新频率不同**\ ，蒙特卡洛强化学习方法是\ **每一个episode更新一次**\ ，即需要经历完整的状态序列后再更新（比如贪吃蛇游戏，贪吃蛇“死了”游戏结束后再更新）
+
+对于时序差分强化学习方法是\ **每一个step就更新一次**
+，（比如贪吃蛇游戏，贪吃蛇每移动一次（或几次）就进行更新）。相对来说，时序差分强化学习方法比蒙特卡洛强化学习方法更新的频率更快。
+
+时序差分强化学习能够在知道一个小step后就进行学习，相比于蒙特卡洛强化学习，其更加\ **快速、灵活**\ 。
+
+7. 参考
+-------
+
+-  `Intro to Reinforcement Learning
+   (强化学习纲要） <https://github.com/zhoubolei/introRL>`__
+-  `神经网络与深度学习 <https://nndl.github.io/>`__
+
+五、Proximal Policy Optimization
+================================
+
+【DataWhale导读】李宏毅老师的深度强化学习之PPO（近端策略优化）部分内容。
+
+1. 概念/关键词
+--------------
+
++-----------------------------------------------+------------------------------------------------------------------------------------------+
+| 名称                                          | 解释                                                                                     |
++===============================================+==========================================================================================+
+| On-Policy                                     | 学习的agent和与环境互动的agent是同一个（自己打王者）                                     |
++-----------------------------------------------+------------------------------------------------------------------------------------------+
+| Off-Policy                                    | 学习的agent和与环境互动的agent不是同一个（学习主播打王者）                               |
++-----------------------------------------------+------------------------------------------------------------------------------------------+
+| :math:`A^{\theta}\left(s_{t}, a_{t}\right)`   | Advantage Function                                                                       |
++-----------------------------------------------+------------------------------------------------------------------------------------------+
+| importance sampling                           | 使用另外一种数据分布，来逼近所求分布的一种方法，在强化学习中通常和蒙特卡罗方法结合使用   |
++-----------------------------------------------+------------------------------------------------------------------------------------------+
+
+2. from on-policy to off-policy
+-------------------------------
+
+上一篇文章讲的是Policy Gradient,
+这是一种on-policy的做法，因为这个算法是一边跟环境互动，一边按照Policy
+Gradient的公式来更新\ :math:`\pi`\ 的参数。
+
+off-policy就是让当前agent学习另外一个agent经历过的轨迹，从而学习到策略，这个过程中可以重复利用采样得到的数据。
+
+**Importance Sampling(重要性采样)**
+
+    重要性采样是蒙特卡洛积分的一种采样策略，详解：https://zhuanlan.zhihu.com/p/41217212
+
+简单解释一下，下面是一个普通的期望，\ :math:`x^i`\ 是从p(x)中采样的，可以获取到的。
+
+.. math::
+
+
+   E_{x\sim p}[f(x)]\approx\frac{1}{N}\sum^N_{i=1}f(x^i) \\
+   x^i \text{is sampled from } p(x)
+
+添加一个约束，这里只有从q(x)中采样得到的\ :math:`x^i`\ （无法直接从p(x)中获取），那么如何计算这个期望呢？这就要用到重要性采样。
+
+.. math::
+
+
+   E_{x\sim p}[f(x)]=\int f(x)p(x)dx=\int f(x)\frac{p(x)}{q(x)}q(x)dx \\
+   =E_{x\sim q}[f(x)\frac{p(x)}{q(x)}]
+
+
+通过引入\ :math:`\frac{p(x)}{q(x)}`\ 这个weight，就可以将从p中sample数据的问题转化为从q中sample数据的问题。
+
+    ISSUE: 存在问题
+
+    虽然\ :math:`E_{x\sim p}[f(x)]=E_{x\sim q}[f(x)\frac{p(x)}{q(x)}]`,
+    但是两者的方差不同，如果两者\ :math:`\frac{p(x)}{q(x)}`\ 差距过大，这样估计出来的结果方差过大，无法正常使用。
+
+**将重要性采样引入Policy Gradient**
+
+上一篇讲的Policy Gradient公式:
+
+.. math::
+
+
+   \nabla \bar{R_\theta}=E_{\tau \sim p_\theta(\tau)}[R(\tau)\nabla log p_\theta(\tau)]
+
+>
+这种模式是让\ :math:`\theta`\ 和环境去做互动，然后sample得到Trajectory，计算对应梯度。
+
+为了将on-policy打造成off-policy方法，进行如下修改：
+
+.. math::
+
+
+   \nabla \bar{R_\theta}=E_{\tau \sim p_\theta '(\tau)}[\frac{p_\theta(\tau)}{p_{\theta '(\tau)}}R(\tau)\nabla log p_\theta(\tau)]
+
+也就是说，数据来源于\ :math:`p_{\theta'}`\ 中获取的，而不是\ :math:`p_{\theta}`\ 。
+
+    这种模型不需要\ :math:`\theta`\ 和环境互动，存在另外一个policy
+    :math:`\theta '`,
+    其工作就是和环境做互动，sample得到Trajectory就可以供\ :math:`\theta`\ 学习。
+
+**详细推导**
+
+Gradient for update
+
+.. math::
+
+
+   \nabla \bar{J}=E_{\left(s_{t}, a_{t}\right) \sim \pi_{\theta}}\left[A^{\theta}\left(s_{t}, a_{t}\right) \nabla \log p_{\theta}\left(a_{t}^{n} | s_{t}^{n}\right)\right] \\
+
+然后引入重要性采样：
+
+.. math::
+
+
+   =E_{\left(s_{t}, a_{t}\right) \sim \pi_{\theta '}}\left[\frac{P_\theta(s_t,a_t)}{P_{\theta '}(s_t,a_t)}A^{\theta '}\left(s_{t}, a_{t}\right) \nabla \log p_{\theta}\left(a_{t}^{n} | s_{t}^{n}\right)\right]
+
+ 注意A的角标也应该变成\ :math:`\theta '`\ 。然后展开重要性weight：
+
+.. math::
+
+
+   =E_{\left(s_{t}, a_{t}\right) \sim \pi_{\theta '}}\left[\frac{p_\theta(a_t|s_t)p_\theta(s_t)}{p_{\theta'}(a_t|s_t)p_{\theta '}(s_t)}A^{\theta '}\left(s_{t}, a_{t}\right) \nabla \log p_{\theta}\left(a_{t}^{n} | s_{t}^{n}\right)\right]
+
+
+其中\ :math:`\frac{p_\theta(s_t)}{p_{\theta '}(s_t)}`\ 可以消去，因为出现state的概率和\ :math:`\theta`\ 是没有关系的，和environment有关系，所以有\ :math:`p_{\theta}(s_t)=p_{\theta'}(s_t)`\ 。消去后得到：
+
+.. math::
+
+
+   \nabla {J}=E_{\left(s_{t}, a_{t}\right) \sim \pi_{\theta}}\left[\frac{p_\theta(a_t|s_t)}{p_{\theta'}(a_t|s_t)}A^{\theta '}\left(s_{t}, a_{t}\right) \nabla \log p_{\theta}\left(a_{t}^{n} | s_{t}^{n}\right)\right]
+
+
+可以通过\ :math:`\nabla f(x)=f(x) \nabla \log f(x)`\ 反推目标函数，由于过程太多，不便用markdown书写，具体过程如下图所示：
+
+.. figure:: https://img-blog.csdnimg.cn/20201030211620915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 推导过程
+
+   推导过程
+
+推到结果如下：
+
+.. math::
+
+
+   J^{\theta^{\prime}}(\theta)=E_{\left(s_{t}, a_{t}\right) \sim \pi_{\theta^{\prime}}}\left[\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{\prime}}\left(a_{t} | s_{t}\right)} A^{\theta^{\prime}}\left(s_{t}, a_{t}\right)\right]
+
+:math:`J^{\theta '}(\theta)`\ 中的\ :math:`\theta`\ 代表的是需要去optimize的参数，\ :math:`\theta ’`\ 代表真正跟环境互动的agent，通过\ :math:`\theta '`\ sample
+到的轨迹来让\ :math:`\theta`\ 学习。到这一步，就可以将on-policy替换成off-policy，但是需要满足一个条件，分子分母不能相差太多，如何让他们相差不多呢？PPO算法就是用来解决这个问题。
+
+3. PPO/TRPO
+-----------
+
+上面已经得到了目标函数，在此基础上，PPO添加了一个正则项。
+
+.. math::
+
+
+   J^{\theta '}_{PPO}(\theta)=J^{\theta '}(\theta)-\beta KL(\theta,\theta ')\\
+   J^{\theta^{\prime}}(\theta)=E_{\left(s_{t}, a_{t}\right) \sim \pi_{\theta^{\prime}}}\left[\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{\prime}}\left(a_{t} | s_{t}\right)} A^{\theta^{\prime}}\left(s_{t}, a_{t}\right)\right]
+
+可以看到区别在于\ :math:`\beta KL(\theta,\theta ')`, KL代表的是KL
+divergence散度，KL散度是用来衡量两个分布的相似程度，越相似，loss越小。
+
+.. math::
+
+
+   KL(p,q)=\sum_{i=1}^n p(x_i)log(\frac{p(x_i)}{q(x_i)})
+
+
+目标是最大化\ :math:`J^{\theta '}_{PPO}(\theta)`\ ，那就要最小化\ :math:`KL(\theta,\theta')`,也就是说两者分布越接近越好。KL散度衡量的不是参数上的距离，而是行为上的距离，对action的space距离进行衡量。
+
+**TRPO**
+
+TRPO是PPO的前身：
+
+.. math::
+
+
+   \begin{aligned}
+   J_{T R P O}^{\theta^{\prime}}(\theta)=E_{\left(s_{t}, a_{t}\right) \sim \pi_{\theta^{\prime}}}\left[\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{\prime}}\left(a_{t} | s_{t}\right)} A^{\theta^{\prime}}\left(s_{t}, a_{t}\right)\right] \\ \\
+   \mathrm{KL}\left(\theta, \theta^{\prime}\right)<\delta
+   \end{aligned}
+
+不同之处在于TRPO将KL散度作为约束条件，这种方法很难处理的，很难算（属于二次规划问题吧），最好还是使用PPO来求解，两者达到的效果差不多。
+
+（1）PPO-Penalty
+~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201030231115179.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+算法流程如上，先收集s,a组成的pair, 然后计算advantage
+function(具体如何计算不是很清楚目前，具体算法可能不一样)，最后根据PPO更新目标函数即可，\ :math:`\beta`\ 是一个超参数，可以通过以上式子进行动态控制。
+
+（2）PPO-Clip
+~~~~~~~~~~~~~
+
+也就是视频中提到的PPO2, 如下公式所示：
+
+.. math::
+
+
+   \begin{aligned}
+   J_{P P O 2}^{\theta^{k}}(\theta) \approx \sum_{\left(s_{t}, a_{t}\right)} \min &\left(\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)} A^{\theta^{k}}\left(s_{t}, a_{t}\right),\right.\\
+   &\left.\operatorname{clip}\left(\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}, 1-\varepsilon, 1+\varepsilon\right) A^{\theta^{k}}\left(s_{t}, a_{t}\right)\right)
+   \end{aligned}
+
+首先理解这个部分：
+
+.. math::
+
+
+   \operatorname{clip}\left(\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}, 1-\varepsilon, 1+\varepsilon\right)
+
+ |image2|
+
+上图的横轴是
+:math:`\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}`\ ，纵轴是
+clip function 的输出。
+
+-  如果
+   :math:`\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}`
+   大于\ :math:`1+\varepsilon`\ ，输出就是 :math:`1+\varepsilon`\ 。
+-  如果小于 :math:`1-\varepsilon`\ ， 它输出就是
+   :math:`1-\varepsilon`\ 。
+-  如果介于 :math:`1+\varepsilon` 跟 :math:`1-\varepsilon` 之间，
+   就是输入等于输出。
+
+.. figure:: https://img-blog.csdnimg.cn/20201030232019530.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+-  :math:`\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}`
+   是绿色的线；
+-  :math:`\operatorname{clip}\left(\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}, 1-\varepsilon, 1+\varepsilon\right)`
+   是蓝色的线；
+-  在绿色的线跟蓝色的线中间，要取一个最小的。假设前面乘上的这个 term
+   A，它是大于0 的话，取最小的结果，就是红色的这一条线。
+
+    可以得到结论：这个式子想要做的事情就是希望
+    :math:`p_{\theta}(a_{t} | s_{t})` 跟
+    :math:`p_{\theta^k}(a_{t} | s_{t})`\ ，也就是你拿来做 demonstration
+    的 model 跟你实际上 learn 的 model，在 optimize 以后不要差距太大
+
+**怎么让它做到不要差距太大呢？**
+
+-  如果 A > 0，也就是某一个 s，a 的 pair 是好的，那希望增加这个pair
+   的概率， :math:`p_{\theta}(a_{t} | s_{t})` 越大越好，但跟
+   :math:`p_{\theta^k}(a_{t} | s_{t})` 的比值不可以超过
+   :math:`1+\varepsilon`\ 。
+-  如果超过 :math:`1+\varepsilon` 的话，就没有 benefit 了。在 train
+   的时候，当 :math:`p_{\theta}(a_{t} | s_{t})` 被 train 到
+   :math:`\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}>1+\varepsilon`
+   时，它就会停止。
+-  假设 :math:`p_{\theta}(a_{t} | s_{t})` 比
+   :math:`p_{\theta^k}(a_{t} | s_{t})` 还要小，并且这个 advantage
+   是正的。这个 action 是好的，当然希望这个 action
+   被采取的概率越大越好，希望 :math:`p_{\theta}(a_{t} | s_{t})`
+   越大越好。所以假设 :math:`p_{\theta}(a_{t} | s_{t})` 还比
+   :math:`p_{\theta^k}(a_{t} | s_{t})` 小，那就尽量把它挪大，但只要大到
+   :math:`1+\varepsilon` 就好。
+-  如果 A < 0，也就是某一个 s，a pair 是不好的，希望把
+   :math:`p_{\theta}(a_{t} | s_{t})` 减小。如果
+   :math:`p_{\theta}(a_{t} | s_{t})` 比
+   :math:`p_{\theta^k}(a_{t} | s_{t})` 还大，那你就尽量把它压小，压到
+   :math:`\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}`
+   是 :math:`1-\epsilon` 的时候就停了，就不要再压得更小。
+
+4. 参考
+-------
+
+https://www.bilibili.com/video/BV1MW411w79n?p=2
+
+https://datawhalechina.github.io/leedeeprl-notes/#
+
+六、Q-Learning技巧及其改进方案
+==============================
+
+【DataWhale打卡】第四次任务，主要是重新学习一下李宏毅的Q-learning部分的知识，推导很多。之前看的时候就是简单过了一遍，很多细节没有清楚。这篇笔记包括了李宏毅深度强化学习三个视频长度的内容。
+
+1. 概念/解释
+------------
+
++----------------------+--------------------------------------------------------------------------------------------------------+
+| 概念                 | 解释                                                                                                   |
++======================+========================================================================================================+
+| Critic               | 与Actor不同，Critic负责评论当前的行为，预测期望价值                                                    |
++----------------------+--------------------------------------------------------------------------------------------------------+
+| :math:`V^\pi(s)`     | 在遇到状态s以后，可以得到的累计奖励值（这个值和s、\ :math:`\pi`\ 均有关系）                            |
++----------------------+--------------------------------------------------------------------------------------------------------+
+| :math:`Q^\pi(s,a)`   | 使用\ :math:`\pi`\ 作为actor的时候，在状态s下采取动作a的\ **期望的累计奖励**\ （cumulated reward）。   |
++----------------------+--------------------------------------------------------------------------------------------------------+
+| DQN                  | Q-Learning+深度学习（采用了TargetNetwork和Experience Replay的方法训练）                                |
++----------------------+--------------------------------------------------------------------------------------------------------+
+| Q-function           | 即在某一个 state 采取某一个action，使用 actor :math:`\pi` ，得到的 accumulated reward 的期望值有多大   |
++----------------------+--------------------------------------------------------------------------------------------------------+
+
+2. Value Function
+-----------------
+
+**MC估计V**
+
+Monte-Carlo 方法，通过采样来近似得到Value函数。
+
+.. figure:: https://img-blog.csdnimg.cn/20201031105208529.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+在遇到不同state的情况下，计算对应的accumulated reward
+:math:`G_t`\ 。在训练的过程就是一个回归问题，将value
+function的值回归到\ :math:`G_t`\ 。
+
+**TD 估计V**
+
+.. math::
+
+
+   V^{\pi}\left(s_{t}\right)=V^{\pi}\left(s_{t+1}\right)+r_{t}
+
+基于以上式子，只要有任意一个s,a,r,s的片段，就可以用来训练。训练过程如下图所示：
+
+.. figure:: https://img-blog.csdnimg.cn/20201031145532658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+**对比两种方法**
+
+-  MC存在很大的Variance，因为是累积的reward，这样会导致Larger Variance。
+
+-  TD虽然有着smaller
+   variance,但是\ :math:`V^\pi(s_{t+1})`\ 有可能是不准确的。
+
+.. figure:: https://img-blog.csdnimg.cn/20201031145740691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+TD由于其灵活性，数据可以重复利用，所以比较常见。
+
+举个计算的例子：
+
+.. figure:: https://img-blog.csdnimg.cn/20201031145905860.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+3. State-Action Value Function
+------------------------------
+
+引入另外一种critic，Q-function（State-Action Value Function）。
+
+Value
+Function仅仅通过看到的状态s就开始判断价值，这里引入动作a，意义是\ :math:`Q^\pi(s,a)`
+代表使用\ :math:`\pi`\ 作为actor的时候，在状态s下采取动作a的\ **期望的累计奖励**\ （cumulated
+reward）。
+
+    思考：\ :math:`\pi`\ 本身会决定在遇到s的时候，应该采取哪个action，那么这里的Q怎么理解呢？
+
+    其实就是在state s的时候强制采取action
+    a，然后得到的垒起奖励，才是\ :math:`Q^\pi(s,a)`
+
+第一篇文章中就有讲action
+space分为离散的（discrete）和连续的（continuous）
+
+.. figure:: https://img-blog.csdnimg.cn/20201031151014987.png#pic_center
+   :alt: 
+
+上图左侧代表输出的是一个数值。右侧代表在状态s下，采取不同的action所对应的Q函数。
+
+**Q-Learning一般流程**
+
+Q-Learning这种方式和policy gradient不同：
+
+-  Policy gradient的目标就是学习策略\ :math:`\pi`,
+   给定一个s就可以输出选择的动作a。
+-  Q-Learning则是以一种间接的方法实现了这个目的。在给定一个状态s后，如果有了Q函数，那就可以决定采取哪个function可以得到的期望值更高。
+
+.. figure:: https://img-blog.csdnimg.cn/20201031151604347.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+描述一下整个流程，初始的\ :math:`\pi`\ 和环境进行交互（一开始随机初始化的策略肯定很差），然后会收集一系列episode带来的数据。然后去衡量这个actor在某一个s强制采取a以后的期望，计算Q
+Value。学习得到的Q函数得到的新策略\ :math:`\pi '`\ 是一定要比原actor策略更好的。
+
+这样迭代下去，可以保证policy是越来越好的。
+
+**那么新策略\ :math:`\pi '`\ 是如何指定的？**
+
+.. figure:: https://img-blog.csdnimg.cn/20201031152301630.png#pic_center
+   :alt: 
+
+-  策略是通过最大化Q
+   Function得到的，所以可以保证在同一个状态s下，新的策略不比旧的策略差。
+-  这里的策略和policy gradient不一样，并没有参数。是通过Q
+   function来计算得到的。
+-  需要说明的是，由于采用了argmax的形式，那也就是默认action
+   space是离散的，单纯的Q-Learning无法解决连续动作空间的问题，随后会提出新的算法解决这个问题。
+
+推到步骤如下：
+
+.. figure:: https://img-blog.csdnimg.cn/20201031160029951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+4. TIP: Target Network
+----------------------
+
+.. figure:: https://img-blog.csdnimg.cn/20201031160233577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+具体怎么实现？
+
+通过actor与环境交互，得到一系列轨迹，s,a,r,s，通过以下公式回归求解问题：
+
+.. math::
+
+
+   \mathrm{Q}^{\pi}\left(s_{t}, a_{t}\right) 
+   =r_{t}+\mathrm{Q}^{\pi}\left(s_{t+1}, \pi\left(s_{t+1}\right)\right)
+
+实际回归的时候，会发现由于左右两边都在变化，这样训练会很不稳定。这个问题解决方案是：固定右边的Q-Network（负责产生target,所以叫做target
+network），只update左边的Q-Network的参数。然后每过N次，将左侧Q-Network的参数复制给Target
+Network, 然后重新训练。
+
+5. TIP: Exploration
+-------------------
+
+Exploration在第一篇中就提到过，为了让actor能更好的探索环境，而不是拘泥于之前的经验中。对于Q-function来说，这样可以更好的收集到所有的s,a组成的pair。
+
+.. figure:: https://img-blog.csdnimg.cn/20201031162441487.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+一般采用两种方法：
+
+-  Epsilon Greedy: 如上图公式，设置一个很小的\ :math:`\epsilon`,
+   以这个为概率进行随即探索。
+-  Boltzmann Exploration: 这个和Policy Gradient比较相似，Policy
+   Gradient中是生成概率分布，依照概率进行采样，引入了随机性。这里用上图中的公式softmax+Q-function构造了一个概率分布。
+
+6. TIP: Experience Replay
+-------------------------
+
+.. figure:: https://img-blog.csdnimg.cn/20201031163447612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+构建\ **Replay Buffer**\ 用于经验回放，里边存储的是一系列s,a,r,s序列。
+
+-  Replay Buffer中的experience可能来自不同的policy。
+-  Buffer装满了以后，会将旧的资料丢掉。
+
+-  训练Q-function的时候，会随机从buffer中sample一个batch出来，用这些experience来更新Q-function。
+-  这样就是off-policy的方法了，能够高效利用experience，不用重复与环境做互动，效率更高。
+-  采用sample数据的方法训练critic可以避免同一个batch中的data都是相似的，希望一个batch
+   data具有多样性。
+
+7. DQN
+------
+
+Deep Q-Network 算法伪代码如下：
+
+.. figure:: https://img-blog.csdnimg.cn/20201031164143386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+-  Target Q-function :math:`\hat{Q}`\ 就是上边提到的需要固定的Q-Network,
+   Q是待学习的Q-function。
+-  环境的探索使用Epsilon
+   Greedy方法，然后将探索得到的（s,a,r,s）存储到Buffer中供使用。
+-  从buffer中sample一个batch，然后回归Target、更新参数。
+-  每过C步将Q的参数复制到\ :math:`\hat{Q}`\ 上。
+-  DQN和Q-Learning非常相似，不同点在于：
+-  DQN 将 Q-learning 与深度学习结合，用深度网络来近似动作价值函数，而
+   Q-learning 则是采用表格存储；
+-  DQN 采用了经验回放的训练方法，从历史数据中随机采样，而 Q-learning
+   直接采用下一个状态的数据进行学习。
+
+7.1. Double DQN
+~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201031181458264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+DQN\ **存在一个问题**\ ，就是Q-value是被高估的，如上图所示，红色的曲线是DQN的Value，
+红色的横线是实际的Value值。
+
+问：\ **为何被高估**\ ？
+
+.. figure:: https://img-blog.csdnimg.cn/20201031181954390.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+答：DQN的target值容易被设置的过高，因为它总是偏向去取Q-table中最大值。上图中绿色的是被高估的量，被高估以后target就会选择这个action，在此基础上再加上\ :math:`r_t`\ 作为target
+value，所以整个过程都是趋向于高估target的。
+
+Double DQN就是为了解决防止估值过高的问题，来看看是怎么做的。
+
+.. figure:: https://img-blog.csdnimg.cn/20201031182315159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+引入两个的Q-network，第一个 Q-network，决定哪一个 action 的 Q value
+最大。你用第一个 Q-network 去带入所有的 a，去看看哪一个 Q value 最大。
+
+    这种方法如何避免被高估的问题呢：
+
+    假设第一个 Q-function 高估了它现在选出来的 action
+    a，那没关系，只要第二个 Q-function :math:`Q'` 没有高估这个 action a
+    的值，那你算出来的就还是正常的值。
+
+    假设反过来是 :math:`Q'` 高估了某一个 action 的值，那也没差，
+    因为反正只要前面这个 Q 不要选那个 action 出来就没事了。
+
+    通俗理解就是，两个人一起做商量着决定往往要比一个人武断决定要好很多。类似行政和立法是分立的，相互制约。
+
+Q:哪里来的两个Q-Network呢？
+
+A: 一个是 target 的 Q-network，一个是真正你会 update 的 Q-network。在
+Double DQN 里面，会拿 update 参数的那个 Q-network 去选 action，然后拿
+target 的network，那个固定住不动的 network 去算 value。而 Double DQN
+相较于原来的 DQN 的更改是最少的，它几乎没有增加任何的运算量，连新的
+network 都不用，因为原来就有两个 network 了。
+
+7.2 Dueling DQN
+~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/2020103119053939.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+这个也很简单，改了一下模型的结构而已，不直接output Q value
+的值，它分成两条 path 去运算，第一个 path 算出一个 scalar，这个 scalar
+我们叫做 :math:`V(s)`\ 。因为它跟input s 是有关系，所以叫做
+:math:`V(s)`\ ，\ :math:`V(s)` 是一个 scalar。下面这个会 output 一个
+vector，这个 vector 叫做 :math:`A(s,a)`\ 。下面这个 vector，它是每一个
+action 都有一个 value。然后你再把这两个东西加起来，就得到你的 Q value。
+
+7.3. Prioritized Experience Replay
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201031194146579.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+这是一个从buffer中sample
+experience的技巧，因为buffer中并不是所有data都是平等的，有的data比较重要。比如有的数据的TD
+error特别大，说明这种data难度很大，那最好给他更高的概率被sample到，给予它更高的优先级priority。
+
+实际上在做 prioritized experience replay 的时候，不仅会更改 sampling 的
+process，还会因为更改了 sampling 的 process，更改 update
+参数的方法。所以 prioritized experience replay 不仅改变了 sample data 的
+distribution，还改变了 training process。
+
+7.4 Balance between MC and TD
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201031195942885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+MC 跟 TD 的方法各自有各自的优劣，怎么\ **在 MC 跟 TD
+里面取得一个平衡**\ 呢？
+
+-  在 TD 里面，在某一个 state :math:`s_t` 采取某一个 action :math:`a_t`
+   得到 reward :math:`r_t`\ ，接下来跳到那一个 state
+   :math:`s_{t+1}`\ 。但是可以\ **不要只存一个 step 的data，我们存 N 个
+   step 的 data**\ 。
+-  记录在 :math:`s_t` 采取 :math:`a_t`\ ，得到
+   :math:`r_t`\ ，会跳到什么样 :math:`s_t`\ 。一直纪录到在第 N 个 step
+   以后，在 :math:`s_{t+N}`\ 采取 :math:`a_{t+N}`\ 得到 reward
+   :math:`r_{t+N}`\ ，跳到 :math:`s_{t+N+1}` 的这个经验，都存下来。
+-  要算 target value 的话，要再加上 multi-step 的 reward
+   :math:`\sum_{t^{\prime}=t}^{t+N} r_{t^{\prime}}` ，multi-step 的
+   reward 是从时间 t 一直到 t+N 的 N 个reward 的和。然后希望
+   :math:`Q(s_t,a_t)` 和 target value 越接近越好。
+
+7.5. Noisy NET
+~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201031210029410.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+之前讲的 Epsilon Greedy 这样的 exploration 是在 action 的 space 上面加
+noise; 有另外一个更好的方法叫做\ ``Noisy Net``\ ，它是在参数的 space
+上面加 noise。
+
+Noisy Net 的意思是说，每一次在一个 episode
+开始的时候，要跟环境互动的时候，就把 Q-function 拿出来，在 network
+的每一个参数上面加上一个 Gaussian noise，把原来的 Q-function
+变成\ :math:`\tilde{Q}`
+（代表一个\ ``Noisy Q-function``\ ）。接下来用这个固定住的 noisy network
+去玩这个游戏，直到游戏结束，才重新 sample 新的 noise。
+
+.. figure:: https://img-blog.csdnimg.cn/20201031211324877.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+Noise on Action 相当于以随机的概率胡乱采取action，并不符合真实的策略。
+
+Noise on Parameters
+在权重层面添加noisy，这样遇见了相似的状态的时候，可能依然会采取相同的策略，这就是\ **基于状态的探索**\ 。
+
+7.6 Distributional Q-Function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201031211807180.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+由于Q是一个均值，由很多值平均得到。上图中左右两边的均值是一样的，但是每个值的分布是不同的，比如左边的reward概率都集中在0附近。这个信息在传统的Q-learning方法中就被忽视掉了。
+
+.. figure:: https://img-blog.csdnimg.cn/20201101214619572.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+上图左侧是传统Q-learning，右侧是Distributional
+Q-function，每个action拆成5个bin，直接预测在某一个bin中的概率，根据bin所属action选取action。
+
+7.7 Rainbow
+~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201101215036135.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+综合以上所有方法，组成了彩虹。
+
+8. Continuous Actions
+---------------------
+
+https://www.bilibili.com/video/BV1MW411w79n?p=5
+
+Q-learning相比于Policy Gradient很好训练，Policy
+Gradient一旦遇到状态比较多的，就很难继续训练下去了。但是Q-learning存在的最大的问题就是无法很好的解决action
+space为连续的情况。
+
+.. math::
+
+
+   a=argmax_{a}Q(s,a)
+
+Q-learning中策略主要依赖以上公式，以上公式必须要满足action是discrete的条件。那有什么解决办法呢？
+
+**Solution 1**
+
+**Sample 更多的action**\ ，用尽可能多的action逼近连续action
+space。这种方法效率很低，并且不够精确。
+
+**Solution 2**
+
+**使用Graident
+Ascent方法来解决这个优化问题。**\ 既然是optimization的问题，可以用gradient
+ascent,
+将a作为parameter，找一个a可以maximize的Q-function。缺点是运算量很大，并且不见得能找到这个optimal的结果。
+
+**Solution 3**
+
+专门设计一个network网络架构，设计Q-function，让求解arg max的问题便容易。
+
+.. figure:: https://img-blog.csdnimg.cn/20201101223017125.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+9. Actor-Critic
+---------------
+
+.. figure:: https://img-blog.csdnimg.cn/20201101223609197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+Actor-Critic是集合了两者的优点而设计出来的，先进行Policy
+Gradient的Review:
+
+.. figure:: https://img-blog.csdnimg.cn/20201101224156494.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+:math:`G_t^n` 集合了从当前状态到最终的全部reward，是一个random
+variable，由于累积多个random
+variable，所以存在很大的不确定性，非常不稳定，如上图所示。如何更好得估测这个\ :math:`G_t^n`\ 呢?
+
+-  引入State value Function :math:`V^\pi`
+-  引入State-action Value Function :math:`Q^\pi(s,a)`
+
+两者都可以更准确、更好的依据当前状态判断未来可以得到的reward期望值。两者的估计可以用TD（训练比较稳）或者
+MC（结果更加精确）
+
+.. figure:: https://img-blog.csdnimg.cn/20201101224829953.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: Actor-Critic
+
+   Actor-Critic
+
+Actor-critic通过引入以上两个状态函数，就可以将Policy
+Gradient改成以上的样子。
+
+实现的时候，如果按照以上公式准备，那就需要两个network,分别学习Q函数和V函数。两个network可能会带来的不确定的风险，所以能不能只用一个network呢？
+
+有以下公式：
+
+.. math::
+
+
+   Q^{\pi}\left(s_{t}^{n}, a_{t}^{n}\right)=r_{t}^{n}+V^{\pi}\left(s_{t+1}^{n}\right)
+
+带入公式：
+
+.. math::
+
+
+   Q^{\pi_{\theta}}\left(s_{t}^{n}, a_{t}^{n}\right)-V^{\pi_{\theta}}\left(s_{t}^{n}\right)
+
+ 得到：
+
+.. math::
+
+
+   r_{t}^{n}+V^{\pi}\left(s_{t+1}^{n}\right)-V^{\pi}\left(s_{t}^{n}\right)
+
+ 这就是Advantage Function，A2C的整个流程如下图所示：
+
+.. figure:: https://img-blog.csdnimg.cn/20201101225739976.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+A2C的小TIP：
+
+-  actor :math:`\pi(s)`\ 和critic :math:`V^\pi(s)`\ 的参数是共享的。
+
+.. figure:: https://img-blog.csdnimg.cn/20201101231022334.png#pic_center
+   :alt: 
+
+-  exploration机制，对 :math:`\pi` 的 output 的 distribution
+   进行约束。这个约束是希望这个 distribution 的
+   entropy不要太小，希望不同的 action
+   它的被采用的机率，平均一点。这样在测试的时候，才会多尝试各种不同的
+   action，才能更充分探索环境。
+
+    Question: 在讲解TD 估计V的时候存在以下公式：
+
+    .. math::
+
+
+       V^{\pi}\left(s_{t}\right)=V^{\pi}\left(s_{t+1}\right)+r_{t}
+
+    那将这个公式带入：
+
+    .. math::
+
+
+       r_{t}^{n}+V^{\pi}\left(s_{t+1}^{n}\right)-V^{\pi}\left(s_{t}^{n}\right)
+
+    直接0，这个如何解释？
+
+    Answer: @来自助教江季&老板
+
+    主要是TD那个公式，上边讲解TD公式的时候，其实表达并不严谨，只是为了方便读者理解，严谨的表达式如下：
+
+    .. math::
+
+
+       V(S_t)\larr E_\pi[R_{t+1}+\gamma V(S_{t+1})]
+
+    TD中使用的蒙特卡洛估计来计算Value函数的值，而在A2C中，使用的是网络进行估计的值，所以不满足等式：\ :math:`V^{\pi}\left(s_{t}\right)=V^{\pi}\left(s_{t+1}\right)+r_{t}`
+
+10. Asynchronous Advantage Actor-Critic(A3C)
+--------------------------------------------
+
+A2C缺点是训练太慢，如何改进呢？引入分布式的方法，多个agent同时训练。
+
+.. figure:: https://img-blog.csdnimg.cn/20201102080546620.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+每个线程都负责一个agent，去跟环境做交互。具体过程如下：
+
+-  线程copy global Network的参数，复制一份。
+-  采样一些数据experience进行学习
+-  计算梯度
+-  将梯度更新到global network.
+
+11. Pathwise Derivative Policy Gradient
+---------------------------------------
+
+这是一种Q-learning解决continuous action
+space的方法，可以看作一个特别的actor-critic。
+
+.. figure:: https://img-blog.csdnimg.cn/2020110208142650.png#pic_center
+   :alt: 
+
+如何解这个optimization问题？用一个actor来求解。假设actor就是一个solver，其工作就是给出state
+s以后，求解哪一个a能带来最大的Q value。
+
+和GAN进行对比：
+
++--------+-----------------+----------+
+|        | GAN             | A3C      |
++========+=================+==========+
+| 生成   | generator       | Actor    |
++--------+-----------------+----------+
+| 评判   | discriminator   | Critic   |
++--------+-----------------+----------+
+
+-  对原来的Q-learning进行改进，learn一个actor，用于求解argmax的问题，也就是上述的solution
+   3
+-  原来的actor-critic中，critic并没有给actor足够多的信息，只告诉其好或者不好，没有指导。现在的新方法直接告诉actor什么action才是更好的。
+
+具体的算法：
+
+.. figure:: https://img-blog.csdnimg.cn/20201102083203218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+算法流程：
+
+.. figure:: https://img-blog.csdnimg.cn/20201102083334710.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+Q-learning algorithm:
+
+.. figure:: https://img-blog.csdnimg.cn/20201102083651952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+Q-learning改成Pathwise Derivative Policy Gradient方法：
+
+.. figure:: https://img-blog.csdnimg.cn/2020110208432448.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+AC和GAN之间的联系：
+
+.. figure:: https://img-blog.csdnimg.cn/20201102084439940.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+GAN和AC都是以难训练出名的，这两者可以互相借鉴一些训练的思路和解决方案。
+
+12. 补充
+--------
+
+为什么在DQN中采用价值函数近似（Value Function
+Approximation）的表示方法？
+
+答：首先DQN为基于深度学习的Q-learning算法，而在Q-learning中，我们使用表格来存储每一个state下action的reward，即我们前面所讲的状态-动作值函数
+:math:`Q(s,a)`
+。但是在我们的实际任务中，状态量通常数量巨大并且在连续的任务中，会遇到维度灾难的问题，所以使用真正的Value
+Function通常是不切实际的，所以使用了价值函数近似（Value Function
+Approximation）的表示方法。
+
+七、稀疏奖励和模仿学习
+======================
+
+【DataWhale打卡】李宏毅老师视频中的最后两部分，sparse reward和imitation
+learning。
+
+1. Sparse Reward
+----------------
+
+Sparse
+Reward是强化学习中最重要的问题，也是最难解决的，仅仅通过exploration来进行探索是远远不够的。这一节将讲解如何解决Sparse
+Reward的问题。
+
+1.1 Reward Shaping
+~~~~~~~~~~~~~~~~~~
+
+可以刻意设计一些reward来引导达到最终的reward。
+
+举例：小孩在学习（长远reward值很高）和游戏（短期reward值更高）的两者中做选择，很有可能就会选择游戏，这时候为了让小孩能够考虑长远，可以考虑让小孩在学习的时候设计人为的reward，期望能够引导到reward更高的情况。
+
+相当于引入了domain knowledge，
+
+.. figure:: https://img-blog.csdnimg.cn/2020110509484659.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+在原有基础上加入了Intrinsic curiosity
+Module(ICM模块，给agent加入\ **好奇心**\ 。输入是s1、a1、s2,
+就会输出一个额外的reward，总奖励值中就会额外加入这个reward。
+
+**ICM**
+
+.. figure:: https://img-blog.csdnimg.cn/20201105095735975.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+Network1是额外学习出来的，根据at和st来预测下一个\ :math:`\hat{s_{t+1}}`\ ，然后将两者的插值作为reward的值，这样设置也就是说，如果下一个状态很难去预测，那么就给个更大的奖励，也就是鼓励冒险的意思。
+
+但是有一个问题：以上reward的设置默认
+**越难被预测状态就越好**\ 。但是这个并不是总是成立的，\ **有的状态很难预测，但是并不代表它更重要**\ 。
+
+如何判断这个很难预测的状态是否是真的重要的呢？
+
+.. figure:: https://img-blog.csdnimg.cn/20201105100832159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+引入另外一个Network 2，此外还引入了一个特征提取器，Feature
+Ext来对状态进行特征提取。Network2接受来自\ :math:`s_t和s_{t+}`\ 的特征Vector作为输入，输出的值是一个action
+:math:`\hat{a_t}`
+(这个值的意义就是从st到:math:`s_{t+1}`\ 的话，要采取的action)，希望这个action和实际的action
+:math:`a_t`\ 越接近越好。
+
+    Network1这部分计算让模型能够拥有足够的好奇心，下一个状态越难预测就给更高的reward。
+
+    Network2这部分计算就是约束下一个状态，从st到\ :math:`s_{t+1}`\ 预测需要的action和实际采取的action越接近越好，防止提取得到的特征中存在的和action无关的信息。Network2的作用就是更好的优化Feature
+    Ext这个特征提取器，从而让这个提取得到的特征，更加关注于对action影响较大的特征。
+
+1.2 Curriculum Learning
+~~~~~~~~~~~~~~~~~~~~~~~
+
+为Agent的学习做一个规划，从简单到难，逐步学习。
+
+在强化学习中，从简单的到困难就可以对应学习的序列的长度，短序列学习难度较低，长序列学习难度更高，所以可以先学习短序列，然后学习长序列。
+
+再举一个例子，在躲避怪物的游戏中，从一开始就设置怪物速度到最大值，那很可能训练不起来的，可以让速度从低到高，循序渐进训练。
+
+那么有没有\ **更通用的方法**\ 来设计课程规划？
+
+**Reverse Curriculum Generation**
+
+-  给定一个目标状态\ :math:`s_g`\ ，也就是最终目标。
+-  从\ :math:`s_g`\ 周围采样出一些状态点\ :math:`s_i`,
+   比较接近于目标状态，加入到状态集合{S}。
+-  从每个\ :math:`s_i`\ 就开始做互动，看是否能达到\ :math:`s_g`\ ，
+   每一个做互动的时候都会得到reward。
+-  从状态集合{S}中删除那些reward过大或过小的状态\ :math:`s_i`
+-  在状态集合{S}周围继续采样比较接近于{S}中的\ :math:`s_i`\ 的状态，加入{S}集合。
+-  重复以上操作
+
+也就是说从目标开始，反向生成一系列课程，从难到易，循序渐进。
+
+1.3 Hierarchical RL
+~~~~~~~~~~~~~~~~~~~
+
+多个Agent，High level的Agent负责制定目标，如同项目经理一般，剩下Low
+Level的Agent负责完成一个个小目标，如同普通码农一般。
+
+-  High Level的agent的目标是让Low
+   Level的Agent完成它所设置的目标，如果没有完成，那就会有一个penalty惩罚。
+-  如果agent达到错误的目标，那就假设最初的目标是错误的。
+
+举两个例子：
+
+.. figure:: https://img-blog.csdnimg.cn/20201105105511365.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+第一个例子是蓝色的是agent，其目标是达到黄色的终点，那么这时候粉红色的点就代表high
+level的agent, 指导蓝色agent先接近红色agent，然后一步步达到黄色终点。
+
+第二个例子是绕中间一点甩杆，目标是将杆子甩到黄色球的位置，这时候就需要粉红色的球做一个指引，从而达到最终的黄色位置。
+
+2. Imitation Learning
+---------------------
+
+比Sparse Reward更加极端，一点点reward都没有，应该如何是好呢？
+
+-  很多环境中，无法得到reward的，也很难规定出reward，比如聊天机器人，无法判断怎样的聊天内容是好的，怎样是不好的，很难明确规定出来。
+
+-  Imitation Learning又叫做示范学习、学徒学习、观察学习。
+
+-  在Imitation
+   Learning中，有一些专家给出的demonstration，做了一个示范，那么agent就可以根据专家给出的demonstration来学习（这个过程中，无法显式地得到reward），从而不至于从零开始摸索。
+
+-  在没有reward的情况下，手机专家的示意是可以做到的：
+-  比如：自动驾驶中，可以收集很多人类的开车记录，并进行研究和学习。
+-  比如：在聊天机器人中，可以收集一系列人与人的对话当作范例来学习，也是可行的。
+
+-  有两种方法：Behavior Cloning和Inverse Reinforcement Learning(Inverse
+   Optimal Contral)
+
+2.1 Behavior Cloning
+~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: https://img-blog.csdnimg.cn/20201105112945499.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+这就和监督学习一模一样了，在某个状态下，就采取某个行动，进行分类，然后监督学习。相当于是Expert做什么，Agent就要做一模一样的事情。
+
+**存在问题1**
+
+由于状态非常多，以自动驾驶为例，摄像机看到的图像画面是不可能穷举的，专家做出的演示不可能将现实世界中的全部状态都枚举完。所以Behavior
+Cloning的效果是很有限的，光是做behavior
+cloning是远远不够的，还需要dataset Aggregation。
+
+**Dataset Aggregation**
+
+期望训练的数据集是具有多样性的，尽可能覆盖多种极端情况。当遇到极端情况以后，再记录下Expert的操作，然后用这个新的数据来继续训练agent。
+
+**存在问题2**
+
+Agent会盲目学习Expert的所有行为，包括一些无关紧要的行为。由于Network的容量有限，盲目学习所有行为会导致容量不够。所以要确定什么是该学习的，什么是不该学习的。
+
+**存在问题3**
+
+在behavior cloning的过程中，其实训练集和测试集的分布是mismatch的。
+
+RL中一个重要的特性是，前一个状态会对后一个状态产生影响。
+
+这就需要Inverse Reinforcement Learning
+
+2.2 Inverse Reinforcement Learning
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+传统的RL流程：
+
+.. figure:: https://img-blog.csdnimg.cn/20201105115035518.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+通过Reward Function，经过RL算法和env的交互，找到一个最优的Actor。
+
+.. figure:: https://img-blog.csdnimg.cn/20201105114934796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+Inverse RL中恰好相反，并没有reward function，只有一些列Expert的示例。
+
+然后inverse RL通过反推得到Reward Function，好像很玄学。。
+
+**具体做法**\ ：
+
+-  Expert 玩游戏，记录所有的过程\ :math:`\hat{\tau}`
+
+-  Actor也去玩游戏，也有所有游戏过程的记录\ :math:`\tau`
+
+-  然后推Reward function，
+   这里假设Expert得到的\ :math:`\tau`\ 永远是最好的。
+
+-  所以Expert的Reward分数要比Actor高。
+
+   .. math::
+
+
+          \sum_{n=1}^N R（\hat{\tau_n}）>\sum_{n=1}^N R(\tau_n)
+          
+
+-  先射箭，再画靶
+
+-  根据以上公式找到一个Reward function R
+
+-  然后基于这个R进行训练学习得到一个Actor
+
+-  然后循环,具体如下图所示
+
+.. figure:: https://img-blog.csdnimg.cn/20201105124541225.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+以上过程最让人困惑的过程就是Reward Runction
+R的选取了。实际上这里的Reward
+Function和传统的计算方式不同，可以采用的神经网络进行生成函数。只要是函数，就可以用神经网络进行拟合，所以这个过程也是一个可学习的过程。
+
+    这个过程和GAN又非常相似：
+
+    Actor->Generator
+
+    Reward Function->Discriminator
+
+    对比图：
+
+    .. figure:: https://img-blog.csdnimg.cn/20201105130026481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+       :alt: 
+
+这方面还有很多可研究内容，如：Third Person Imitation
+Learning讲的是机器人的视角和人类不同的时候，如何将知识进行迁移。
+
+3. 参考
+-------
+
+https://www.bilibili.com/video/BV1MW411w79n?p=8
+
+https://www.bilibili.com/video/BV1MW411w79n?p=7
+
+https://github.com/datawhalechina/leedeeprl-notes
+
+八、DDPG算法
+============
+
+【DataWhale打卡】DDPG算法 Deep Deterministric Policy Gradient
+
+视频参考自：https://www.bilibili.com/video/BV1yv411i7xd?p=19
+
+1、思维导图
+-----------
+
+.. figure:: https://img-blog.csdnimg.cn/20201107105717989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+2. 详解
+-------
+
+DDPG是解决连续性控制问题的一个算法，但是和PPO不同，PPO输出是一个策略，是一个概率分布。而DDPG输出的是一个动作。
+
+DDPG是采用的也是Actor-Critic架构，是基于DQN进行改进的。DQN中的action
+space必须是离散的，所以不能处理连续的动作空间的问题。DDPG在其基础上进行改动，引入了一个Actor
+Network,让一个网络来的输出来得到连续的动作空间。
+
++----------+--------------------+--------------+
+| 对比     | AC                 | DDPG         |
++==========+====================+==============+
+| Actor    | 输出的是概率分布   | 输出是动作   |
++----------+--------------------+--------------+
+| Critic   | 预估V值            | 预估Q值      |
++----------+--------------------+--------------+
+| 更新     | 带权重梯度更新     | 梯度上升     |
++----------+--------------------+--------------+
+
+.. figure:: https://img-blog.csdnimg.cn/20201107121658876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+优化Q网络的时候，如果Q-target也在不停的变动，那就会造成更新困难。类似DQN，DDPG也采取了固定网络结构的方法，先冻结target网络，更新参数以后，再把参数赋值到target网络。所以需要的是四个网络：
+
+-  actor
+-  critic
+-  target actor
+-  target critic
+
+通过上图可以看出，DDPG(也是一种Actor-Critic方法)，其实也是一种时序差分的方法，结合了基于Value-based和Policy-Based方法。其中Policy是Actor，用于给出动作；价值函数是Critic，评价Actor给出的Action的好坏，产生时序差分信号用于指导价值函数和策略函数的更新。
+
+3. 代码
+-------
+
+代码主要看DDPG算法主要几个模块：
+
+3.1 背景
+~~~~~~~~
+
+DDPG这里要解决的问题是一个钟摆问题，Pendulum-v0。这个版本的问题中，钟摆以随机位置开始，目标是将其向上摆动，使其保持直立。这是一个连续控制的问题。
+
+状态表示:
+
+.. figure:: https://img-blog.csdnimg.cn/20201107195510146.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+动作空间：
+
+.. figure:: https://img-blog.csdnimg.cn/20201107195531951.png#pic_center
+   :alt: 
+
+奖励评估：
+
+.. math::
+
+
+   -(\theta^2 + 0.1*\theta_{dt}^2 + 0.001*action^2)
+
+可以看出，目标就是保持零角度，也就是垂直，同时要求旋转速度最小，力度最小。
+
+3.2 Actor
+~~~~~~~~~
+
+Actor作用是接收状态描述，输出一个action，由于DDPG中的动作空间要求是连续的，所以使用了一个tanh
+
+.. code:: python
+
+    class Actor(nn.Module):
+        def __init__(self, n_obs, n_actions, hidden_size, init_w=3e-3):
+            super(Actor, self).__init__()  
+            self.linear1 = nn.Linear(n_obs, hidden_size)
+            self.linear2 = nn.Linear(hidden_size, hidden_size)
+            self.linear3 = nn.Linear(hidden_size, n_actions)
+            
+            self.linear3.weight.data.uniform_(-init_w, init_w)
+            self.linear3.bias.data.uniform_(-init_w, init_w)
+            
+        def forward(self, x):
+            x = F.relu(self.linear1(x))
+            x = F.relu(self.linear2(x))
+            x = F.tanh(self.linear3(x))
+            return x
+
+实现方面，就是用了几个全连接层来设计的网络，输出的结果是一个连续的值。
+
+3.3 Critic
+~~~~~~~~~~
+
+Critic批评者，在DDPG中，接受来自Actor的一个Action值和当前的状态，输出的是当前状态下，采用Action动作以后得到的关于Q的期望。
+
+.. code:: python
+
+    class Critic(nn.Module):
+        def __init__(self, n_obs, n_actions, hidden_size, init_w=3e-3):
+            super(Critic, self).__init__()
+            
+            self.linear1 = nn.Linear(n_obs + n_actions, hidden_size)
+            self.linear2 = nn.Linear(hidden_size, hidden_size)
+            self.linear3 = nn.Linear(hidden_size, 1)
+            # 随机初始化为较小的值
+            self.linear3.weight.data.uniform_(-init_w, init_w)
+            self.linear3.bias.data.uniform_(-init_w, init_w)
+            
+        def forward(self, state, action):
+            # 按维数1拼接
+            x = torch.cat([state, action], 1)
+            x = F.relu(self.linear1(x))
+            x = F.relu(self.linear2(x))
+            x = self.linear3(x)
+            return x
+
+3.4 Replay Buffer
+~~~~~~~~~~~~~~~~~
+
+Replay Buffer就是用来存储一系列等待学习的SARS片段。
+
+.. code:: python
+
+    class ReplayBuffer:
+        def __init__(self, capacity):
+            self.capacity = capacity
+            self.buffer = []
+            self.position = 0
+        
+        def push(self, state, action, reward, next_state, done):
+            if len(self.buffer) < self.capacity:
+                self.buffer.append(None)
+            self.buffer[self.position] = (state, action, reward, next_state, done)
+            self.position = (self.position + 1) % self.capacity
+        
+        def sample(self, batch_size):
+            batch = random.sample(self.buffer, batch_size)
+            state_batch, action_batch, reward_batch, next_state_batch, done_batch = map(np.stack, zip(*batch))
+            return state_batch, action_batch, reward_batch, next_state_batch, done_batch
+        
+        def __len__(self):
+            return len(self.buffer)
+
+可以设置Replay
+Buffer的容量，push函数是向buffer中添加一个SARS片段；sample代表从buffer中采样batch
+size个片段。
+
+3.5 DDPG
+~~~~~~~~
+
+DDPG用到了以上的所有对象，包括Critic、Target Critic、Actor、Target
+Actor、memory。
+
+init函数如下：
+
+.. code:: python
+
+    def __init__(self, n_states, n_actions, hidden_dim=30, device="cpu", critic_lr=1e-3,
+                    actor_lr=1e-4, gamma=0.99, soft_tau=1e-2, memory_capacity=100000, batch_size=128):
+        self.device = device
+        
+        self.critic = Critic(n_states, n_actions, hidden_dim).to(device)
+        self.actor = Actor(n_states, n_actions, hidden_dim).to(device)
+
+        self.target_critic = Critic(n_states, n_actions, hidden_dim).to(device)
+        self.target_actor = Actor(n_states, n_actions, hidden_dim).to(device)
+
+        for target_param, param in zip(self.target_critic.parameters(), self.critic.parameters()):
+            target_param.data.copy_(param.data)
+        for target_param, param in zip(self.target_actor.parameters(), self.actor.parameters()):
+            target_param.data.copy_(param.data)
+
+        self.critic_optimizer = optim.Adam(
+            self.critic.parameters(),  lr=critic_lr)
+            
+        self.actor_optimizer = optim.Adam(self.actor.parameters(), lr=actor_lr)
+        
+        self.memory = ReplayBuffer(memory_capacity)
+
+        self.batch_size = batch_size
+        self.soft_tau = soft_tau
+        self.gamma = gamma
+
+其中核心的函数就是update函数：
+
+.. code:: python
+
+    def update(self):
+        if len(self.memory) < self.batch_size:
+            return
+        state, action, reward, next_state, done = self.memory.sample(
+            self.batch_size)
+        # 将所有变量转为张量
+        state = torch.FloatTensor(state).to(self.device)
+        next_state = torch.FloatTensor(next_state).to(self.device)
+        action = torch.FloatTensor(action).to(self.device)
+        reward = torch.FloatTensor(reward).unsqueeze(1).to(self.device)
+        done = torch.FloatTensor(np.float32(done)).unsqueeze(1).to(self.device)
+        # 注意critic将(s_t,a)作为输入
+        policy_loss = self.critic(state, self.actor(state))
+        
+        policy_loss = -policy_loss.mean()
+
+        next_action = self.target_actor(next_state)
+        target_value = self.target_critic(next_state, next_action.detach())
+        expected_value = reward + (1.0 - done) * self.gamma * target_value
+        expected_value = torch.clamp(expected_value, -np.inf, np.inf)
+
+        value = self.critic(state, action)
+        value_loss = nn.MSELoss()(value, expected_value.detach())
+        
+        self.actor_optimizer.zero_grad()
+        policy_loss.backward()
+        self.actor_optimizer.step()
+
+        self.critic_optimizer.zero_grad()
+        value_loss.backward()
+        self.critic_optimizer.step()
+        for target_param, param in zip(self.target_critic.parameters(), self.critic.parameters()):
+            target_param.data.copy_(
+                target_param.data * (1.0 - self.soft_tau) +
+                param.data * self.soft_tau
+            )
+        for target_param, param in zip(self.target_actor.parameters(), self.actor.parameters()):
+            target_param.data.copy_(
+                target_param.data * (1.0 - self.soft_tau) +
+                param.data * self.soft_tau
+            )
+
+整体流程如下：
+
+-  从memory中采样一个batch的数据。
+-  policy\_loss = self.critic(state, self.actor(state))
+-  将state放到actor对象得到action
+-  将state,action放到critic对象得到policy loss
+
+.. code:: python
+
+    next_action = self.target_actor(next_state)
+    target_value = self.target_critic(next_state, next_action.detach())
+
+-  然后target actor和target critic也按照以上过程得到target value
+-  根据target value 计算expected value:
+
+.. math::
+
+
+   r+\gamma Q
+
+实现如下：
+
+.. code:: python
+
+    expected_value = reward + (1.0 - done) * self.gamma * target_value
+    expected_value = torch.clamp(expected_value, -np.inf, np.inf)
+
+如果done为1，代表已经结束了，也就不需要这个系数了。第二行对expected
+value进行了数值上的限制。
+
+-  接下来计算根据数据集中action得到的value值。
+
+.. code:: python
+
+    value = self.critic(state, action)
+
+-  计算优化Q网络的loss, 采用的是MSEloss
+
+.. code:: python
+
+    value_loss = nn.MSELoss()(value, expected_value.detach())
+
+对比下图：
+
+.. figure:: https://img-blog.csdnimg.cn/20201107121658876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+-  对policy loss和value loss进行梯度回传，更新训练参数。
+
+训练结果如下：
+
+.. figure:: https://img-blog.csdnimg.cn/2020110720192782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+   :alt: 
+
+4. 参考文献
+-----------
+
+代码部分全部来自于johnjim的实现，感谢。
+
+https://www.jianshu.com/p/af3a7853268f
+
+https://datawhalechina.github.io/leedeeprl-notes/#/chapter12/project3
+
+https://www.bilibili.com/video/BV1yv411i7xd?p=19
+
+.. |image0| image:: https://img-blog.csdnimg.cn/20201023210330602.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center
+.. |image1| image:: https://img-blog.csdnimg.cn/20201029224742106.png#pic_center
+.. |image2| image:: https://img-blog.csdnimg.cn/20201030231926500.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0REX1BQX0pK,size_16,color_FFFFFF,t_70#pic_center

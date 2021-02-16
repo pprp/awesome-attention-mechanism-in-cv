@@ -208,6 +208,11 @@ class ResNet(nn.Module):
         return x
     
 
+def sa_resnet18(num_classes=1000, pretrained=False):
+    print("Constructing csg_resnet50......")
+    model = ResNet(SABottleneck, [2, 2, 2, 2], num_classes)
+    return model
+
 def sa_resnet50(num_classes=1000, pretrained=False):
     print("Constructing csg_resnet50......")
     model = ResNet(SABottleneck, [3, 4, 6, 3], num_classes)
