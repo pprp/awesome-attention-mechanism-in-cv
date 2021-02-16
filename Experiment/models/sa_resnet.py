@@ -19,7 +19,8 @@ class sa_layer(nn.Module):
         self.sbias = Parameter(torch.ones(1, channel // (2 * groups), 1, 1))
 
         self.sigmoid = nn.Sigmoid()
-        self.gn = nn.GroupNorm(channel // (2 * groups), channel // (2 * groups))
+        self.gn = nn.GroupNorm(channel // (2 * groups),
+                               channel // (2 * groups))
 
     @staticmethod
     def channel_shuffle(x, groups):
@@ -57,6 +58,8 @@ class sa_layer(nn.Module):
         return out
 
 
+
+
 def conv3x3(in_planes, out_planes, stride=1, groups=1, dilation=1):
     """3x3 convolution with padding"""
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
@@ -66,6 +69,7 @@ def conv3x3(in_planes, out_planes, stride=1, groups=1, dilation=1):
 def conv1x1(in_planes, out_planes, stride=1):
     """1x1 convolution"""
     return nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=stride, bias=False)
+
 
 class SABottleneck(nn.Module):
     expansion = 4
@@ -153,7 +157,8 @@ class ResNet(nn.Module):
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                nn.init.kaiming_normal_(
+                    m.weight, mode='fan_out', nonlinearity='relu')
             elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
                 nn.init.constant_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
@@ -206,12 +211,13 @@ class ResNet(nn.Module):
         x = self.fc(x)
 
         return x
-    
 
-def sa_resnet18(num_classes=1000, pretrained=False):
+
+def sa_resnet18(num_classes=10, pretrained=False):
     print("Constructing csg_resnet50......")
     model = ResNet(SABottleneck, [2, 2, 2, 2], num_classes)
     return model
+
 
 def sa_resnet50(num_classes=1000, pretrained=False):
     print("Constructing csg_resnet50......")
