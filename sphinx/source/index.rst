@@ -8,9 +8,9 @@ Welcome to awesome-attention-module-in-cv's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :glob:
+   
+   2021/index
 
-   *
    
    
    

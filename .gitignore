@@ -7,3 +7,4 @@ Experiment/data/cifar-10-batches-py/data_batch_1
 *.gz
 Experiment/data/cifar-10-batches-py/test_batch
 *.html
+sphinx/build/

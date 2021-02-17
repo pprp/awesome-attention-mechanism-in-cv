@@ -26,7 +26,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Non-local Neural Networks](https://arxiv.org/abs/1711.07971) | CVPR19    | [Non-Local(NL)](https://github.com/AlexHex7/Non-local_pytorch) | self-attention                           | [zhihu](https://zhuanlan.zhihu.com/p/102984842) |
 | [GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond](https://arxiv.org/abs/1904.11492) | ICCVW19   | [GCNet](https://github.com/xvjiarui/GCNet)                   | 对NL进行改进                             | [zhihu](https://zhuanlan.zhihu.com/p/102990363) |
 | [CCNet: Criss-Cross Attention for Semantic Segmentation](https://arxiv.org/abs/1811.11721) | ICCV19    | [CCNet](https://github.com/speedinghzl/CCNet)                | 对NL改进                                 |                                                 |
-| [SA-Net:shuffle attention for deep convolutional neural networks](https://arxiv.org/pdf/2102.00240.pdf) | ICASSP 21 | [SANet](https://github.com/wofmanaf/SA-Net)                  | SGE+channel shuffle                      |                                                 |
+| [SA-Net:shuffle attention for deep convolutional neural networks](https://arxiv.org/pdf/2102.00240.pdf) | ICASSP 21 | [SANet](https://github.com/wofmanaf/SA-Net)                  | SGE+channel shuffle                      | [zhihu](https://zhuanlan.zhihu.com/p/350912960) |
 | [ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks](https://arxiv.org/pdf/1910.03151.pdf) | CVPR20    | [ECANet](https://github.com/BangguWu/ECANet)                 | SE的改进                                 |                                                 |
 | [Spatial Group-wise Enhance: Improving Semantic Feature Learning in Convolutional Networks](https://arxiv.org/abs/1905.09646) | CoRR19    | [SGENet](https://github.com/implus/PytorchInsight)           | Group+spatial+channel                    |                                                 |
 | [FcaNet: Frequency Channel Attention Networks](https://arxiv.org/pdf/2012.11879.pdf) | CoRR20    | [FcaNet](https://github.com/cfzd/FcaNet)                     | 频域上的SE操作                           |                                                 |
@@ -48,6 +48,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [An Attentive Survey of Attention Models](https://arxiv.org/abs/1904.02874) | CoRR19    | None                                                         | 包括NLP/CV/推荐系统等方面的注意力机制    |                                                 |
 | [Stand-Alone Self-Attention in Vision Models](https://arxiv.org/pdf/1906.05909.pdf) | NeurIPS19 | [FullAttention](https://github.com/leaderj1001/Stand-Alone-Self-Attention) | 全部的卷积都替换为self-attention         |                                                 |
 | [BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation](https://arxiv.org/abs/1808.00897) | ECCV18    | [BiSeNet](https://github.com/CoinCheung/BiSeNet)             | 类似FPN的特征融合方法                    | [zhihu](https://zhuanlan.zhihu.com/p/105925132) |
+| [DCANet: Learning Connected Attentions for Convolutional Neural Networks](https://arxiv.org/pdf/2007.05099.pdf) | ECCV20    | [DCANet](https://github.com/13952522076/DCANet)              | 增强attention之间信息流动                |                                                 |
 
 
 
@@ -96,7 +97,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | GoogLeNet    | 91.90%   | 1:02:50 | 6,166,250  |
 | MobileNetV2  | 92.66%   | 2:04:57 | 2,296,922  |
 | SA-ResNet50  | 89.83%   | 2:10:07 | 23,528,758 |
-| SA-ResNet18  | 89.97%   | 1:15:36 | 13,966,786 |
+| SA-ResNet18  | 95.07%   | 1:39:38 | 11,171,394 |
 
 
 
