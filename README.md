@@ -48,7 +48,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [An Attentive Survey of Attention Models](https://arxiv.org/abs/1904.02874) | CoRR19    | None                                                         | 包括NLP/CV/推荐系统等方面的注意力机制    |                                                 |
 | [Stand-Alone Self-Attention in Vision Models](https://arxiv.org/pdf/1906.05909.pdf) | NeurIPS19 | [FullAttention](https://github.com/leaderj1001/Stand-Alone-Self-Attention) | 全部的卷积都替换为self-attention         |                                                 |
 | [BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation](https://arxiv.org/abs/1808.00897) | ECCV18    | [BiSeNet](https://github.com/CoinCheung/BiSeNet)             | 类似FPN的特征融合方法                    | [zhihu](https://zhuanlan.zhihu.com/p/105925132) |
-| [DCANet: Learning Connected Attentions for Convolutional Neural Networks](https://arxiv.org/pdf/2007.05099.pdf) | ECCV20    | [DCANet](https://github.com/13952522076/DCANet)              | 增强attention之间信息流动                |                                                 |
+| [DCANet: Learning Connected Attentions for Convolutional Neural Networks](https://arxiv.org/pdf/2007.05099.pdf) | CoRR20    | [DCANet](https://github.com/13952522076/DCANet)              | 增强attention之间信息流动                |                                                 |
+| [An Empirical Study of Spatial Attention Mechanisms in Deep Networks](https://arxiv.org/abs/1904.05873) | ICCV19    | None                                                         | 对空间注意力进行针对性分析               |                                                 |
 
 
 
