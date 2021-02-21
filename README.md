@@ -113,6 +113,10 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 SENet 论文: https://arxiv.org/abs/1709.01507 解读：https://zhuanlan.zhihu.com/p/102035721
 
+[参考](https://mp.weixin.qq.com/s?__biz=MzI5MDUyMDIxNA==&mid=2247505490&idx=3&sn=475974048f38df8aaa190ec5e8b4af67&chksm=ec1c3babdb6bb2bda2e54dc668e732596b8e7952940d4e4caa69cb683f5d625a0188ce361e2d&scene=21#wechat_redirect)
+
+[ATPaper库](https://github.com/ZhengZixiang/ATPapers)
+
 ## Contribute
 
 欢迎在issue中提出补充的文章paper和对应code链接。
