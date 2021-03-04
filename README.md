@@ -57,6 +57,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Attention-Guided Hierarchical Structure Aggregation for Image Matting](https://ieeexplore.ieee.org/document/9156481) | CVPR20      | [HAttMatting](https://github.com/wukaoliu/CVPR2020-HAttMatting) | 抠图方面的应用，高层使用通道注意力机制，然后再使用空间注意力机制指导低层。 |                                                 |
 | [Weight Excitation: Built-in Attention Mechanisms in Convolutional Neural Networks](http://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123750086.pdf) | ECCV20      | None                                                         | 与SE互补的权值激活机制                                       |                                                 |
 | [Expectation-Maximization Attention Networks for Semantic Segmentation](https://arxiv.org/pdf/1907.13426.pdf) | ICCV19 Oral | [EMANet](https://github.com/XiaLiPKU/EMANet)                 | EM+Attention                                                 |                                                 |
+| [Dense-and-implicit attention network](https://arxiv.org/abs/1905.10671) | AAAI 20     | [DIANet](https://github.com/gbup-group/DIANet)               | LSTM+全程SE注意力                                            |                                                 |
 
 
 
