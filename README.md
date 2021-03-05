@@ -58,6 +58,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Weight Excitation: Built-in Attention Mechanisms in Convolutional Neural Networks](http://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123750086.pdf) | ECCV20      | None                                                         | 与SE互补的权值激活机制                                       |                                                 |
 | [Expectation-Maximization Attention Networks for Semantic Segmentation](https://arxiv.org/pdf/1907.13426.pdf) | ICCV19 Oral | [EMANet](https://github.com/XiaLiPKU/EMANet)                 | EM+Attention                                                 |                                                 |
 | [Dense-and-implicit attention network](https://arxiv.org/abs/1905.10671) | AAAI 20     | [DIANet](https://github.com/gbup-group/DIANet)               | LSTM+全程SE注意力                                            |                                                 |
+| [Coordinate Attention for Efficient Mobile Network Design](https://arxiv.org/abs/2103.02907) | CVPR21      | [CoordAttention](https://github.com/Andrew-Qibin/CoordAttention) | 横向、竖向                                                   |                                                 |
 
 
 
