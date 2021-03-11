@@ -1,4 +1,4 @@
-# Awesome-Attention-Mechanism-in-cv
+# Awesome-Attention-Mechanism-in-cv [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 ## Table of Contents
 
 - [Introduction](#Introduction)
