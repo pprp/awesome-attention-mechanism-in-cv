@@ -62,7 +62,11 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Dense-and-implicit attention network](https://arxiv.org/abs/1905.10671) | AAAI 20     | [DIANet](https://github.com/gbup-group/DIANet)               | LSTM+全程SE注意力                                            |                                                 |
 | [Coordinate Attention for Efficient Mobile Network Design](https://arxiv.org/abs/2103.02907) | CVPR21      | [CoordAttention](https://github.com/Andrew-Qibin/CoordAttention) | 横向、竖向                                                   |                                                 |
 | [Cross-channel Communication Networks](https://papers.nips.cc/paper/8411-cross-channel-communication-networks.pdf) | NIPS19      | [C3Net](https://github.com/jwyang/C3Net.pytorch)             | GNN+SE                                                       |                                                 |
+<<<<<<< Updated upstream
 | [Gated Convolutional Networks with Hybrid Connectivity for Image Classification](https://arxiv.org/pdf/1908.09699.pdf) | AAAI20      | [HCGNet](https://github.com/winycg/HCGNet)                   | 引入了LSTM的部分概念                                         |                                                 |
+=======
+| [Weighted Channel Dropout for Regularization of Deep Convolutional Neural Network](http://home.ustc.edu.cn/~saihui/papers/aaai2019_weighted.pdf) | AAAI19      | None                                                         | Dropout+SE                                                   |                                                 |
+>>>>>>> Stashed changes
 
 
 
