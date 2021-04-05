@@ -64,6 +64,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Cross-channel Communication Networks](https://papers.nips.cc/paper/8411-cross-channel-communication-networks.pdf) | NIPS19      | [C3Net](https://github.com/jwyang/C3Net.pytorch)             | GNN+SE                                                       |                                                 |
 | [Gated Convolutional Networks with Hybrid Connectivity for Image Classification](https://arxiv.org/pdf/1908.09699.pdf) | AAAI20      | [HCGNet](https://github.com/winycg/HCGNet)                   | 引入了LSTM的部分概念                                         |                                                 |
 | [Weighted Channel Dropout for Regularization of Deep Convolutional Neural Network](http://home.ustc.edu.cn/~saihui/papers/aaai2019_weighted.pdf) | AAAI19      | None                                                         | Dropout+SE                                                   |                                                 |
+| [BA^2M: A Batch Aware Attention Module for Image Classification](https://arxiv.org/pdf/2103.15099.pdf) | CVPR21      | None                                                         | Batch之间建立attention                                       |                                                 |
+| [Stand-Alone Self-Attention in Vision Models](https://arxiv.org/pdf/1906.05909.pdf) | NIPS19      | [SASA](https://github.com/leaderj1001/Stand-Alone-Self-Attention) | Non-Local变体                                                |                                                 |
 
 
 
