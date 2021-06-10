@@ -68,6 +68,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [EPSANet：An Efficient Pyramid Split Attention Block on Convolutional Neural Network](https://arxiv.org/abs/2105.14447) | CoRR21      | [EPSANet](https://github.com/murufeng/EPSANet)               | 多尺度                                                       |                                                 |
 | [Stand-Alone Self-Attention in Vision Models](https://arxiv.org/pdf/1906.05909.pdf) | NIPS19      | [SASA](https://github.com/leaderj1001/Stand-Alone-Self-Attention) | Non-Local变体                                                |                                                 |
 | [ResT: An Efficient Transformer for Visual Recognition](https://arxiv.org/pdf/2105.13677.pdf) | CoRR21      | [ResT](https://github.com/wofmanaf/ResT)                     | self-attention变体                                           |                                                 |
+| [Spanet: Spatial Pyramid Attention Network for Enhanced Image Recognition](https://ieeexplore.ieee.org/document/9102906) | ICME20      | [SPANet](https://github.com/13952522076/SPANet)              | 多个AAP组成金字塔                                            |                                                 |
 
 
 
