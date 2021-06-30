@@ -73,6 +73,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [DMSANet: Dual Multi Scale Attention Network](https://arxiv.org/abs/2106.08382) | CoRR21      | Not release yet                                              | 两尺度+轻量                                                  |                                                 |
 | [CompConv: A Compact Convolution Module for Efficient Feature Learning](https://arxiv.org/abs/2106.10486) | CoRR21      | Not release yet                                              | res2net+ghostnet                                             |                                                 |
 | [VOLO: Vision Outlooker for Visual Recognition](https://arxiv.org/pdf/2106.13112.pdf) | CoRR21      | [VOLO](https://github.com/sail-sg/volo)                      | ViT上的Attention                                             |                                                 |
+| [Interflow: Aggregating Multi-layer Featrue Mappings with Attention Mechanism](https://arxiv.org/abs/2106.14073) | CoRR21      | Not release yet                                              | 辅助头级别attention                                          |                                                 |
 
 
 
