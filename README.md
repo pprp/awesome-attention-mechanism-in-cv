@@ -72,6 +72,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Space-time Mixing Attention for Video Transformer](https://arxiv.org/pdf/2106.05968.pdf) | CoRR21      | X-VIT Not release                                            | VIT+时空attention                                            |                                                 |
 | [DMSANet: Dual Multi Scale Attention Network](https://arxiv.org/abs/2106.08382) | CoRR21      | Not release yet                                              | 两尺度+轻量                                                  |                                                 |
 | [CompConv: A Compact Convolution Module for Efficient Feature Learning](https://arxiv.org/abs/2106.10486) | CoRR21      | Not release yet                                              | res2net+ghostnet                                             |                                                 |
+| [VOLO: Vision Outlooker for Visual Recognition](https://arxiv.org/pdf/2106.13112.pdf) | CoRR21      | [VOLO](https://github.com/sail-sg/volo)                      | ViT上的Attention                                             |                                                 |
 
 
 
