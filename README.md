@@ -74,6 +74,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [CompConv: A Compact Convolution Module for Efficient Feature Learning](https://arxiv.org/abs/2106.10486) | CoRR21      | Not release yet                                              | res2net+ghostnet                                             |                                                 |
 | [VOLO: Vision Outlooker for Visual Recognition](https://arxiv.org/pdf/2106.13112.pdf) | CoRR21      | [VOLO](https://github.com/sail-sg/volo)                      | ViT上的Attention                                             |                                                 |
 | [Interflow: Aggregating Multi-layer Featrue Mappings with Attention Mechanism](https://arxiv.org/abs/2106.14073) | CoRR21      | Not release yet                                              | 辅助头级别attention                                          |                                                 |
+| [MUSE: Parallel Multi-Scale Attention for Sequence to Sequence Learning](https://arxiv.org/abs/1911.09483) | CoRR21      | MUSE Attention                                               | NLP中对SA进行改进                                            |                                                 |
 
 
 
