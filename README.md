@@ -75,6 +75,11 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [VOLO: Vision Outlooker for Visual Recognition](https://arxiv.org/pdf/2106.13112.pdf) | CoRR21      | [VOLO](https://github.com/sail-sg/volo)                      | ViT上的Attention                                             |                                                 |
 | [Interflow: Aggregating Multi-layer Featrue Mappings with Attention Mechanism](https://arxiv.org/abs/2106.14073) | CoRR21      | Not release yet                                              | 辅助头级别attention                                          |                                                 |
 | [MUSE: Parallel Multi-Scale Attention for Sequence to Sequence Learning](https://arxiv.org/abs/1911.09483) | CoRR21      | MUSE Attention                                               | NLP中对SA进行改进                                            |                                                 |
+| [Polarized Self-Attention: Towards High-quality Pixel-wise Regression](https://arxiv.org/pdf/2107.00782.pdf) | CoRR21      | [PSA](https://github.com/DeLightCMU/PSA)                     | Pixel-wise regression                                        |                                                 |
+
+
+
+
 
 
 
