@@ -76,6 +76,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Interflow: Aggregating Multi-layer Featrue Mappings with Attention Mechanism](https://arxiv.org/abs/2106.14073) | CoRR21      | Not release yet                                              | 辅助头级别attention                                          |                                                 |
 | [MUSE: Parallel Multi-Scale Attention for Sequence to Sequence Learning](https://arxiv.org/abs/1911.09483) | CoRR21      | MUSE Attention                                               | NLP中对SA进行改进                                            |                                                 |
 | [Polarized Self-Attention: Towards High-quality Pixel-wise Regression](https://arxiv.org/pdf/2107.00782.pdf) | CoRR21      | [PSA](https://github.com/DeLightCMU/PSA)                     | Pixel-wise regression                                        |                                                 |
+| [CA-Net: Comprehensive Attention Convolutional Neural Networks for Explainable Medical Image Segmentation](https://arxiv.org/pdf/2009.10549v2.pdf) | TMI21       | [CA-Net](https://github.com/HiLab-git/CA-Net)                | Spatial Attention                                            |                                                 |
+| [BAM: A Lightweight and Efficient Balanced Attention Mechanism for Single Image Super Resolution](https://arxiv.org/ftp/arxiv/papers/2104/2104.07566.pdf) | CoRR21      | [BAM](https://github.com/dandingbudanding/BAM)               | Super resolution                                             |                                                 |
 
 
 
