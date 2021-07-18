@@ -80,6 +80,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [BAM: A Lightweight and Efficient Balanced Attention Mechanism for Single Image Super Resolution](https://arxiv.org/ftp/arxiv/papers/2104/2104.07566.pdf) | CoRR21      | [BAM](https://github.com/dandingbudanding/BAM)               | Super resolution                                             |                                                 |
 | [Attention as Activation](https://arxiv.org/pdf/2007.07729v2.pdf) | CoRR21      | [ATAC](https://github.com/YimianDai/open-atac)               | activation + attention                                       |                                                 |
 | [Region-based Non-local Operation for Video Classification](https://arxiv.org/pdf/2007.09033v5.pdf) | CoRR21      | [RNL](https://github.com/guoxih/region-based-non-local-network) | video classification                                         |                                                 |
+| [MSAF: Multimodal Split Attention Fusion](https://arxiv.org/pdf/2012.07175v2.pdf) | CoRR21      | [MSAF](https://github.com/anita-hu/MSAF)                     | MultiModal                                                   |                                                 |
+| [All-Attention Layer](https://arxiv.org/abs/1907.01470v1)    | CoRR19      | None                                                         | Tranformer Layer                                             |                                                 |
 
 
 
