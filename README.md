@@ -82,6 +82,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Region-based Non-local Operation for Video Classification](https://arxiv.org/pdf/2007.09033v5.pdf) | CoRR21      | [RNL](https://github.com/guoxih/region-based-non-local-network) | video classification                                         |                                                 |
 | [MSAF: Multimodal Split Attention Fusion](https://arxiv.org/pdf/2012.07175v2.pdf) | CoRR21      | [MSAF](https://github.com/anita-hu/MSAF)                     | MultiModal                                                   |                                                 |
 | [All-Attention Layer](https://arxiv.org/abs/1907.01470v1)    | CoRR19      | None                                                         | Tranformer Layer                                             |                                                 |
+| [Compact Global Descriptor](https://arxiv.org/abs/1907.09665v10) | CoRR20      | [CGD](https://github.com/HolmesShuan/Compact-Global-Descriptor) | add every two channel attention                              |                                                 |
 
 
 
