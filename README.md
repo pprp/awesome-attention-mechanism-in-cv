@@ -83,6 +83,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [MSAF: Multimodal Split Attention Fusion](https://arxiv.org/pdf/2012.07175v2.pdf) | CoRR21      | [MSAF](https://github.com/anita-hu/MSAF)                     | MultiModal                                                   |                                                 |
 | [All-Attention Layer](https://arxiv.org/abs/1907.01470v1)    | CoRR19      | None                                                         | Tranformer Layer                                             |                                                 |
 | [Compact Global Descriptor](https://arxiv.org/abs/1907.09665v10) | CoRR20      | [CGD](https://github.com/HolmesShuan/Compact-Global-Descriptor) | add every two channel attention                              |                                                 |
+| [SimAM: A Simple, Parameter-Free Attention Module for Convolutional Neural Networks](https://ruyuanzhang.github.io/files/2107_ICML.pdf) | ICML21      | [SimAM](https://github.com/ZjjConan/SimAM)                   | 类脑计算神经元能量                                           |                                                 |
 
 
 
@@ -138,14 +139,6 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | SA-ResNet18  | 95.07%   | 1:39:38 | 11,171,394 |
 
 
-
-## Paper List
-
-SENet 论文: https://arxiv.org/abs/1709.01507 解读：https://zhuanlan.zhihu.com/p/102035721
-
-[参考](https://mp.weixin.qq.com/s?__biz=MzI5MDUyMDIxNA==&mid=2247505490&idx=3&sn=475974048f38df8aaa190ec5e8b4af67&chksm=ec1c3babdb6bb2bda2e54dc668e732596b8e7952940d4e4caa69cb683f5d625a0188ce361e2d&scene=21#wechat_redirect)
-
-[ATPaper库](https://github.com/ZhengZixiang/ATPapers)
 
 ## Contribute
 
