@@ -84,6 +84,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [All-Attention Layer](https://arxiv.org/abs/1907.01470v1)    | CoRR19      | None                                                         | Tranformer Layer                                             |                                                 |
 | [Compact Global Descriptor](https://arxiv.org/abs/1907.09665v10) | CoRR20      | [CGD](https://github.com/HolmesShuan/Compact-Global-Descriptor) | add every two channel attention                              |                                                 |
 | [SimAM: A Simple, Parameter-Free Attention Module for Convolutional Neural Networks](https://ruyuanzhang.github.io/files/2107_ICML.pdf) | ICML21      | [SimAM](https://github.com/ZjjConan/SimAM)                   | 类脑计算神经元能量                                           |                                                 |
+| [Drop an Octave: Reducing Spatial Redundancy in Convolutional Neural Networks With Octave Convolution](https://export.arxiv.org/pdf/1904.05049) | ICCV19      | [OctConv](https://github.com/facebookresearch/OctConv)       | 从频率角度改进                                               |                                                 |
 
 
 
