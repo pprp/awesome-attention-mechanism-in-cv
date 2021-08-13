@@ -87,6 +87,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Drop an Octave: Reducing Spatial Redundancy in Convolutional Neural Networks With Octave Convolution](https://export.arxiv.org/pdf/1904.05049) | ICCV19      | [OctConv](https://github.com/facebookresearch/OctConv)       | 从频率角度改进                                               |                                                 |
 | [Contextual Transformer Networks for Visual Recognition](https://arxiv.org/abs/2107.12292) | ICCV2021    | [CoTNet](https://github.com/JDAI-CV/CoTNet)                  | 虽然宣称Transformer改进，但实际上就是non-local非常接近       |                                                 |
 | [Residual Attention: A Simple but Effective Method for Multi-Label Recognition](https://arxiv.org/abs/2108.02456) | ICCV2021    | CSRA                                                         | 用于多标签图像识别任务                                       |                                                 |
+| [Self-supervised Equivariant Attention Mechanism for Weakly Supervised Semantic Segmentation](https://arxiv.org/pdf/2004.04581v1.pdf) | CVPR2020    | [SEAM](https://github.com/YudeWang/SEAM)                     | 弱监督                                                       |                                                 |
 
 
 
