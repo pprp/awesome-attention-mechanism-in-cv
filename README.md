@@ -88,6 +88,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Contextual Transformer Networks for Visual Recognition](https://arxiv.org/abs/2107.12292) | ICCV2021    | [CoTNet](https://github.com/JDAI-CV/CoTNet)                  | 虽然宣称Transformer改进，但实际上就是non-local非常接近       |                                                 |
 | [Residual Attention: A Simple but Effective Method for Multi-Label Recognition](https://arxiv.org/abs/2108.02456) | ICCV2021    | CSRA                                                         | 用于多标签图像识别任务                                       |                                                 |
 | [Self-supervised Equivariant Attention Mechanism for Weakly Supervised Semantic Segmentation](https://arxiv.org/pdf/2004.04581v1.pdf) | CVPR2020    | [SEAM](https://github.com/YudeWang/SEAM)                     | 弱监督                                                       |                                                 |
+| [An Attention Module for Convolutional Neural Networks](https://arxiv.org/abs/2108.08205) | ICCV2021    | AW-Conv                                                      | 提升了SE部分的容量                                           |                                                 |
 
 
 
