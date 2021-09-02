@@ -89,6 +89,9 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Residual Attention: A Simple but Effective Method for Multi-Label Recognition](https://arxiv.org/abs/2108.02456) | ICCV2021    | CSRA                                                         | 用于多标签图像识别任务                                       |                                                 |
 | [Self-supervised Equivariant Attention Mechanism for Weakly Supervised Semantic Segmentation](https://arxiv.org/pdf/2004.04581v1.pdf) | CVPR2020    | [SEAM](https://github.com/YudeWang/SEAM)                     | 弱监督                                                       |                                                 |
 | [An Attention Module for Convolutional Neural Networks](https://arxiv.org/abs/2108.08205) | ICCV2021    | AW-Conv                                                      | 提升了SE部分的容量                                           |                                                 |
+| [Attentive Normalization](https://arxiv.org/pdf/1908.01259.pdf) | Arxiv2020   | None                                                         | BN+Attention                                                 |                                                 |
+| [Person Re-identification via Attention Pyramid](https://arxiv.org/abs/2108.05340) | TIP2021     | [APNet](https://github.com/CHENGY12/APNet)                   | 注意力金字塔+ReID                                            |                                                 |
+| [Unifying Nonlocal Blocks for Neural Networks](https://arxiv.org/abs/2108.02451) | ICCV2021    | [SNL](https://github.com/zh460045050/SNL_ICCV2021)           | Non-Local + 引入图谱概念                                     |                                                 |
 
 
 
