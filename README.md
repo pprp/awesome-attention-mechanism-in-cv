@@ -94,6 +94,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Unifying Nonlocal Blocks for Neural Networks](https://arxiv.org/abs/2108.02451) | ICCV21      | [SNL](https://github.com/zh460045050/SNL_ICCV2021)           | Non-Local + 引入图谱概念                                     |                                                 |
 | [Tiled Squeeze-and-Excite: Channel Attention With Local Spatial Context](https://openaccess.thecvf.com/content/ICCV2021W/NeurArch/papers/Vosco_Tiled_Squeeze-and-Excite_Channel_Attention_With_Local_Spatial_Context_ICCVW_2021_paper.pdf) | ICCVW21     | None                                                         | Spatial+Channel                                              |                                                 |
 | [PP-NAS: Searching for Plug-and-Play Blocks on Convolutional Neural Network](https://openaccess.thecvf.com/content/ICCV2021W/NeurArch/papers/Shen_PP-NAS_Searching_for_Plug-and-Play_Blocks_on_Convolutional_Neural_Network_ICCVW_2021_paper.pdf) | ICCVW21     | [PP-NAS](https://github.com/sbl1996/PP-NAS)                  | 搜索即插即用模块                                             |                                                 |
+| [Dynamic Region-Aware Convolution](https://arxiv.org/pdf/2003.12243.pdf) | CVPR2021    | None                                                         | 动态生成卷积核                                               |                                                 |
 
 
 
