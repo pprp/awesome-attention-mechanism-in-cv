@@ -102,6 +102,9 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [A2 -FPN: Attention Aggregation based Feature Pyramid Network for Instance Segmentation](https://openaccess.thecvf.com/content/CVPR2021/papers/Hu_A2-FPN_Attention_Aggregation_Based_Feature_Pyramid_Network_for_Instance_Segmentation_CVPR_2021_paper.pdf) | CVPR21      | None                                                         | FPN+Attention                                                |                                                 |
 | [Image Super-Resolution with Non-Local Sparse Attention](https://openaccess.thecvf.com/content/CVPR2021/papers/Mei_Image_Super-Resolution_With_Non-Local_Sparse_Attention_CVPR_2021_paper.pdf) | CVPR21      | None                                                         | SR+Non local                                                 |                                                 |
 | [Keep your Eyes on the Lane: Real-time Attention-guided Lane Detection](https://openaccess.thecvf.com/content/CVPR2021/papers/Tabelini_Keep_Your_Eyes_on_the_Lane_Real-Time_Attention-Guided_Lane_Detection_CVPR_2021_paper.pdf) | CVPR21      | [LaneATT](https://github.com/lucastabelini/LaneATT)          | Land Detection                                               |                                                 |
+| [NAM: Normalization-based Attention Module](https://arxiv.org/abs/2111.12419) | CoRR21      | [NAM](https://github.com/Christian-lyc/NAM)                  | Normal+Attention                                             |                                                 |
+
+
 
 
 
