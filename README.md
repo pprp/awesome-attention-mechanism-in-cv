@@ -109,6 +109,8 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [Att-DARTS: Differentiable Neural Architecture Search for Attention](http://vigir.missouri.edu/~gdesouza/Research/Conference_CDs/IEEE_WCCI_2020/IJCNN/Papers/N-21042.pdf) | IJCNN20     | [Att-Darts](https://github.com/chomin/Att-DARTS)             | Darts+AttentionSearch                                        |                                                 |
 | [On the Integration of Self-Attention and Convolution](https://arxiv.org/pdf/2111.14556.pdf) | CoRR21      | [ACMix](https://gitee.com/mindspore/models)                  | self attention+conv                                          |                                                 |
 | [BoxeR: Box-Attention for 2D and 3D Transformers](https://arxiv.org/pdf/2111.13087.pdf) | CoRR21      | None                                                         | 目标检测+attention                                           |                                                 |
+| [CoAtNet: Marrying Convolution and Attention for All Data Sizes](https://proceedings.neurips.cc/paper/2021/file/20568692db622456cc42a2e853ca21f8-Paper.pdf) | NIPS21      | [coatnet](https://github.com/chinhsuanwu/coatnet-pytorch)    | VIT                                                          |                                                 |
+| [Pay Attention to MLPs](https://proceedings.neurips.cc/paper/2021/file/4cc05b35c2f937c5bd9e7d41d3686fff-Paper.pdf) | NIPS21      | [gmlp](https://github.com/jaketae/g-mlp)                     | MLP                                                          |                                                 |
 
 
 
