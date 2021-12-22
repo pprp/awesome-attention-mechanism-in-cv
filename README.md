@@ -114,6 +114,7 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 | [IC-Conv: Inception Convolution With Efficient Dilation Search](https://arxiv.org/pdf/2012.13587.pdf) | CVPR21 Oral | [IC-Conv](https://github.com/yifan123/IC-Conv)               | 空洞率搜索                                                   |                                                 |
 | [SRM : A Style-based Recalibration Module for Convolutional Neural Networks](https://openaccess.thecvf.com/content_ICCV_2019/papers/Lee_SRM_A_Style-Based_Recalibration_Module_for_Convolutional_Neural_Networks_ICCV_2019_paper.pdf) | ICCV19      | [SRM](https://github.com/hyunjaelee410/style-based-recalibration-module) | Style校准注意力                                              |                                                 |
 | [SPANet: Spatial Pyramid Attention Network for Enhanced Image Recognition](https://par.nsf.gov/servlets/purl/10206339) | ICME20      | [SPANet](https://github.com/13952522076/SPANet_TMM)          | SE+SP                                                        |                                                 |
+| [Competitive Inner-Imaging Squeeze and Excitation for Residual Network](https://arxiv.org/pdf/1807.08920v4.pdf) | CoRR18      | [Competitive-SENet](https://github.com/scut-aitcm/Competitive-Inner-Imaging-SENet) | 引入skip connection信息                                      |                                                 |
 
 
 
