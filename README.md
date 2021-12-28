@@ -6,13 +6,14 @@
 - [Introduction](#Introduction)
 - [Attention Mechanism](#Attention-Mechanism)
 - [Plug and Play Module](#Plug-and-Play-Module)
-- [Evaluation](#Evaluation)
-- [Paper List](#Paper-List)
+- [Vision Transformer](#Vision Transformer)
 - [Contribute](#Contribute)
 
 ## Introduction
 
-PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，还收集了一些即插即用模块。由于能力有限精力有限，可能很多模块并没有包括进来，有任何的建议或者改进，可以提交issue或者进行PR。
+PyTorch implements a variety of Attention mechanisms used in network design in computer vision, as well as a collection of plug and play modules. Due to limited ability and energy, many modules may not be included. 
+
+If you have any suggestions or improvements, welcome to submit an [issue](https://github.com/pprp/awesome-attention-mechanism-in-cv/issues) or [PR](https://github.com/pprp/awesome-attention-mechanism-in-cv/pulls).
 
 ## Attention Mechanism
 
@@ -118,32 +119,28 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 
 
 
-
-
-
-
-
 ## Plug and Play Module
 
-- ACBlock
-- Swish、wish Activation
-- ASPP Block
-- DepthWise Convolution
-- Fused Conv & BN
-- MixedDepthwise Convolution
-- PSP Module
-- RFBModule
+| Title                                                        | Publish | Github                                                       | Description        |
+| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ------------------ |
+| [ACNet: Strengthening the Kernel Skeletons for Powerful CNN via Asymmetric Convolution Blocks](https://arxiv.org/abs/1908.03930) | ICCV19  | [ACNet](https://github.com/DingXiaoH/ACNet)                  | 重参数化           |
+| [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915v2.pdf) | TPAMI18 | [ASPP](https://github.com/kazuto1011/deeplab-pytorch)        | 空洞卷积           |
+| [MixConv: Mixed Depthwise Convolutional Kernels](https://bmvc2019.org/wp-content/uploads/papers/0583-paper.pdf) | BMCV19  | [MixedConv]( https://github.com/ tensorflow/tpu/tree/master/models/official/mnasnet/mixnet.) | 不同kernel的卷积   |
+| [Pyramid Scene Parsing Network](https://arxiv.org/pdf/1612.01105.pdf) | CVPR17  | [PSP](https://github.com/hszhao/PSPNet)                      | 金字塔池化         |
+| [Receptive Field Block Net for Accurate and Fast Object Detection](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Songtao_Liu_Receptive_Field_Block_ECCV_2018_paper.pdf) | ECCV18  | [RFB](https://github.com/GOATmessi7/RFBNet)                  | 空洞卷积           |
+| [Strip Pooling: Rethinking Spatial Pooling for Scene Parsing](https://arxiv.org/pdf/2003.13328.pdf) | CVPR20  | [SPNet](https://github.com/Andrew-Qibin/SPNet)               | 两个方向池化       |
+| [SSH: Single Stage Headless Face Detector](https://arxiv.org/pdf/1708.03979.pdf) | ICCV17  | [SSH](https://github.com/mahyarnajibi/SSH)                   | 最简单的感受野模块 |
+| [GhostNet: More Features from Cheap Operations](https://arxiv.org/pdf/1911.11907.pdf) | CVPR20  | [GhostNet]()                                                 | 简单而有效         |
+| [SlimConv: Reducing Channel Redundancy in Convolutional Neural Networks by Weights Flipping](https://arxiv.org/abs/2003.07469) | TIP21   | [SlimConv](https://github.com/JiaxiongQ/SlimConv)            | Flip操作+SE        |
+| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) | ICML19  | [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) | 出色的网络构建模块 |
+|                                                              |         |                                                              |                    |
+| [PP-NAS: Searching for Plug-and-Play Blocks on Convolutional Neural Network](https://ieeexplore.ieee.org/document/9607527/) | ICCVW21 | [PPNAS](https://github.com/sbl1996/PP-NAS)                   | 组间链接搜索       |
+
+
+
 - SematicEmbbedBlock
-- SSH Context Module
-- Some other usefull tools such as concate feature map、flatten feature map
-- WeightedFeatureFusion:EfficientDet中的FPN用到的fuse方式
-- StripPooling：CVPR2020中核心代码StripPooling
-- GhostModule: CVPR2020GhostNet的核心模块
-- SlimConv: SlimConv3x3 
-- Context Gating： video classification
-- EffNetBlock: EffNet
+
 - ECCV2020 BorderDet: Border aligment module
-- CVPR2019 DANet: Dual Attention
 - Object Contextual Representation for sematic segmentation: OCRModule
 - FPT: 包含Self Transform、Grounding Transform、Rendering Transform
 - DOConv: 阿里提出的Depthwise Over-parameterized Convolution
@@ -154,25 +151,19 @@ PyTorch实现多种计算机视觉中网络设计中用到的Attention机制，�
 - PSConv: ECCV 2020 将特征金字塔压缩到紧凑的多尺度卷积层中
 - Dynamic Convolution: CVPR2020 动态滤波器卷积（非官方）
 - CondConv: Conditionally Parameterized Convolutions for Efficient Inference
-- PP-NAS: https://github.com/sbl1996/PP-NAS
 
-## Evaluation
 
-基于CIFAR10+ResNet+待测评模块，对模块进行初步测评。测评代码来自于另外一个库：https://github.com/kuangliu/pytorch-cifar/  实验过程中，不使用预训练权重，进行随机初始化。
 
-| 模型         | top1 acc | time    | params(MB) |
-| ------------ | -------- | ------- | ---------- |
-| SENet18      | 95.28%   | 1:27:50 | 11,260,354 |
-| ResNet18     | 95.16%   | 1:13:03 | 11,173,962 |
-| ResNet50     | 95.50%   | 4:24:38 | 23,520,842 |
-| ShuffleNetV2 | 91.90%   | 1:02:50 | 1,263,854  |
-| GoogLeNet    | 91.90%   | 1:02:50 | 6,166,250  |
-| MobileNetV2  | 92.66%   | 2:04:57 | 2,296,922  |
-| SA-ResNet50  | 89.83%   | 2:10:07 | 23,528,758 |
-| SA-ResNet18  | 95.07%   | 1:39:38 | 11,171,394 |
+## Vision Transformer
+
+coming soon..
+
+
 
 
 
 ## Contribute
 
 欢迎在issue中提出补充的文章paper和对应code链接。
+
+感谢[@dedekinds](https://github.com/dedekinds) 指出的DIANet描述中存在的问题。
