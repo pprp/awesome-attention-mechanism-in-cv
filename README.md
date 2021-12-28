@@ -121,20 +121,23 @@ If you have any suggestions or improvements, welcome to submit an [issue](https:
 
 ## Plug and Play Module
 
-| Title                                                        | Publish | Github                                                       | Description        |
-| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ------------------ |
-| [ACNet: Strengthening the Kernel Skeletons for Powerful CNN via Asymmetric Convolution Blocks](https://arxiv.org/abs/1908.03930) | ICCV19  | [ACNet](https://github.com/DingXiaoH/ACNet)                  | 重参数化           |
-| [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915v2.pdf) | TPAMI18 | [ASPP](https://github.com/kazuto1011/deeplab-pytorch)        | 空洞卷积           |
-| [MixConv: Mixed Depthwise Convolutional Kernels](https://bmvc2019.org/wp-content/uploads/papers/0583-paper.pdf) | BMCV19  | [MixedConv]( https://github.com/ tensorflow/tpu/tree/master/models/official/mnasnet/mixnet.) | 不同kernel的卷积   |
-| [Pyramid Scene Parsing Network](https://arxiv.org/pdf/1612.01105.pdf) | CVPR17  | [PSP](https://github.com/hszhao/PSPNet)                      | 金字塔池化         |
-| [Receptive Field Block Net for Accurate and Fast Object Detection](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Songtao_Liu_Receptive_Field_Block_ECCV_2018_paper.pdf) | ECCV18  | [RFB](https://github.com/GOATmessi7/RFBNet)                  | 空洞卷积           |
-| [Strip Pooling: Rethinking Spatial Pooling for Scene Parsing](https://arxiv.org/pdf/2003.13328.pdf) | CVPR20  | [SPNet](https://github.com/Andrew-Qibin/SPNet)               | 两个方向池化       |
-| [SSH: Single Stage Headless Face Detector](https://arxiv.org/pdf/1708.03979.pdf) | ICCV17  | [SSH](https://github.com/mahyarnajibi/SSH)                   | 最简单的感受野模块 |
-| [GhostNet: More Features from Cheap Operations](https://arxiv.org/pdf/1911.11907.pdf) | CVPR20  | [GhostNet]()                                                 | 简单而有效         |
-| [SlimConv: Reducing Channel Redundancy in Convolutional Neural Networks by Weights Flipping](https://arxiv.org/abs/2003.07469) | TIP21   | [SlimConv](https://github.com/JiaxiongQ/SlimConv)            | Flip操作+SE        |
-| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) | ICML19  | [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) | 出色的网络构建模块 |
-|                                                              |         |                                                              |                    |
-| [PP-NAS: Searching for Plug-and-Play Blocks on Convolutional Neural Network](https://ieeexplore.ieee.org/document/9607527/) | ICCVW21 | [PPNAS](https://github.com/sbl1996/PP-NAS)                   | 组间链接搜索       |
+| Title                                                        | Publish | Github                                                       | Description                          |
+| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ------------------------------------ |
+| [ACNet: Strengthening the Kernel Skeletons for Powerful CNN via Asymmetric Convolution Blocks](https://arxiv.org/abs/1908.03930) | ICCV19  | [ACNet](https://github.com/DingXiaoH/ACNet)                  | 重参数化                             |
+| [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915v2.pdf) | TPAMI18 | [ASPP](https://github.com/kazuto1011/deeplab-pytorch)        | 空洞卷积                             |
+| [MixConv: Mixed Depthwise Convolutional Kernels](https://bmvc2019.org/wp-content/uploads/papers/0583-paper.pdf) | BMCV19  | [MixedConv](https://github.com/ tensorflow/tpu/tree/master/models/official/mnasnet/mixnet) | 不同kernel的卷积                     |
+| [Pyramid Scene Parsing Network](https://arxiv.org/pdf/1612.01105.pdf) | CVPR17  | [PSP](https://github.com/hszhao/PSPNet)                      | 金字塔池化                           |
+| [Receptive Field Block Net for Accurate and Fast Object Detection](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Songtao_Liu_Receptive_Field_Block_ECCV_2018_paper.pdf) | ECCV18  | [RFB](https://github.com/GOATmessi7/RFBNet)                  | 空洞卷积                             |
+| [Strip Pooling: Rethinking Spatial Pooling for Scene Parsing](https://arxiv.org/pdf/2003.13328.pdf) | CVPR20  | [SPNet](https://github.com/Andrew-Qibin/SPNet)               | 两个方向池化                         |
+| [SSH: Single Stage Headless Face Detector](https://arxiv.org/pdf/1708.03979.pdf) | ICCV17  | [SSH](https://github.com/mahyarnajibi/SSH)                   | 最简单的感受野模块                   |
+| [GhostNet: More Features from Cheap Operations](https://arxiv.org/pdf/1911.11907.pdf) | CVPR20  | [GhostNet]()                                                 | 简单而有效                           |
+| [SlimConv: Reducing Channel Redundancy in Convolutional Neural Networks by Weights Flipping](https://arxiv.org/abs/2003.07469) | TIP21   | [SlimConv](https://github.com/JiaxiongQ/SlimConv)            | Flip操作+SE                          |
+| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) | ICML19  | [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) | 出色的网络构建模块                   |
+| [CondConv: Conditionally Parameterized Convolutions for Efficient Inference](https://arxiv.org/abs/1904.04971) | NIPS19  | [CondConv](https://github.com/d-li14/condconv.pytorch)       | 动态卷积                             |
+| [PP-NAS: Searching for Plug-and-Play Blocks on Convolutional Neural Network](https://ieeexplore.ieee.org/document/9607527/) | ICCVW21 | [PPNAS](https://github.com/sbl1996/PP-NAS)                   | 组间链接搜索                         |
+| [Dynamic Convolution: Attention over Convolution Kernels](https://openaccess.thecvf.com/content_CVPR_2020/papers/Chen_Dynamic_Convolution_Attention_Over_Convolution_Kernels_CVPR_2020_paper.pdf) | CVPR20  | [DynamicConv](https://github.com/kaijieshi7/Dynamic-convolution-Pytorch) | 动态滤波器                           |
+| [PSConv: Squeezing Feature Pyramid into One Compact Poly-Scale Convolutional Layer](https://arxiv.org/abs/2007.06191) | ECCV20  | [PSConv](https://github.com/d-li14/PSConv)                   | 细粒度多尺度                         |
+| [DCANet: Dense Context-Aware Network for Semantic Segmentation](https://arxiv.org/pdf/2104.02533.pdf) | ECCV20  | [DCANet](https://github.com/13952522076/DCANet)              | https://arxiv.org/pdf/2104.02533.pdf |
 
 
 
@@ -147,10 +150,6 @@ If you have any suggestions or improvements, welcome to submit an [issue](https:
 - PyConv: 起源人工智能研究院提出的金字塔卷积
 - ULSAM：用于紧凑型CNN的超轻量级子空间注意力模块
 - DGC: ECCV 2020用于加速卷积神经网络的动态分组卷积
-- DCANet: ECCV 2020 学习卷积神经网络的连接注意力
-- PSConv: ECCV 2020 将特征金字塔压缩到紧凑的多尺度卷积层中
-- Dynamic Convolution: CVPR2020 动态滤波器卷积（非官方）
-- CondConv: Conditionally Parameterized Convolutions for Efficient Inference
 
 
 
