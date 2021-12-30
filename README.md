@@ -6,7 +6,7 @@
 - [Introduction](#Introduction)
 - [Attention Mechanism](#Attention-Mechanism)
 - [Plug and Play Module](#Plug-and-Play-Module)
-- [Vision Transformer](#Vision Transformer)
+- [Vision Transformer](#Vision-Transformer)
 - [Contribute](#Contribute)
 
 ## Introduction
@@ -121,25 +121,23 @@ If you have any suggestions or improvements, welcome to submit an [issue](https:
 
 ## Plug and Play Module
 
-| Title                                                        | Publish | Github                                                       | Description                          |
-| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ------------------------------------ |
-| [ACNet: Strengthening the Kernel Skeletons for Powerful CNN via Asymmetric Convolution Blocks](https://arxiv.org/abs/1908.03930) | ICCV19  | [ACNet](https://github.com/DingXiaoH/ACNet)                  | 重参数化                             |
-| [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915v2.pdf) | TPAMI18 | [ASPP](https://github.com/kazuto1011/deeplab-pytorch)        | 空洞卷积                             |
-| [MixConv: Mixed Depthwise Convolutional Kernels](https://bmvc2019.org/wp-content/uploads/papers/0583-paper.pdf) | BMCV19  | [MixedConv](https://github.com/tensorflow/tpu/tree/master/models/official/mnasnet/mixnet) | 不同kernel的卷积                     |
-| [Pyramid Scene Parsing Network](https://arxiv.org/pdf/1612.01105.pdf) | CVPR17  | [PSP](https://github.com/hszhao/PSPNet)                      | 金字塔池化                           |
-| [Receptive Field Block Net for Accurate and Fast Object Detection](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Songtao_Liu_Receptive_Field_Block_ECCV_2018_paper.pdf) | ECCV18  | [RFB](https://github.com/GOATmessi7/RFBNet)                  | 空洞卷积                             |
-| [Strip Pooling: Rethinking Spatial Pooling for Scene Parsing](https://arxiv.org/pdf/2003.13328.pdf) | CVPR20  | [SPNet](https://github.com/Andrew-Qibin/SPNet)               | 两个方向池化                         |
-| [SSH: Single Stage Headless Face Detector](https://arxiv.org/pdf/1708.03979.pdf) | ICCV17  | [SSH](https://github.com/mahyarnajibi/SSH)                   | 最简单的感受野模块                   |
-| [GhostNet: More Features from Cheap Operations](https://arxiv.org/pdf/1911.11907.pdf) | CVPR20  | [GhostNet]()                                                 | 简单而有效                           |
-| [SlimConv: Reducing Channel Redundancy in Convolutional Neural Networks by Weights Flipping](https://arxiv.org/abs/2003.07469) | TIP21   | [SlimConv](https://github.com/JiaxiongQ/SlimConv)            | Flip操作+SE                          |
-| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) | ICML19  | [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) | 出色的网络构建模块                   |
-| [CondConv: Conditionally Parameterized Convolutions for Efficient Inference](https://arxiv.org/abs/1904.04971) | NIPS19  | [CondConv](https://github.com/d-li14/condconv.pytorch)       | 动态卷积                             |
-| [PP-NAS: Searching for Plug-and-Play Blocks on Convolutional Neural Network](https://ieeexplore.ieee.org/document/9607527/) | ICCVW21 | [PPNAS](https://github.com/sbl1996/PP-NAS)                   | 组间链接搜索                         |
-| [Dynamic Convolution: Attention over Convolution Kernels](https://openaccess.thecvf.com/content_CVPR_2020/papers/Chen_Dynamic_Convolution_Attention_Over_Convolution_Kernels_CVPR_2020_paper.pdf) | CVPR20  | [DynamicConv](https://github.com/kaijieshi7/Dynamic-convolution-Pytorch) | 动态滤波器                           |
-| [PSConv: Squeezing Feature Pyramid into One Compact Poly-Scale Convolutional Layer](https://arxiv.org/abs/2007.06191) | ECCV20  | [PSConv](https://github.com/d-li14/PSConv)                   | 细粒度多尺度                         |
-| [DCANet: Dense Context-Aware Network for Semantic Segmentation](https://arxiv.org/pdf/2104.02533.pdf) | ECCV20  | [DCANet](https://github.com/13952522076/DCANet)              | https://arxiv.org/pdf/2104.02533.pdf |
-
-
+| Title                                                        | Publish | Github                                                       | Main Idea          |
+| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ------------------ |
+| [ACNet: Strengthening the Kernel Skeletons for Powerful CNN via Asymmetric Convolution Blocks](https://arxiv.org/abs/1908.03930) | ICCV19  | [ACNet](https://github.com/DingXiaoH/ACNet)                  | 重参数化           |
+| [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915v2.pdf) | TPAMI18 | [ASPP](https://github.com/kazuto1011/deeplab-pytorch)        | 空洞卷积           |
+| [MixConv: Mixed Depthwise Convolutional Kernels](https://bmvc2019.org/wp-content/uploads/papers/0583-paper.pdf) | BMCV19  | [MixedConv](https://github.com/tensorflow/tpu/tree/master/models/official/mnasnet/mixnet) | 不同kernel的卷积   |
+| [Pyramid Scene Parsing Network](https://arxiv.org/pdf/1612.01105.pdf) | CVPR17  | [PSP](https://github.com/hszhao/PSPNet)                      | 金字塔池化         |
+| [Receptive Field Block Net for Accurate and Fast Object Detection](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Songtao_Liu_Receptive_Field_Block_ECCV_2018_paper.pdf) | ECCV18  | [RFB](https://github.com/GOATmessi7/RFBNet)                  | 空洞卷积           |
+| [Strip Pooling: Rethinking Spatial Pooling for Scene Parsing](https://arxiv.org/pdf/2003.13328.pdf) | CVPR20  | [SPNet](https://github.com/Andrew-Qibin/SPNet)               | 两个方向池化       |
+| [SSH: Single Stage Headless Face Detector](https://arxiv.org/pdf/1708.03979.pdf) | ICCV17  | [SSH](https://github.com/mahyarnajibi/SSH)                   | 最简单的感受野模块 |
+| [GhostNet: More Features from Cheap Operations](https://arxiv.org/pdf/1911.11907.pdf) | CVPR20  | [GhostNet]()                                                 | 简单而有效         |
+| [SlimConv: Reducing Channel Redundancy in Convolutional Neural Networks by Weights Flipping](https://arxiv.org/abs/2003.07469) | TIP21   | [SlimConv](https://github.com/JiaxiongQ/SlimConv)            | Flip操作+SE        |
+| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) | ICML19  | [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) | 出色的网络构建模块 |
+| [CondConv: Conditionally Parameterized Convolutions for Efficient Inference](https://arxiv.org/abs/1904.04971) | NIPS19  | [CondConv](https://github.com/d-li14/condconv.pytorch)       | 动态卷积           |
+| [PP-NAS: Searching for Plug-and-Play Blocks on Convolutional Neural Network](https://ieeexplore.ieee.org/document/9607527/) | ICCVW21 | [PPNAS](https://github.com/sbl1996/PP-NAS)                   | 组间链接搜索       |
+| [Dynamic Convolution: Attention over Convolution Kernels](https://openaccess.thecvf.com/content_CVPR_2020/papers/Chen_Dynamic_Convolution_Attention_Over_Convolution_Kernels_CVPR_2020_paper.pdf) | CVPR20  | [DynamicConv](https://github.com/kaijieshi7/Dynamic-convolution-Pytorch) | 动态滤波器         |
+| [PSConv: Squeezing Feature Pyramid into One Compact Poly-Scale Convolutional Layer](https://arxiv.org/abs/2007.06191) | ECCV20  | [PSConv](https://github.com/d-li14/PSConv)                   | 细粒度多尺度       |
+| [DCANet: Dense Context-Aware Network for Semantic Segmentation](https://arxiv.org/pdf/2104.02533.pdf) | ECCV20  | [DCANet](https://github.com/13952522076/DCANet)              | 注意力             |
 
 - SematicEmbbedBlock
 
@@ -155,8 +153,58 @@ If you have any suggestions or improvements, welcome to submit an [issue](https:
 
 ## Vision Transformer
 
-coming soon..
+An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR 2021, ViT
 
+[[paper]](https://arxiv.org/abs/2010.11929) [[Github]](https://github.com/lucidrains/vit-pytorch)
+
+### 1. Local Attention Enhanced Transformer
+
+| Title                                                        | Publish | Github                                                       | Main Idea     |
+| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ------------- |
+| [CPVT: Conditional Positional Encodings for Vision Transformer](https://arxiv.org/abs/2102.10882) | CoRR21  | [CPVT](https://github.com/Meituan-AutoML/CPVT)               |               |
+| [GLiT: Neural Architecture Search for Global and Local Image Transformer](https://arxiv.org/pdf/2107.02960.pdf) | CoRR21  | [GLiT](https://github.com/bychen515/GLiT)                    | NAS           |
+| [ConViT: Improving Vision Transformers with Soft Convolutional Inductive Biases](https://arxiv.org/abs/2103.10697) | CoRR21  | [ConViT](https://github.com/facebookresearch/convit)         | GPSA          |
+| [CeiT: Incorporating Convolution Designs into Visual Transformers](https://arxiv.org/abs/2103.11816) | CoRR21  | [CeiT](https://github.com/rishikksh20/CeiT-pytorch)          | LCA,LeFF      |
+| [BoTNet: Bottleneck Transformers for Visual Recognition](https://openaccess.thecvf.com/content/CVPR2021/papers/Srinivas_Bottleneck_Transformers_for_Visual_Recognition_CVPR_2021_paper.pdf) | CVPR21  | [BoTNet](https://github.com/leaderj1001/BottleneckTransformers) | NonBlock-like |
+| [CvT: Introducing Convolutions to Vision Transformers](https://openaccess.thecvf.com/content/ICCV2021/papers/Wu_CvT_Introducing_Convolutions_to_Vision_Transformers_ICCV_2021_paper.pdf) | ICCV21  | [CvT](https://github.com/microsoft/CvT)                      | projection    |
+|                                                              |         |                                                              |               |
+
+
+
+### 2. Convolution+Transformer
+
+
+| Title                                                        | Publish | Github                                                       | Main Idea |
+| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | --------- |
+| [CoAtNet: Marrying Convolution and Attention for All Data Sizes](https://arxiv.org/pdf/2106.04803.pdf) | CoRR21  | [CoAtNet](https://github.com/chinhsuanwu/coatnet-pytorch)    |           |
+| [Early Convolutions Help Transformers See Better](https://openreview.net/pdf?id=Lpfh1Bpqfk) | CoRR21  | None                                                         |           |
+| [Compact Transformers: Escaping the Big Data Paradigm with Compact Transformers](https://arxiv.org/abs/2104.05704) | CoRR21  | [CCT](https://github.com/SHI-Labs/Compact-Transformers)      |           |
+| [MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer](https://arxiv.org/abs/2110.02178?context=cs.LG) | CoRR21  | [MobileViT](https://github.com/chinhsuanwu/mobilevit-pytorch) |           |
+| [LeViT: a Vision Transformer in ConvNet's Clothing for Faster Inference](https://arxiv.org/abs/2104.01136) | CoRR21  | [LeViT](https://github.com/facebookresearch/LeViT)           |           |
+|                                                              |         |                                                              |           |
+
+
+
+### 3. Transformer+ Convolution
+
+
+| Title | Publish | Github | Main Idea |
+| ----- | ------- | ------ | --------- |
+|       |         |        |           |
+|       |         |        |           |
+|       |         |        |           |
+
+
+
+### 4. Parallel Convolution and Transformer
+
+
+
+| Title                                                        | Publish | Github | Main Idea |
+| ------------------------------------------------------------ | ------- | ------ | --------- |
+| [ViTAE: Vision Transformer Advanced by Exploring Intrinsic Inductive Bias](https://openreview.net/pdf?id=_RnHyIeu5Y5) |         |        |           |
+|                                                              |         |        |           |
+|                                                              |         |        |           |
 
 
 
@@ -166,3 +214,5 @@ coming soon..
 欢迎在issue中提出补充的文章paper和对应code链接。
 
 感谢[@dedekinds](https://github.com/dedekinds) 指出的DIANet描述中存在的问题。
+
+https://programmathically.com/understanding-padding-and-stride-in-convolutional-neural-networks/
