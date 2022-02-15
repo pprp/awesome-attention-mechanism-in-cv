@@ -118,6 +118,7 @@ If you have any suggestions or improvements, welcome to submit an [issue](https:
 | [Competitive Inner-Imaging Squeeze and Excitation for Residual Network](https://arxiv.org/pdf/1807.08920v4.pdf) | CoRR18      | [Competitive-SENet](https://github.com/scut-aitcm/Competitive-Inner-Imaging-SENet) | 引入skip connection信息                                      |                                                 |
 | [ULSAM: Ultra-Lightweight Subspace Attention Module for Compact Convolutional Neural Networks](https://arxiv.org/pdf/2006.15102.pdf) | WACV20      | [ULSAM](https://github.com/Nandan91/ULSAM)                   | 空间注意力                                                   |                                                 |
 | [Augmenting Convolutional networks with attention-based aggregation](https://arxiv.org/pdf/2112.13692.pdf) | CoRR21      | None                                                         | 在ViT范式基础上增加线性注意力                                |                                                 |
+| [Context-aware Attentional Pooling (CAP) for Fine-grained Visual Classification](https://arxiv.org/abs/2101.06635) | AAAI21      | [CAP](https://github.com/ArdhenduBehera/cap)                 | 结合achor,LSTM,SE等构建注意力实现细粒度识别                  |                                                 |
 
 
 
