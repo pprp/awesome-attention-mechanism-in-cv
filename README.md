@@ -120,6 +120,22 @@ If you have any suggestions or improvements, welcome to submit an [issue](https:
 | [Augmenting Convolutional networks with attention-based aggregation](https://arxiv.org/pdf/2112.13692.pdf) | CoRR21      | None                                                         | 在ViT范式基础上增加线性注意力                                |                                                 |
 | [Context-aware Attentional Pooling (CAP) for Fine-grained Visual Classification](https://arxiv.org/abs/2101.06635) | AAAI21      | [CAP](https://github.com/ArdhenduBehera/cap)                 | 结合achor,LSTM,SE等构建注意力实现细粒度识别                  |                                                 |
 
+## Dynamic Networks
+
+
+| Title                                                        | Publish | Github                                                       | Main Idea                                      |
+| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ---------------------------------------------- |
+| [Dynamic Neural Networks: A Survey](https://arxiv.org/abs/2102.04906v4) | CoRR21  | None                                                         | 综述                                           |
+| [CondConv: Conditionally Parameterized Convolutions for Efficient Inference](https://arxiv.org/abs/1904.04971) | NIPS19  | [CondConv](https://github.com/d-li14/condconv.pytorch)       | 卷积核参数通过对输入进行变换得到               |
+| [DyNet: Dynamic Convolution for Accelerating Convolutional Neural Networks](https://arxiv.org/abs/2004.10694) | CoRR20  | None                                                         | 学习一组核系数并用于融合多个固定核为一个动态核 |
+| [Dynamic Convolution: Attention over Convolution Kernels](https://arxiv.org/abs/1912.03458) | CVPR20  | [Dynamic-convolution-Pytorch](https://github.com/kaijieshi7/Dynamic-convolution-Pytorch) | 多卷积核融合提升模型表达                       |
+| [WeightNet: Revisiting the Design Space of Weight Network](https://arxiv.org/pdf/2007.11823.pdf) | ECCV20  | [weightNet](https://github.com/megvii-model/WeightNet)       | SENet融合CondConv                              |
+| [Dynamic Filter Networks](http://papers.nips.cc/paper/6578-dynamic-filter-networks.pdf) |         |                                                              |                                                |
+| [Dynamic deep neural networks: Optimizing accuracy-efficiency trade-offs by selective execution](https://arxiv.org/pdf/1701.00299.pdf) |         |                                                              |                                                |
+| [SkipNet: Learning Dynamic Routing in Convolutional Networks](https://arxiv.org/pdf/1711.09485.pdf) |         |                                                              |                                                |
+| [Pay Less Attention with Lightweight and Dynamic Convolutions](https://arxiv.org/pdf/1901.10430.pdf) |         |                                                              |                                                |
+| [Unified Dynamic Convolutional Network for Super-Resolution with Variational Degradations](https://arxiv.org/pdf/2004.06965.pdf) |         |                                                              |                                                |
+| [Dynamic Group Convolution for Accelerating Convolutional Neural Networks]() | ECCV20  | [dgc](https://github.com/zhuogege1943/dgc)                   | 组局部性                                       |
 
 
 ## Plug and Play Module
