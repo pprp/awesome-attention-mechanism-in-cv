@@ -199,6 +199,7 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [CaiT: Going deeper with Image Transformers](https://github.com/facebookresearch/deit/blob/main/README_cait.md) | ICCV21  | [CaiT](https://github.com/facebookresearch/deit)             |           |
 | [Efﬁcient Training of Visual Transformers with Small-Size Datasets](https://arxiv.org/abs/2106.03746) | NIPS21 | None | |
 | [Vision Transformer with Deformable Attention](https://arxiv.org/pdf/2201.00520.pdf) | CoRR22 | [DAT](https://github.com/LeapLabTHU/DAT) | DeformConv+SA |
+| [MaxViT: Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697) | CoRR22 | None | dilated attention |
 
 
 
