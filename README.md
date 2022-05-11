@@ -119,6 +119,7 @@ If you have any suggestions or improvements, welcome to submit an [issue](https:
 | [ULSAM: Ultra-Lightweight Subspace Attention Module for Compact Convolutional Neural Networks](https://arxiv.org/pdf/2006.15102.pdf) | WACV20      | [ULSAM](https://github.com/Nandan91/ULSAM)                   | 空间注意力                                                   |                                                 |
 | [Augmenting Convolutional networks with attention-based aggregation](https://arxiv.org/pdf/2112.13692.pdf) | CoRR21      | None                                                         | 在ViT范式基础上增加线性注意力                                |                                                 |
 | [Context-aware Attentional Pooling (CAP) for Fine-grained Visual Classification](https://arxiv.org/abs/2101.06635) | AAAI21      | [CAP](https://github.com/ArdhenduBehera/cap)                 | 结合achor,LSTM,SE等构建注意力实现细粒度识别                  |                                                 |
+| [Instance Enhancement Batch Normalization: An Adaptive Regulator of Batch Noise](https://ojs.aaai.org/index.php/AAAI/article/download/5917/5773) | AAAI20      | [IEBN](https://github.com/gbup-group/IEBN)                   | 从噪声调节角度解释SENet work的原因，并提出针对性改进         |                                                 |
 
 ## Dynamic Networks
 
