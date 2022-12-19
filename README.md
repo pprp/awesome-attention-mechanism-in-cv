@@ -7,13 +7,11 @@
 - [Attention Mechanism](#Attention-Mechanism)
 - [Plug and Play Module](#Plug-and-Play-Module)
 - [Vision Transformer](#Vision-Transformer)
-- [Contribute](#Contribute)
+- [Contributing](#Contributing)
 
 ## Introduction
 
-PyTorch implements a variety of Attention mechanisms used in network design in computer vision, as well as a collection of plug and play modules. Due to limited ability and energy, many modules may not be included. 
-
-If you have any suggestions or improvements, welcome to submit an [issue](https://github.com/pprp/awesome-attention-mechanism-in-cv/issues) or [PR](https://github.com/pprp/awesome-attention-mechanism-in-cv/pulls).
+This is a list of awesome attention mechanisms used in computer vision, as well as a collection of plug and play modules. Due to limited ability and energy, many modules may not be included. If you have any suggestions or improvements, welcome to submit an [issue](https://github.com/pprp/awesome-attention-mechanism-in-cv/issues) or [PR](https://github.com/pprp/awesome-attention-mechanism-in-cv/pulls).
 
 ## Attention Mechanism
 
@@ -201,14 +199,16 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [Efﬁcient Training of Visual Transformers with Small-Size Datasets](https://arxiv.org/abs/2106.03746) | NIPS21 | None | |
 | [Vision Transformer with Deformable Attention](https://arxiv.org/pdf/2201.00520.pdf) | CoRR22 | [DAT](https://github.com/LeapLabTHU/DAT) | DeformConv+SA |
 | [MaxViT: Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697) | CoRR22 | None | dilated attention |
+| [Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition](https://arxiv.org/abs/2211.11943) | CoRR22 | [Conv2Former](https://github.com/HVision-NKU/Conv2Former) |  |
 
 
 
 
-## Contribute
 
-欢迎在issue中提出补充的文章paper和对应code链接。
+## Contributing
 
-感谢[@dedekinds](https://github.com/dedekinds) 指出的DIANet描述中存在的问题。
+If you know of any awesome attention mechanism in computer vision resources, please add them in the PRs or issues.
 
-https://programmathically.com/understanding-padding-and-stride-in-convolutional-neural-networks/
+Additional article papers and corresponding code links are welcome in the issue.
+
+Thanks to [@dedekinds](https://github.com/dedekinds) for pointing out the problem in the DIANet description.
