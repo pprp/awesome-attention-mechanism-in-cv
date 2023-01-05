@@ -201,6 +201,8 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [MaxViT: Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697) | CoRR22 | None | dilated attention |
 | [Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition](https://arxiv.org/abs/2211.11943) | CoRR22 | [Conv2Former](https://github.com/HVision-NKU/Conv2Former) |  |
 | [Rethinking Mobile Block for Efficient Neural Models](https://arxiv.org/abs/2301.01146) | CoRR23 | [EMO](https://github.com/zhangzjn/EMO) | |
+| [Wave-ViT: Unifying Wavelet and Transformers for Visual Representation Learning]() | ECCV22 |  | |
+| [Dual Vision Transformer]() |  |  | |
 
 
 
