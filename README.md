@@ -205,6 +205,7 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [Dual Vision Transformer]() | CoRR23 | [Dual-ViT](https://github.com/YehLi/ImageNetModel) | |
 | [CoTNet: Contextual transformer networks for visual recognition](Contextual transformer networks for visual recognition) | TPAMI22 | [CoTNet](https://github.com/YehLi/ImageNetModel) | |
 | [ConvNeXt V2: Co-designing and Scaling ConvNets with Masked Autoencoders](https://arxiv.org/abs/2301.00808) | CoRR23 | [ConvNeXt-V2](https://github.com/facebookresearch/ConvNeXt-V2) | |
+| [A Close Look at Spatial Modeling: From Attention to Convolution](https://arxiv.org/abs/2212.12552) | CoRR22 | [FCViT](https://github.com/ma-xu/FCViT) | |
 
 
 
