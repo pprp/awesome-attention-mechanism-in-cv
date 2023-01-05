@@ -201,8 +201,10 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [MaxViT: Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697) | CoRR22 | None | dilated attention |
 | [Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition](https://arxiv.org/abs/2211.11943) | CoRR22 | [Conv2Former](https://github.com/HVision-NKU/Conv2Former) |  |
 | [Rethinking Mobile Block for Efficient Neural Models](https://arxiv.org/abs/2301.01146) | CoRR23 | [EMO](https://github.com/zhangzjn/EMO) | |
-| [Wave-ViT: Unifying Wavelet and Transformers for Visual Representation Learning]() | ECCV22 |  | |
-| [Dual Vision Transformer]() |  |  | |
+| [Wave-ViT: Unifying Wavelet and Transformers for Visual Representation Learning]() | ECCV22 | [Wave-ViT](https://github.com/YehLi/ImageNetModel) | |
+| [Dual Vision Transformer]() | CoRR23 | [Dual-ViT](https://github.com/YehLi/ImageNetModel) | |
+| [CoTNet: Contextual transformer networks for visual recognition](Contextual transformer networks for visual recognition) | TPAMI22 | [CoTNet](https://github.com/YehLi/ImageNetModel) | |
+| [ConvNeXt V2: Co-designing and Scaling ConvNets with Masked Autoencoders](https://arxiv.org/abs/2301.00808) | CoRR23 | [ConvNeXt-V2](https://github.com/facebookresearch/ConvNeXt-V2) | |
 
 
 
