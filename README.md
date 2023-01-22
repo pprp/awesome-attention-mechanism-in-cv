@@ -60,20 +60,20 @@ This is a list of awesome attention mechanisms used in computer vision, as well 
 | [Expectation-Maximization Attention Networks for Semantic Segmentation](https://arxiv.org/pdf/1907.13426.pdf) | ICCV19 Oral | [EMANet](https://github.com/XiaLiPKU/EMANet)                 |                                                 |
 | [Dense-and-implicit attention network](https://arxiv.org/abs/1905.10671) | AAAI 20     | [DIANet](https://github.com/gbup-group/DIANet)               |                                                 |
 | [Coordinate Attention for Efficient Mobile Network Design](https://arxiv.org/abs/2103.02907) | CVPR21      | [CoordAttention](https://github.com/Andrew-Qibin/CoordAttention) |                                                 |
-| [Cross-channel Communication Networks](https://papers.nips.cc/paper/8411-cross-channel-communication-networks.pdf) | NIPS19      | [C3Net](https://github.com/jwyang/C3Net.pytorch)             |                                                 |
+| [Cross-channel Communication Networks](https://papers.nips.cc/paper/8411-cross-channel-communication-networks.pdf) | NeurlPS19   | [C3Net](https://github.com/jwyang/C3Net.pytorch)             |                                                 |
 | [Gated Convolutional Networks with Hybrid Connectivity for Image Classification](https://arxiv.org/pdf/1908.09699.pdf) | AAAI20      | [HCGNet](https://github.com/winycg/HCGNet)                   |                                                 |
 | [Weighted Channel Dropout for Regularization of Deep Convolutional Neural Network](http://home.ustc.edu.cn/~saihui/papers/aaai2019_weighted.pdf) | AAAI19      | None                                                         |                                                 |
 | [BA^2M: A Batch Aware Attention Module for Image Classification](https://arxiv.org/pdf/2103.15099.pdf) | CVPR21      | None                                                         |                                                 |
 | [EPSANet：An Efficient Pyramid Split Attention Block on Convolutional Neural Network](https://arxiv.org/abs/2105.14447) | CoRR21      | [EPSANet](https://github.com/murufeng/EPSANet)               |                                                 |
-| [Stand-Alone Self-Attention in Vision Models](https://arxiv.org/pdf/1906.05909.pdf) | NIPS19      | [SASA](https://github.com/leaderj1001/Stand-Alone-Self-Attention) |                                                 |
+| [Stand-Alone Self-Attention in Vision Models](https://arxiv.org/pdf/1906.05909.pdf) | NeurlPS19   | [SASA](https://github.com/leaderj1001/Stand-Alone-Self-Attention) |                                                 |
 | [ResT: An Efficient Transformer for Visual Recognition](https://arxiv.org/pdf/2105.13677.pdf) | CoRR21      | [ResT](https://github.com/wofmanaf/ResT)                     |                                                 |
 | [Spanet: Spatial Pyramid Attention Network for Enhanced Image Recognition](https://ieeexplore.ieee.org/document/9102906) | ICME20      | [SPANet](https://github.com/13952522076/SPANet)              |                                                 |
-| [Space-time Mixing Attention for Video Transformer](https://arxiv.org/pdf/2106.05968.pdf) | CoRR21      | X-VIT Not release                                            |                                                 |
-| [DMSANet: Dual Multi Scale Attention Network](https://arxiv.org/abs/2106.08382) | CoRR21      | Not release yet                                              |                                                 |
-| [CompConv: A Compact Convolution Module for Efficient Feature Learning](https://arxiv.org/abs/2106.10486) | CoRR21      | Not release yet                                              |                                                 |
+| [Space-time Mixing Attention for Video Transformer](https://arxiv.org/pdf/2106.05968.pdf) | CoRR21      | None                                                         |                                                 |
+| [DMSANet: Dual Multi Scale Attention Network](https://arxiv.org/abs/2106.08382) | CoRR21      | None                                                         |                                                 |
+| [CompConv: A Compact Convolution Module for Efficient Feature Learning](https://arxiv.org/abs/2106.10486) | CoRR21      | None                                                         |                                                 |
 | [VOLO: Vision Outlooker for Visual Recognition](https://arxiv.org/pdf/2106.13112.pdf) | CoRR21      | [VOLO](https://github.com/sail-sg/volo)                      |                                                 |
-| [Interflow: Aggregating Multi-layer Featrue Mappings with Attention Mechanism](https://arxiv.org/abs/2106.14073) | CoRR21      | Not release yet                                              |                                                 |
-| [MUSE: Parallel Multi-Scale Attention for Sequence to Sequence Learning](https://arxiv.org/abs/1911.09483) | CoRR21      | MUSE Attention                                               |                                                 |
+| [Interflow: Aggregating Multi-layer Featrue Mappings with Attention Mechanism](https://arxiv.org/abs/2106.14073) | CoRR21      | None                                                         |                                                 |
+| [MUSE: Parallel Multi-Scale Attention for Sequence to Sequence Learning](https://arxiv.org/abs/1911.09483) | CoRR21      | None                                                         |                                                 |
 | [Polarized Self-Attention: Towards High-quality Pixel-wise Regression](https://arxiv.org/pdf/2107.00782.pdf) | CoRR21      | [PSA](https://github.com/DeLightCMU/PSA)                     |                                                 |
 | [CA-Net: Comprehensive Attention Convolutional Neural Networks for Explainable Medical Image Segmentation](https://arxiv.org/pdf/2009.10549v2.pdf) | TMI21       | [CA-Net](https://github.com/HiLab-git/CA-Net)                |                                                 |
 | [BAM: A Lightweight and Efficient Balanced Attention Mechanism for Single Image Super Resolution](https://arxiv.org/ftp/arxiv/papers/2104/2104.07566.pdf) | CoRR21      | [BAM](https://github.com/dandingbudanding/BAM)               |                                                 |
@@ -108,8 +108,8 @@ This is a list of awesome attention mechanisms used in computer vision, as well 
 | [Att-DARTS: Differentiable Neural Architecture Search for Attention](http://vigir.missouri.edu/~gdesouza/Research/Conference_CDs/IEEE_WCCI_2020/IJCNN/Papers/N-21042.pdf) | IJCNN20     | [Att-Darts](https://github.com/chomin/Att-DARTS)             |                                                 |
 | [On the Integration of Self-Attention and Convolution](https://arxiv.org/pdf/2111.14556.pdf) | CoRR21      | [ACMix](https://gitee.com/mindspore/models)                  |                                                 |
 | [BoxeR: Box-Attention for 2D and 3D Transformers](https://arxiv.org/pdf/2111.13087.pdf) | CoRR21      | None                                                         |                                                 |
-| [CoAtNet: Marrying Convolution and Attention for All Data Sizes](https://proceedings.neurips.cc/paper/2021/file/20568692db622456cc42a2e853ca21f8-Paper.pdf) | NIPS21      | [coatnet](https://github.com/chinhsuanwu/coatnet-pytorch)    |                                                 |
-| [Pay Attention to MLPs](https://proceedings.neurips.cc/paper/2021/file/4cc05b35c2f937c5bd9e7d41d3686fff-Paper.pdf) | NIPS21      | [gmlp](https://github.com/jaketae/g-mlp)                     |                                                 |
+| [CoAtNet: Marrying Convolution and Attention for All Data Sizes](https://proceedings.neurips.cc/paper/2021/file/20568692db622456cc42a2e853ca21f8-Paper.pdf) | NeurlPS21   | [coatnet](https://github.com/chinhsuanwu/coatnet-pytorch)    |                                                 |
+| [Pay Attention to MLPs](https://proceedings.neurips.cc/paper/2021/file/4cc05b35c2f937c5bd9e7d41d3686fff-Paper.pdf) | NeurlPS21   | [gmlp](https://github.com/jaketae/g-mlp)                     |                                                 |
 | [IC-Conv: Inception Convolution With Efficient Dilation Search](https://arxiv.org/pdf/2012.13587.pdf) | CVPR21 Oral | [IC-Conv](https://github.com/yifan123/IC-Conv)               |                                                 |
 | [SRM : A Style-based Recalibration Module for Convolutional Neural Networks](https://openaccess.thecvf.com/content_ICCV_2019/papers/Lee_SRM_A_Style-Based_Recalibration_Module_for_Convolutional_Neural_Networks_ICCV_2019_paper.pdf) | ICCV19      | [SRM](https://github.com/hyunjaelee410/style-based-recalibration-module) |                                                 |
 | [SPANet: Spatial Pyramid Attention Network for Enhanced Image Recognition](https://par.nsf.gov/servlets/purl/10206339) | ICME20      | [SPANet](https://github.com/13952522076/SPANet_TMM)          |                                                 |
@@ -122,46 +122,46 @@ This is a list of awesome attention mechanisms used in computer vision, as well 
 ## Dynamic Networks
 
 
-| Title                                                        | Publish | Github                                                       |
-| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ |
-| [Dynamic Neural Networks: A Survey](https://arxiv.org/abs/2102.04906v4) | CoRR21  | None                                                         |
-| [CondConv: Conditionally Parameterized Convolutions for Efficient Inference](https://arxiv.org/abs/1904.04971) | NIPS19  | [CondConv](https://github.com/d-li14/condconv.pytorch)       |
-| [DyNet: Dynamic Convolution for Accelerating Convolutional Neural Networks](https://arxiv.org/abs/2004.10694) | CoRR20  | None                                                         |
-| [Dynamic Convolution: Attention over Convolution Kernels](https://arxiv.org/abs/1912.03458) | CVPR20  | [Dynamic-convolution-Pytorch](https://github.com/kaijieshi7/Dynamic-convolution-Pytorch) |
-| [WeightNet: Revisiting the Design Space of Weight Network](https://arxiv.org/pdf/2007.11823.pdf) | ECCV20  | [weightNet](https://github.com/megvii-model/WeightNet)       |
-| [Dynamic Filter Networks](http://papers.nips.cc/paper/6578-dynamic-filter-networks.pdf) |         |                                                              |
-| [Dynamic deep neural networks: Optimizing accuracy-efficiency trade-offs by selective execution](https://arxiv.org/pdf/1701.00299.pdf) |         |                                                              |
-| [SkipNet: Learning Dynamic Routing in Convolutional Networks](https://arxiv.org/pdf/1711.09485.pdf) |         |                                                              |
-| [Pay Less Attention with Lightweight and Dynamic Convolutions](https://arxiv.org/pdf/1901.10430.pdf) |         |                                                              |
-| [Unified Dynamic Convolutional Network for Super-Resolution with Variational Degradations](https://arxiv.org/pdf/2004.06965.pdf) |         |                                                              |
-| [Dynamic Group Convolution for Accelerating Convolutional Neural Networks]() | ECCV20  | [dgc](https://github.com/zhuogege1943/dgc)                   |
+| Title                                                        | Publish   | Github                                                       |
+| ------------------------------------------------------------ | --------- | ------------------------------------------------------------ |
+| [Dynamic Neural Networks: A Survey](https://arxiv.org/abs/2102.04906v4) | CoRR21    | None                                                         |
+| [CondConv: Conditionally Parameterized Convolutions for Efficient Inference](https://arxiv.org/abs/1904.04971) | NeurlPS19 | [CondConv](https://github.com/d-li14/condconv.pytorch)       |
+| [DyNet: Dynamic Convolution for Accelerating Convolutional Neural Networks](https://arxiv.org/abs/2004.10694) | CoRR20    | None                                                         |
+| [Dynamic Convolution: Attention over Convolution Kernels](https://arxiv.org/abs/1912.03458) | CVPR20    | [Dynamic-convolution-Pytorch](https://github.com/kaijieshi7/Dynamic-convolution-Pytorch) |
+| [WeightNet: Revisiting the Design Space of Weight Network](https://arxiv.org/pdf/2007.11823.pdf) | ECCV20    | [weightNet](https://github.com/megvii-model/WeightNet)       |
+| [Dynamic Filter Networks](http://papers.nips.cc/paper/6578-dynamic-filter-networks.pdf) | NeurlPS20 | None                                                         |
+| [Dynamic deep neural networks: Optimizing accuracy-efficiency trade-offs by selective execution](https://arxiv.org/pdf/1701.00299.pdf) | AAAI17    | None                                                         |
+| [SkipNet: Learning Dynamic Routing in Convolutional Networks](https://arxiv.org/pdf/1711.09485.pdf) | ECCV18    | [SkipNet](https://github.com/ucbdrive/skipnet)               |
+| [Pay Less Attention with Lightweight and Dynamic Convolutions](https://arxiv.org/pdf/1901.10430.pdf) | ICLR19    | [fairseq](https://github.com/facebookresearch/fairseq)       |
+| [Unified Dynamic Convolutional Network for Super-Resolution with Variational Degradations](https://arxiv.org/pdf/2004.06965.pdf) | CVPR20    | None                                                         |
+| [Dynamic Group Convolution for Accelerating Convolutional Neural Networks]() | ECCV20    | [dgc](https://github.com/zhuogege1943/dgc)                   |
 
 
 ## Plug and Play Module
 
-| Title                                                        | Publish  | Github                                                       |
-| ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
-| [ACNet: Strengthening the Kernel Skeletons for Powerful CNN via Asymmetric Convolution Blocks](https://arxiv.org/abs/1908.03930) | ICCV19   | [ACNet](https://github.com/DingXiaoH/ACNet)                  |
-| [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915v2.pdf) | TPAMI18  | [ASPP](https://github.com/kazuto1011/deeplab-pytorch)        |
-| [MixConv: Mixed Depthwise Convolutional Kernels](https://bmvc2019.org/wp-content/uploads/papers/0583-paper.pdf) | BMCV19   | [MixedConv](https://github.com/tensorflow/tpu/tree/master/models/official/mnasnet/mixnet) |
-| [Pyramid Scene Parsing Network](https://arxiv.org/pdf/1612.01105.pdf) | CVPR17   | [PSP](https://github.com/hszhao/PSPNet)                      |
-| [Receptive Field Block Net for Accurate and Fast Object Detection](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Songtao_Liu_Receptive_Field_Block_ECCV_2018_paper.pdf) | ECCV18   | [RFB](https://github.com/GOATmessi7/RFBNet)                  |
-| [Strip Pooling: Rethinking Spatial Pooling for Scene Parsing](https://arxiv.org/pdf/2003.13328.pdf) | CVPR20   | [SPNet](https://github.com/Andrew-Qibin/SPNet)               |
-| [SSH: Single Stage Headless Face Detector](https://arxiv.org/pdf/1708.03979.pdf) | ICCV17   | [SSH](https://github.com/mahyarnajibi/SSH)                   |
-| [GhostNet: More Features from Cheap Operations](https://arxiv.org/pdf/1911.11907.pdf) | CVPR20   | [GhostNet]()                                                 |
-| [SlimConv: Reducing Channel Redundancy in Convolutional Neural Networks by Weights Flipping](https://arxiv.org/abs/2003.07469) | TIP21    | [SlimConv](https://github.com/JiaxiongQ/SlimConv)            |
-| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) | ICML19   | [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) |
-| [CondConv: Conditionally Parameterized Convolutions for Efficient Inference](https://arxiv.org/abs/1904.04971) | NIPS19   | [CondConv](https://github.com/d-li14/condconv.pytorch)       |
-| [PP-NAS: Searching for Plug-and-Play Blocks on Convolutional Neural Network](https://ieeexplore.ieee.org/document/9607527/) | ICCVW21  | [PPNAS](https://github.com/sbl1996/PP-NAS)                   |
-| [Dynamic Convolution: Attention over Convolution Kernels](https://openaccess.thecvf.com/content_CVPR_2020/papers/Chen_Dynamic_Convolution_Attention_Over_Convolution_Kernels_CVPR_2020_paper.pdf) | CVPR20   | [DynamicConv](https://github.com/kaijieshi7/Dynamic-convolution-Pytorch) |
-| [PSConv: Squeezing Feature Pyramid into One Compact Poly-Scale Convolutional Layer](https://arxiv.org/abs/2007.06191) | ECCV20   | [PSConv](https://github.com/d-li14/PSConv)                   |
-| [DCANet: Dense Context-Aware Network for Semantic Segmentation](https://arxiv.org/pdf/2104.02533.pdf) | ECCV20   | [DCANet](https://github.com/13952522076/DCANet)              |
-| [Enhancing feature fusion for human pose estimation](https://link.springer.com/article/10.1007/s00138-020-01104-2) | MVA20    | [SEB](https://github.com/tongjiangwei/FeatureFusion)         |
-| [Object Contextual Representation for sematic segmentation](https://arxiv.org/abs/1909.11065) | ECCV2020 | [HRNet-OCR](https://github.com/HRNet/HRNet-Semantic-Segmentation/tree/HRNet-OCR?v=2) |
-| [DO-Conv: Depthwise Over-parameterized Convolutional Layer](https://arxiv.org/abs/2006.12030) | CoRR20   | [DO-Conv](https://github.com/yangyanli/DO-Conv)              |
-| [Pyramidal Convolution: Rethinking Convolutional Neural Networks for Visual Recognition](http://arxiv.org/abs/2006.11538) | CoRR20   | [PyConv](https://github.com/iduta/pyconv)                    |
-| [ULSAM: Ultra-Lightweight Subspace Attention Module for Compact Convolutional Neural Networks](https://arxiv.org/pdf/2006.15102.pdf) | WACV20   | [ULSAM](https://github.com/Nandan91/ULSAM)                   |
-| [Dynamic Group Convolution for Accelerating Convolutional Neural Networks](https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123510137.pdf) | ECCV20   | [DGC](https://github.com/zhuogege1943/dgc)                   |
+| Title                                                        | Publish   | Github                                                       |
+| ------------------------------------------------------------ | --------- | ------------------------------------------------------------ |
+| [ACNet: Strengthening the Kernel Skeletons for Powerful CNN via Asymmetric Convolution Blocks](https://arxiv.org/abs/1908.03930) | ICCV19    | [ACNet](https://github.com/DingXiaoH/ACNet)                  |
+| [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915v2.pdf) | TPAMI18   | [ASPP](https://github.com/kazuto1011/deeplab-pytorch)        |
+| [MixConv: Mixed Depthwise Convolutional Kernels](https://bmvc2019.org/wp-content/uploads/papers/0583-paper.pdf) | BMCV19    | [MixedConv](https://github.com/tensorflow/tpu/tree/master/models/official/mnasnet/mixnet) |
+| [Pyramid Scene Parsing Network](https://arxiv.org/pdf/1612.01105.pdf) | CVPR17    | [PSP](https://github.com/hszhao/PSPNet)                      |
+| [Receptive Field Block Net for Accurate and Fast Object Detection](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Songtao_Liu_Receptive_Field_Block_ECCV_2018_paper.pdf) | ECCV18    | [RFB](https://github.com/GOATmessi7/RFBNet)                  |
+| [Strip Pooling: Rethinking Spatial Pooling for Scene Parsing](https://arxiv.org/pdf/2003.13328.pdf) | CVPR20    | [SPNet](https://github.com/Andrew-Qibin/SPNet)               |
+| [SSH: Single Stage Headless Face Detector](https://arxiv.org/pdf/1708.03979.pdf) | ICCV17    | [SSH](https://github.com/mahyarnajibi/SSH)                   |
+| [GhostNet: More Features from Cheap Operations](https://arxiv.org/pdf/1911.11907.pdf) | CVPR20    | [GhostNet]()                                                 |
+| [SlimConv: Reducing Channel Redundancy in Convolutional Neural Networks by Weights Flipping](https://arxiv.org/abs/2003.07469) | TIP21     | [SlimConv](https://github.com/JiaxiongQ/SlimConv)            |
+| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) | ICML19    | [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) |
+| [CondConv: Conditionally Parameterized Convolutions for Efficient Inference](https://arxiv.org/abs/1904.04971) | NeurlPS19 | [CondConv](https://github.com/d-li14/condconv.pytorch)       |
+| [PP-NAS: Searching for Plug-and-Play Blocks on Convolutional Neural Network](https://ieeexplore.ieee.org/document/9607527/) | ICCVW21   | [PPNAS](https://github.com/sbl1996/PP-NAS)                   |
+| [Dynamic Convolution: Attention over Convolution Kernels](https://openaccess.thecvf.com/content_CVPR_2020/papers/Chen_Dynamic_Convolution_Attention_Over_Convolution_Kernels_CVPR_2020_paper.pdf) | CVPR20    | [DynamicConv](https://github.com/kaijieshi7/Dynamic-convolution-Pytorch) |
+| [PSConv: Squeezing Feature Pyramid into One Compact Poly-Scale Convolutional Layer](https://arxiv.org/abs/2007.06191) | ECCV20    | [PSConv](https://github.com/d-li14/PSConv)                   |
+| [DCANet: Dense Context-Aware Network for Semantic Segmentation](https://arxiv.org/pdf/2104.02533.pdf) | ECCV20    | [DCANet](https://github.com/13952522076/DCANet)              |
+| [Enhancing feature fusion for human pose estimation](https://link.springer.com/article/10.1007/s00138-020-01104-2) | MVA20     | [SEB](https://github.com/tongjiangwei/FeatureFusion)         |
+| [Object Contextual Representation for sematic segmentation](https://arxiv.org/abs/1909.11065) | ECCV2020  | [HRNet-OCR](https://github.com/HRNet/HRNet-Semantic-Segmentation/tree/HRNet-OCR?v=2) |
+| [DO-Conv: Depthwise Over-parameterized Convolutional Layer](https://arxiv.org/abs/2006.12030) | CoRR20    | [DO-Conv](https://github.com/yangyanli/DO-Conv)              |
+| [Pyramidal Convolution: Rethinking Convolutional Neural Networks for Visual Recognition](http://arxiv.org/abs/2006.11538) | CoRR20    | [PyConv](https://github.com/iduta/pyconv)                    |
+| [ULSAM: Ultra-Lightweight Subspace Attention Module for Compact Convolutional Neural Networks](https://arxiv.org/pdf/2006.15102.pdf) | WACV20    | [ULSAM](https://github.com/Nandan91/ULSAM)                   |
+| [Dynamic Group Convolution for Accelerating Convolutional Neural Networks](https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123510137.pdf) | ECCV20    | [DGC](https://github.com/zhuogege1943/dgc)                   |
 
 
 
@@ -184,8 +184,8 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [ResT: An Efficient Transformer for Visual Recognition](https://arxiv.org/abs/2105.13677) | CoRR21  | [ResT](https://github.com/wofmanaf/ResT)                     |
 | [CoaT: Co-Scale Conv-Attentional Image Transformers]()       | CoRR21  | [CoaT](https://github.com/mlpc-ucsd/CoaT)                    |
 | [ConTNet: Why not use convolution and transformer at the same time?](https://arxiv.org/abs/2104.13497) | CoRR21  | [ConTNet](https://github.com/yan-hao-tian/ConTNet)           |
-| [DynamicViT: Efficient Vision Transformers with Dynamic Token Sparsification](https://arxiv.org/abs/2106.02034) | NIPS21  | [DynamicViT](https://github.com/raoyongming/DynamicViT)      |
-| [DVT: Not All Images are Worth 16x16 Words: Dynamic Transformers for Efficient Image Recognition](https://arxiv.org/abs/2105.15075) | NIPS21  | [DVT](https://github.com/blackfeather-wang/Dynamic-Vision-Transformer) |
+| [DynamicViT: Efficient Vision Transformers with Dynamic Token Sparsification](https://arxiv.org/abs/2106.02034) | NeurlPS21 | [DynamicViT](https://github.com/raoyongming/DynamicViT)      |
+| [DVT: Not All Images are Worth 16x16 Words: Dynamic Transformers for Efficient Image Recognition](https://arxiv.org/abs/2105.15075) | NeurlPS21 | [DVT](https://github.com/blackfeather-wang/Dynamic-Vision-Transformer) |
 | [CoAtNet: Marrying Convolution and Attention for All Data Sizes](https://arxiv.org/pdf/2106.04803.pdf) | CoRR21  | [CoAtNet](https://github.com/chinhsuanwu/coatnet-pytorch)    |
 | [Early Convolutions Help Transformers See Better](https://openreview.net/pdf?id=Lpfh1Bpqfk) | CoRR21  | None                                                         |
 | [Compact Transformers: Escaping the Big Data Paradigm with Compact Transformers](https://arxiv.org/abs/2104.05704) | CoRR21  | [CCT](https://github.com/SHI-Labs/Compact-Transformers)      |
@@ -196,7 +196,7 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [LocalViT: Bringing Locality to Vision Transformers](https://arxiv.org/abs/2104.05707) | CoRR21  | [LocalViT](https://github.com/ofsoundof/LocalViT)            |
 | [DeiT: Training data-efficient image transformers & distillation through attention](https://arxiv.org/abs/2012.12877) | ICML21  | [DeiT](https://github.com/facebookresearch/deit)             |
 | [CaiT: Going deeper with Image Transformers](https://github.com/facebookresearch/deit/blob/main/README_cait.md) | ICCV21  | [CaiT](https://github.com/facebookresearch/deit)             |
-| [Efﬁcient Training of Visual Transformers with Small-Size Datasets](https://arxiv.org/abs/2106.03746) | NIPS21 | None |
+| [Efﬁcient Training of Visual Transformers with Small-Size Datasets](https://arxiv.org/abs/2106.03746) | NeurlPS21 | None |
 | [Vision Transformer with Deformable Attention](https://arxiv.org/pdf/2201.00520.pdf) | CoRR22 | [DAT](https://github.com/LeapLabTHU/DAT) |
 | [MaxViT: Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697) | CoRR22 | None |
 | [Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition](https://arxiv.org/abs/2211.11943) | CoRR22 | [Conv2Former](https://github.com/HVision-NKU/Conv2Former) |
@@ -207,6 +207,7 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [ConvNeXt V2: Co-designing and Scaling ConvNets with Masked Autoencoders](https://arxiv.org/abs/2301.00808) | CoRR23 | [ConvNeXt-V2](https://github.com/facebookresearch/ConvNeXt-V2) |
 | [A Close Look at Spatial Modeling: From Attention to Convolution](https://arxiv.org/abs/2212.12552) | CoRR22 | [FCViT](https://github.com/ma-xu/FCViT) |
 | [Scalable Diffusion Models with Transformers](https://arxiv.org/abs/2212.09748) | CVPR22 | [DiT](https://github.com/facebookresearch/DiT) |
+| [Dynamic Grained Encoder for Vision Transformers](https://proceedings.neurips.cc//paper/2021/file/2d969e2cee8cfa07ce7ca0bb13c7a36d-Paper.pdf) | NeurlPS21 | [vtpack](https://github.com/StevenGrove/vtpack) |
 
 
 
