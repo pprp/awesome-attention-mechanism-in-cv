@@ -209,6 +209,39 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [Scalable Diffusion Models with Transformers](https://arxiv.org/abs/2212.09748) | CVPR22 | [DiT](https://github.com/facebookresearch/DiT) |
 | [Dynamic Grained Encoder for Vision Transformers](https://proceedings.neurips.cc//paper/2021/file/2d969e2cee8cfa07ce7ca0bb13c7a36d-Paper.pdf) | NeurlPS21 | [vtpack](https://github.com/StevenGrove/vtpack) |
 
+| Title                                                        | Publish | Github                                                       | Main Idea     |
+| ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ------------- |
+| [Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/abs/2103.14030) | ICCV21  | [SwinT](https://github.com/microsoft/Swin-Transformer)       |               |
+| [CPVT: Conditional Positional Encodings for Vision Transformer](https://arxiv.org/abs/2102.10882) | CoRR21  | [CPVT](https://github.com/Meituan-AutoML/CPVT)               |               |
+| [GLiT: Neural Architecture Search for Global and Local Image Transformer](https://arxiv.org/pdf/2107.02960.pdf) | CoRR21  | [GLiT](https://github.com/bychen515/GLiT)                    | NAS           |
+| [ConViT: Improving Vision Transformers with Soft Convolutional Inductive Biases](https://arxiv.org/abs/2103.10697) | CoRR21  | [ConViT](https://github.com/facebookresearch/convit)         | GPSA          |
+| [CeiT: Incorporating Convolution Designs into Visual Transformers](https://arxiv.org/abs/2103.11816) | CoRR21  | [CeiT](https://github.com/rishikksh20/CeiT-pytorch)          | LCA,LeFF      |
+| [BoTNet: Bottleneck Transformers for Visual Recognition](https://openaccess.thecvf.com/content/CVPR2021/papers/Srinivas_Bottleneck_Transformers_for_Visual_Recognition_CVPR_2021_paper.pdf) | CVPR21  | [BoTNet](https://github.com/leaderj1001/BottleneckTransformers) | NonBlock-like |
+| [CvT: Introducing Convolutions to Vision Transformers](https://openaccess.thecvf.com/content/ICCV2021/papers/Wu_CvT_Introducing_Convolutions_to_Vision_Transformers_ICCV_2021_paper.pdf) | ICCV21  | [CvT](https://github.com/microsoft/CvT)                      | projection    |
+| [TransCNN: Transformer in Convolutional Neural Networks](https://arxiv.org/abs/2106.03180) | CoRR21  | [TransCNN](https://github.com/yun-liu/TransCNN)              |               |
+| [ResT: An Efficient Transformer for Visual Recognition](https://arxiv.org/abs/2105.13677) | CoRR21  | [ResT](https://github.com/wofmanaf/ResT)                     |               |
+| [CoaT: Co-Scale Conv-Attentional Image Transformers]()       | CoRR21  | [CoaT](https://github.com/mlpc-ucsd/CoaT)                    |               |
+| [ConTNet: Why not use convolution and transformer at the same time?](https://arxiv.org/abs/2104.13497) | CoRR21  | [ConTNet](https://github.com/yan-hao-tian/ConTNet)           |               |
+| [DynamicViT: Efficient Vision Transformers with Dynamic Token Sparsification](https://arxiv.org/abs/2106.02034) | NIPS21  | [DynamicViT](https://github.com/raoyongming/DynamicViT)      |               |
+| [DVT: Not All Images are Worth 16x16 Words: Dynamic Transformers for Efficient Image Recognition](https://arxiv.org/abs/2105.15075) | NIPS21  | [DVT](https://github.com/blackfeather-wang/Dynamic-Vision-Transformer) |               |
+| [CoAtNet: Marrying Convolution and Attention for All Data Sizes](https://arxiv.org/pdf/2106.04803.pdf) | CoRR21  | [CoAtNet](https://github.com/chinhsuanwu/coatnet-pytorch)    |           |
+| [Early Convolutions Help Transformers See Better](https://openreview.net/pdf?id=Lpfh1Bpqfk) | CoRR21  | None                                                         |           |
+| [Compact Transformers: Escaping the Big Data Paradigm with Compact Transformers](https://arxiv.org/abs/2104.05704) | CoRR21  | [CCT](https://github.com/SHI-Labs/Compact-Transformers)      |           |
+| [MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer](https://arxiv.org/abs/2110.02178?context=cs.LG) | CoRR21  | [MobileViT](https://github.com/chinhsuanwu/mobilevit-pytorch) |           |
+| [LeViT: a Vision Transformer in ConvNet's Clothing for Faster Inference](https://arxiv.org/abs/2104.01136) | CoRR21  | [LeViT](https://github.com/facebookresearch/LeViT)           |           |
+| [Shuffle Transformer: Rethinking Spatial Shuffle for Vision Transformer](https://arxiv.org/abs/2106.03650) | CoRR21  | [ShuffleTransformer](https://github.com/mulinmeng/Shuffle-Transformer) |           |
+| [ViTAE: Vision Transformer Advanced by Exploring Intrinsic Inductive Bias](https://openreview.net/pdf?id=_RnHyIeu5Y5) | CoRR21  | [ViTAE](https://github.com/Annbless/ViTAE)                   |           |
+| [LocalViT: Bringing Locality to Vision Transformers](https://arxiv.org/abs/2104.05707) | CoRR21  | [LocalViT](https://github.com/ofsoundof/LocalViT)            |           |
+| [DeiT: Training data-efficient image transformers & distillation through attention](https://arxiv.org/abs/2012.12877) | ICML21  | [DeiT](https://github.com/facebookresearch/deit)             |           |
+| [CaiT: Going deeper with Image Transformers](https://github.com/facebookresearch/deit/blob/main/README_cait.md) | ICCV21  | [CaiT](https://github.com/facebookresearch/deit)             |           |
+| [Efﬁcient Training of Visual Transformers with Small-Size Datasets](https://arxiv.org/abs/2106.03746) | NIPS21 | None | |
+| [Vision Transformer with Deformable Attention](https://arxiv.org/pdf/2201.00520.pdf) | CoRR22 | [DAT](https://github.com/LeapLabTHU/DAT) | DeformConv+SA |
+| [MaxViT: Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697) | CoRR22 | None | dilated attention |
+| [Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition](https://arxiv.org/abs/2211.11943) | CoRR22 | [Conv2Former](https://github.com/HVision-NKU/Conv2Former) |  |
+| [Demystify Transformers & Convolutions in Modern Image Deep Networks](https://arxiv.org/pdf/2211.05781.pdf) | CoRR22 | [STM-Evaluation](https://github.com/OpenGVLab/STM-Evaluation) | dai jifeng! |
+
+
+
 
 
 ## Contributing
