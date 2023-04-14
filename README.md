@@ -118,6 +118,7 @@ This is a list of awesome attention mechanisms used in computer vision, as well 
 | [Augmenting Convolutional networks with attention-based aggregation](https://arxiv.org/pdf/2112.13692.pdf) | CoRR21      | None                                                         |                                                 |
 | [Context-aware Attentional Pooling (CAP) for Fine-grained Visual Classification](https://arxiv.org/abs/2101.06635) | AAAI21      | [CAP](https://github.com/ArdhenduBehera/cap)                 |                                                 |
 | [Instance Enhancement Batch Normalization: An Adaptive Regulator of Batch Noise](https://ojs.aaai.org/index.php/AAAI/article/download/5917/5773) | AAAI20      | [IEBN](https://github.com/gbup-group/IEBN)                   |                                                 |
+| [ASR: Attention-alike Structural Re-parameterization](https://arxiv.org/pdf/2304.06345.pdf) | CoRR23      | None                                                         |                                                 |
 
 ## Dynamic Networks
 
