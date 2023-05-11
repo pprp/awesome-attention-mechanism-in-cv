@@ -210,6 +210,7 @@ An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, ICLR
 | [Scalable Diffusion Models with Transformers](https://arxiv.org/abs/2212.09748) | CVPR22 | [DiT](https://github.com/facebookresearch/DiT) |
 | [Dynamic Grained Encoder for Vision Transformers](https://proceedings.neurips.cc//paper/2021/file/2d969e2cee8cfa07ce7ca0bb13c7a36d-Paper.pdf) | NeurlPS21 | [vtpack](https://github.com/StevenGrove/vtpack) |
 | [Segment Anything](https://arxiv.org/abs/2304.02643) | CoRR23 | [SAM](https://segment-anything.com/) |
+| [Improved robustness of vision transformers via prelayernorm in patch embedding](https://www.sciencedirect.com/science/article/abs/pii/S0031320323003606) | PR23 | None |
 
 | Title                                                        | Publish | Github                                                       | Main Idea     |
 | ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | ------------- |
